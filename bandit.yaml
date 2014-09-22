@@ -77,3 +77,6 @@ blacklist_imports:
 
 hardcoded_password:
     word_list: "wordlist/default-passwords"
+
+ssl:
+    strict_protocol_versions: True

@@ -85,6 +85,25 @@ class Context():
             return return_dict
         else:
             return None
+            
+    @property
+    def call_keywords_str(self):
+        '''
+        :return: A dictionary of keyword parameters for a call as strings
+        '''
+        if (
+            'call' in self._context and
+            hasattr(self._context['call'], 'keywords')
+        ):
+            return_dict = {}
+            for li in self._context['call'].keywords:
+                if hasattr(li.value, 'attr'):
+                    return_dict[li.arg] = li.value.attr
+                else:
+                    return_dict[li.arg] = self._get_literal_value(li.value)
+            return return_dict
+        else:
+            return None
 
     @property
     def node(self):
@@ -164,11 +183,28 @@ class Context():
         :param argument_name: A string - name of the argument to look for
         :return: String value of the argument if found, None otherwise
         """
+        kwd_values = self.call_keywords_str
         if (
-            self.call_keywords is not None and
-            argument_name in self.call_keywords
+            kwd_values is not None and
+            argument_name in kwd_values
         ):
-            return self.call_keywords[argument_name]
+            return kwd_values[argument_name]
+        else:
+            return None
+            
+    def check_call_arg_str_value(self, argument_name):
+        """
+        Checks for a value of a named argument in a function call.  Returns
+        none if the specified argument is not found.
+        :param argument_name: A string - name of the argument to look for
+        :return: String literal of the argument if found, None otherwise
+        """
+        kwd_values = self.call_keywords_str
+        if (
+            kwd_values is not None and
+            argument_name in kwd_values
+        ):
+            return kwd_values[argument_name]
         else:
             return None
 
