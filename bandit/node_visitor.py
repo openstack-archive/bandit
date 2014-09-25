@@ -21,6 +21,7 @@ import _ast
 import copy
 from bandit import tester as b_tester
 from bandit import utils as b_utils
+from bandit.constants import *
 
 
 class BanditNodeVisitor(ast.NodeVisitor):
@@ -64,6 +65,9 @@ class BanditNodeVisitor(ast.NodeVisitor):
         '''
 
         # NOTE: We won't get here from any of the Python built in functions
+
+        # tkelsey: why not? they seem to generate Call nodes ??
+        # tests seem to suport this, I can blacklist 'zip' for example.
 
         self.context['lineno'] = node.lineno
         self.context['call'] = node
@@ -135,6 +139,14 @@ class BanditNodeVisitor(ast.NodeVisitor):
         self.logger.debug("visit_Str called (%s)" % ast.dump(node))
 
         self.tester.run_tests(self.context, 'strings')
+        super(BanditNodeVisitor, self).generic_visit(node)
+
+    def visit_Exec(self, node):
+        # NOTE(tkelsey): do we need more user control over this?
+        result = (ERROR, "Use of exec detected.")
+        self.context['lineno'] = node.lineno
+        self.context['str'] = 'exec'
+        self.tester.results.add(self.context, 'exec', result)
         super(BanditNodeVisitor, self).generic_visit(node)
 
     def visit(self, node):
