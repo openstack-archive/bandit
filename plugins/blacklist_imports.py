@@ -18,10 +18,54 @@
 import bandit
 from bandit.test_selector import *
 
-
 @takes_config
 @checks_imports
+@checks_functions
 def blacklist_imports(context, config):
+    if context.call_function_name_qual == '__import__':
+        return blacklist_imports_func(context,config)
+    else:    
+        checks = _get_checks(config)
+
+        # for each check, go through and see if it matches all
+        # qualifications
+        for check in checks:
+            # item 0=import, 1=message, 2=level
+            if check[0]:
+                for im in check[0]:
+                    if context.is_module_being_imported(im):
+                        return _get_result(check, im)
+
+# NOTE(tkelsey): I would like this to be a separate test that checks
+# functions but uses the config options of 'blacklist_imports' this
+# seems imposible with the current way Bandit works though, so I call
+# if from above.
+#
+def blacklist_imports_func(context, config):
+    checks = _get_checks(config)
+    if context.call_function_name_qual == '__import__':
+        for check in checks:
+            # item 0=import, 1=message, 2=level
+            if check[0]:
+                for im in check[0]:
+                    if im == context.call_args[0]:
+                        return _get_result(check, im)
+
+def _get_result(check, name):
+    # substitute '{module}' for the imported module name
+    message = check[1].replace('{module}', name)
+
+    level = None
+    if check[2] == 'ERROR':
+        level = bandit.ERROR
+    elif check[2] == 'WARN':
+        level = bandit.WARN
+    elif check[2] == 'INFO':
+        level = bandit.INFO
+
+    return level, "%s" % message
+
+def _get_checks(config):
     if config is not None and 'bad_import_sets' in config:
         sets = config['bad_import_sets']
     else:
@@ -37,27 +81,7 @@ def blacklist_imports(context, config):
             # skip bogus checks
             if cur_check:
                 checks.append(cur_check)
-
-    # for each check, go through and see if it matches all qualifications
-    for check in checks:
-        does_match = True
-        # item 0=import, 1=message, 2=level
-        if check[0]:
-            for im in check[0]:
-                if context.is_module_being_imported(im):
-                    # substitute '{module}' for the imported module name
-                    message = check[1].replace('{module}', im)
-
-                    level = None
-                    if check[2] == 'ERROR':
-                        level = bandit.ERROR
-                    elif check[2] == 'WARN':
-                        level = bandit.WARN
-                    elif check[2] == 'INFO':
-                        level = bandit.INFO
-
-                    return level, "%s" % message
-
+    return checks
 
 def _get_tuple_for_item(blacklist_object):
     # default values
