@@ -1,7 +1,3 @@
-# -*- coding:utf-8 -*-
-#
-# Copyright 2014 Hewlett-Packard Development Company, L.P.
-#
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
 # a copy of the License at
@@ -14,11 +10,16 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import bandit
-from bandit.test_selector import *
+import os
 
+from oslotest import base
 
-@checks_strings
-def hardcoded_bind_all_interfaces(context):
-    if context.string_val == '0.0.0.0':
-        return bandit.WARN, 'Possible binding to all interfaces'
+class FunctionTests(base.BaseTestCase):
+    def setUp(self):
+        super(BaseTestCase, self).setUp()
+
+    def config(self, *args, **kwargs):
+        self.config_fixture.config(*args, **kwargs)
+
+    def herp_the_derp(self):
+        self.assertEqual(None, True)
