@@ -1,0 +1,410 @@
+pep8 develop-inst-noop: /Users/tim/Documents/OpenStack/bandit
+pep8 runtests: commands[0] | flake8 bandit
+bandit/bandit.py:18:1: H305  imports not grouped correctly (argparse: stdlib, core.manager: third-party)
+from core import manager as b_manager
+^
+bandit/core/config.py:18:1: H305  imports not grouped correctly (constants: third-party, sys: stdlib)
+import sys
+^
+bandit/core/config.py:19:1: H305  imports not grouped correctly (sys: stdlib, yaml: third-party)
+import yaml
+^
+bandit/core/config.py:35:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:35:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/config.py:58:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:58:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/config.py:87:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:87:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/config.py:97:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:97:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/config.py:106:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:106:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/config.py:116:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:116:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/config.py:142:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:142:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/config.py:151:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/config.py:151:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/constants.py:18:1: H302  import only modules.'from distutils.sysconfig import get_python_lib' does not import a module
+from distutils.sysconfig import get_python_lib
+^
+bandit/core/constants.py:18:1: H306  imports not in alphabetical order (os, distutils.sysconfig.get_python_lib)
+from distutils.sysconfig import get_python_lib
+^
+bandit/core/context.py:18:1: H305  imports not grouped correctly (_ast: stdlib, utils: third-party)
+import utils
+^
+bandit/core/context.py:27:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:27:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:37:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:37:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:50:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:50:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:60:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:60:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:70:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:70:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:80:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:80:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:90:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:90:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:109:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:109:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:119:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:119:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:130:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:130:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:182:1: H404  multi line docstring should start without a leading new line
+        """
+^
+bandit/core/context.py:182:1: H405  multi line docstring summary not separated with an empty line
+        """
+^
+bandit/core/context.py:197:1: H404  multi line docstring should start without a leading new line
+        """
+^
+bandit/core/context.py:197:1: H405  multi line docstring summary not separated with an empty line
+        """
+^
+bandit/core/context.py:213:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:213:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:224:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:224:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/context.py:236:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/context.py:236:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/manager.py:19:1: H306  imports not in alphabetical order (sys, logging)
+import logging
+^
+bandit/core/manager.py:20:1: H306  imports not in alphabetical order (logging, ast)
+import ast
+^
+bandit/core/manager.py:21:1: H305  imports not grouped correctly (ast: stdlib, config: third-party)
+import config as b_config
+^
+bandit/core/manager.py:23:1: H306  imports not in alphabetical order (result_store, node_visitor)
+import node_visitor as b_node_visitor
+^
+bandit/core/manager.py:25:1: H306  imports not in alphabetical order (test_set, meta_ast)
+import meta_ast as b_meta_ast
+^
+bandit/core/manager.py:39:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/manager.py:39:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/manager.py:88:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/manager.py:88:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/manager.py:97:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/manager.py:97:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/manager.py:105:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/manager.py:105:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/manager.py:157:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/manager.py:157:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/manager.py:172:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/manager.py:172:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/meta_ast.py:18:1: H302  import only modules.'from collections import OrderedDict' does not import a module
+from collections import OrderedDict
+^
+bandit/core/meta_ast.py:35:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/meta_ast.py:35:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/meta_ast.py:46:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/meta_ast.py:46:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/node_visitor.py:18:1: F401 'sys' imported but unused
+import sys
+^
+bandit/core/node_visitor.py:19:1: H306  imports not in alphabetical order (sys, ast)
+import ast
+^
+bandit/core/node_visitor.py:20:1: F401 '_ast' imported but unused
+import _ast
+^
+bandit/core/node_visitor.py:20:1: H306  imports not in alphabetical order (ast, _ast)
+import _ast
+^
+bandit/core/node_visitor.py:22:1: H305  imports not grouped correctly (copy: stdlib, tester: third-party)
+import tester as b_tester
+^
+bandit/core/node_visitor.py:64:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/node_visitor.py:64:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/node_visitor.py:91:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/node_visitor.py:91:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/node_visitor.py:109:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/node_visitor.py:109:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/node_visitor.py:135:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/node_visitor.py:135:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/node_visitor.py:156:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/node_visitor.py:156:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/result_store.py:20:1: H302  import only modules.'from collections import OrderedDict' does not import a module
+from collections import OrderedDict
+^
+bandit/core/result_store.py:22:1: H302  import only modules.'from sys import stdout' does not import a module
+from sys import stdout
+^
+bandit/core/result_store.py:23:1: H302  import only modules.'from datetime import datetime' does not import a module
+from datetime import datetime
+^
+bandit/core/result_store.py:23:1: H306  imports not in alphabetical order (sys.stdout, datetime.datetime)
+from datetime import datetime
+^
+bandit/core/result_store.py:27:1: H306  imports not in alphabetical order (utils, constants)
+import constants
+^
+bandit/core/result_store.py:48:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/result_store.py:48:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/result_store.py:58:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/result_store.py:58:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/result_store.py:86:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/result_store.py:86:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/test_selector.py:22:1: H404  multi line docstring should start without a leading new line
+    '''
+^
+bandit/core/test_selector.py:22:1: H405  multi line docstring summary not separated with an empty line
+    '''
+^
+bandit/core/test_selector.py:33:1: H404  multi line docstring should start without a leading new line
+    '''
+^
+bandit/core/test_selector.py:33:1: H405  multi line docstring summary not separated with an empty line
+    '''
+^
+bandit/core/test_selector.py:44:1: H404  multi line docstring should start without a leading new line
+    '''
+^
+bandit/core/test_selector.py:44:1: H405  multi line docstring summary not separated with an empty line
+    '''
+^
+bandit/core/test_selector.py:55:1: H404  multi line docstring should start without a leading new line
+    '''
+^
+bandit/core/test_selector.py:55:1: H405  multi line docstring summary not separated with an empty line
+    '''
+^
+bandit/core/test_selector.py:67:1: H404  multi line docstring should start without a leading new line
+    '''
+^
+bandit/core/test_selector.py:67:1: H405  multi line docstring summary not separated with an empty line
+    '''
+^
+bandit/core/test_selector.py:69:5: E301 expected 1 blank line, found 0
+    def _takes_config(func):
+    ^
+bandit/core/test_selector.py:79:15: E271 multiple spaces after keyword
+        return  _takes_config
+              ^
+bandit/core/test_set.py:21:1: H302  import only modules.'from collections import OrderedDict' does not import a module
+from collections import OrderedDict
+^
+bandit/core/test_set.py:21:1: H306  imports not in alphabetical order (sys, collections.ordereddict)
+from collections import OrderedDict
+^
+bandit/core/test_set.py:23:31: H301  one import per line
+from inspect import getmembers, isfunction
+                              ^
+bandit/core/test_set.py:76:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/test_set.py:76:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/test_set.py:105:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/test_set.py:105:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/test_set.py:122:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/test_set.py:122:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/test_set.py:198:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/test_set.py:198:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/tester.py:39:1: H404  multi line docstring should start without a leading new line
+        '''
+^
+bandit/core/tester.py:39:1: H405  multi line docstring summary not separated with an empty line
+        '''
+^
+bandit/core/tester.py:45:19: H101  Use TODO(NAME)
+                # TODO: Possibly allow override from profile
+                  ^
+bandit/core/utils.py:19:1: H306  imports not in alphabetical order (symtable, ast)
+import ast
+^
+bandit/core/utils.py:20:1: H306  imports not in alphabetical order (ast, _ast)
+import _ast
+^
+bandit/core/utils.py:26:35: H904  Wrap long lines in parentheses instead of a backslash
+        res = '\n\tArgument/s:\n\t\t%s' % \
+                                  ^
+<license>!=<apache2>:
+'   Licensed under the Apache License, Version 2.0 (the "License"); you may    not use this file except in compliance with the License. You may obtain    a copy of the License at         http://www.apache.org/licenses/LICENSE-2.0    Unless required by applicable law or agreed to in writing, software    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the    License for the specific language governing permissions and limitations    under the License.' !=
+'Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.'
+bandit/plugins/__init__.py:1:1: H104  File contains nothing but comments
+# -*- coding:utf-8 -*-
+^
+bandit/plugins/__init__.py:1:8: H103  Header does not match Apache 2.0 License notice
+# -*- coding:utf-8 -*-
+       ^
+bandit/plugins/blacklist_calls.py:62:64: E226 missing whitespace around arithmetic operator
+                for arg_num in range(0, context.call_args_count-1):
+                                                               ^
+bandit/plugins/general_bad_file_permissions.py:18:1: H305  imports not grouped correctly (bandit: project, stat: stdlib)
+import stat
+^
+bandit/plugins/general_hardcoded_password.py:23:1: E265 block comment should start with '# '
+#@checks_strings
+^
+ERROR: InvocationError: '/Users/tim/Documents/OpenStack/bandit/.tox/pep8/bin/flake8 bandit'
+___________________________________ summary ____________________________________
+ERROR:   pep8: commands failed
