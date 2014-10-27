@@ -16,6 +16,7 @@
 
 
 import context as b_context
+from constants import *  # noqa
 
 
 class BanditTester():
@@ -40,6 +41,7 @@ class BanditTester():
         :return: none
         '''
 
+        score = 0
         tests = self.testset.get_tests(checktype)
         for name, test in tests.iteritems():
             # execute test with the an instance of the context class
@@ -52,3 +54,6 @@ class BanditTester():
                 result = test(context)
             if result is not None:
                 self.results.add(raw_context, name, result)
+                score += SEVERITY_VALUES[result[0]]
+
+        return score
