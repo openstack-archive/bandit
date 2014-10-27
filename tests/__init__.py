@@ -13,12 +13,3 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-
-import bandit
-from bandit.core.test_selector import *
-
-
-@checks_strings
-def hardcoded_tmp_directory(context):
-    if '/tmp' in context.string_val:
-        return bandit.WARN, "Probable insecure usage of temp file/directory"
