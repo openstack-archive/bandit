@@ -46,6 +46,10 @@ def get_call_name(node, aliases):
         return ""
 
 
+def get_func_name(node):
+    return node.name  # TODO(tkelsey): get that qualname using enclosing scope
+
+
 def deepgetattr(obj, attr):
     """Recurses through an attribute chain to get the ultimate value."""
     for key in attr.split('.'):
