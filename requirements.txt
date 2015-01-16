@@ -1,2 +1,4 @@
 PyYAML>=3.1.0
+boguslib==1.0
+
 
