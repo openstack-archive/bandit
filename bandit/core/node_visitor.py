@@ -143,6 +143,11 @@ class BanditNodeVisitor(ast.NodeVisitor):
                 self.context['import_aliases'][nodename.asname] = (
                     module + "." + nodename.name
                 )
+            else:
+                # Even if import is not aliased we need entry that maps
+                # name to module.name.  For example, with 'from a import b' b should
+                # be aliased to the qualified name a.b
+                self.context['import_aliases'][nodename.name] = module + '.' + nodename.name
             self.context['imports'].add(module + "." + nodename.name)
             self.context['module'] = module
             self.context['name'] = nodename.name
