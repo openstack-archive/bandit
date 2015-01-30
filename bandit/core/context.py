@@ -16,7 +16,7 @@
 
 import _ast
 
-import utils
+from . import utils
 
 
 class Context():

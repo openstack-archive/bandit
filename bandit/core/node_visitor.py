@@ -17,8 +17,8 @@
 import ast
 import copy
 
-import tester as b_tester
-import utils as b_utils
+from . import tester as b_tester
+from . import utils as b_utils
 
 
 class BanditNodeVisitor(ast.NodeVisitor):

@@ -23,8 +23,8 @@ import linecache
 import re
 from sys import stdout
 
-import constants
-import utils
+from . import constants
+from . import utils
 
 
 class BanditResultStore():

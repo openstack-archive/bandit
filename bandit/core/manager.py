@@ -18,11 +18,11 @@ import ast
 import logging
 import sys
 
-import config as b_config
-import meta_ast as b_meta_ast
-import node_visitor as b_node_visitor
-import result_store as b_result_store
-import test_set as b_test_set
+from . import config as b_config
+from . import meta_ast as b_meta_ast
+from . import node_visitor as b_node_visitor
+from . import result_store as b_result_store
+from . import test_set as b_test_set
 
 
 class BanditManager():
@@ -33,7 +33,7 @@ class BanditManager():
         '''Get logger, config, AST handler, and result store ready
 
         :param config_file: A file to read config from
-        :param debug: Whether to show debug messsages or not
+        :param debug: Whether to show debug messages or not
         :param profile_name: Optional name of profile to use (from cmd line)
         :return:
         '''
