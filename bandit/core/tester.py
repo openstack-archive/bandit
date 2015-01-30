@@ -15,8 +15,8 @@
 # under the License.
 
 
-import context as b_context
-from constants import *  # noqa
+from . import context as b_context
+from .constants import *  # noqa
 
 
 class BanditTester():
@@ -44,7 +44,7 @@ class BanditTester():
 
         score = 0
         tests = self.testset.get_tests(checktype)
-        for name, test in tests.iteritems():
+        for name, test in tests.items():
             try:
                 # execute test with the an instance of the context class
                 context = b_context.Context(raw_context)

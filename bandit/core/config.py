@@ -16,7 +16,7 @@
 
 import sys
 
-import constants
+from . import constants
 import yaml
 
 

@@ -16,7 +16,7 @@
 
 import argparse
 
-from core import manager as b_manager
+from .core import manager as b_manager
 
 
 default_test_config = 'bandit.yaml'

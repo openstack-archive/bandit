@@ -22,7 +22,8 @@ from bandit.core import manager as b_manager
 from bandit.core import test_set as b_test_set
 
 
-cfg_file = os.path.join(os.getcwd(), 'bandit.yaml')
+root = os.path.abspath(os.path.join(__file__, '..', '..'))
+cfg_file = os.path.join(root, 'bandit.yaml')
 
 
 class FunctionalTests(unittest.TestCase):
@@ -38,7 +39,7 @@ class FunctionalTests(unittest.TestCase):
         # NOTE(tkelsey): bandit is very sensitive to paths, so stitch
         # them up here for the testing environment.
         #
-        path = os.path.join(os.getcwd(), 'bandit', 'plugins')
+        path = os.path.join(root, 'bandit', 'plugins')
         self.b_mgr = b_manager.BanditManager(cfg_file, 'file')
         self.b_mgr.b_conf._settings['plugins_dir'] = path
         self.b_mgr.b_ts = b_test_set.BanditTestSet(self.b_mgr.logger,
@@ -49,188 +50,188 @@ class FunctionalTests(unittest.TestCase):
         pass
 
     def test_binding(self):
-        path = os.path.join(os.getcwd(), 'examples', 'binding.py')
+        path = os.path.join(root, 'examples', 'binding.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 5)
 
     def test_call_tests(self):
-        path = os.path.join(os.getcwd(), 'examples', 'call-tests.py')
+        path = os.path.join(root, 'examples', 'call-tests.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 6)
 
     def test_crypto_md5(self):
-        path = os.path.join(os.getcwd(), 'examples', 'crypto-md5.py')
+        path = os.path.join(root, 'examples', 'crypto-md5.py')
         self.b_mgr.run_scope([path])
-        self.assertEqual(self.b_mgr.scores[0], 25)
+        self.assertEqual(self.b_mgr.scores[0], 20)
 
     def test_eval(self):
-        path = os.path.join(os.getcwd(), 'examples', 'eval.py')
+        path = os.path.join(root, 'examples', 'eval.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 15)
 
     def test_exec(self):
-        path = os.path.join(os.getcwd(), 'examples', 'exec.py')
+        path = os.path.join(root, 'examples', 'exec.py')
         self.b_mgr.run_scope([path])
-        self.assertEqual(self.b_mgr.scores[0], 20)
+        self.assertEqual(self.b_mgr.scores[0], 10)
 
     def test_hardcoded_passwords(self):
-        path = os.path.join(os.getcwd(), 'examples', 'hardcoded-passwords.py')
+        path = os.path.join(root, 'examples', 'hardcoded-passwords.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 0)  # seems broken.
 
     def test_hardcoded_tmp(self):
-        path = os.path.join(os.getcwd(), 'examples', 'hardcoded-tmp.py')
+        path = os.path.join(root, 'examples', 'hardcoded-tmp.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 5)
 
     def test_httplib_https(self):
-        path = os.path.join(os.getcwd(), 'examples', 'httplib_https.py')
+        path = os.path.join(root, 'examples', 'httplib_https.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 5)
 
     def test_imports_aliases(self):
-        path = os.path.join(os.getcwd(), 'examples', 'imports-aliases.py')
+        path = os.path.join(root, 'examples', 'imports-aliases.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 43)
 
     def test_imports_from(self):
-        path = os.path.join(os.getcwd(), 'examples', 'imports-from.py')
+        path = os.path.join(root, 'examples', 'imports-from.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 3)
 
     def test_imports_function(self):
-        path = os.path.join(os.getcwd(), 'examples', 'imports-function.py')
+        path = os.path.join(root, 'examples', 'imports-function.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 2)
 
     def test_imports_telnetlib(self):
-        path = os.path.join(os.getcwd(), 'examples', 'imports-telnetlib.py')
+        path = os.path.join(root, 'examples', 'imports-telnetlib.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 10)
 
     def test_imports(self):
-        path = os.path.join(os.getcwd(), 'examples', 'imports.py')
+        path = os.path.join(root, 'examples', 'imports.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 2)
 
     def test_mktemp(self):
-        path = os.path.join(os.getcwd(), 'examples', 'mktemp.py')
+        path = os.path.join(root, 'examples', 'mktemp.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 20)
 
     def test_nonesense(self):
-        path = os.path.join(os.getcwd(), 'examples', 'nonesense.py')
+        path = os.path.join(root, 'examples', 'nonesense.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(len(self.b_mgr.scores), 0)
 
     def test_okay(self):
-        path = os.path.join(os.getcwd(), 'examples', 'okay.py')
+        path = os.path.join(root, 'examples', 'okay.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 0)
 
     def test_os_exec(self):
-        path = os.path.join(os.getcwd(), 'examples', 'os-exec.py')
+        path = os.path.join(root, 'examples', 'os-exec.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 0)  # seems broken.
 
     def test_os_popen(self):
-        path = os.path.join(os.getcwd(), 'examples', 'os-popen.py')
+        path = os.path.join(root, 'examples', 'os-popen.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 20)
 
     def test_os_spawn(self):
-        path = os.path.join(os.getcwd(), 'examples', 'os-spawn.py')
+        path = os.path.join(root, 'examples', 'os-spawn.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 0)  # seems broken.
 
     def test_os_startfile(self):
-        path = os.path.join(os.getcwd(), 'examples', 'os-startfile.py')
+        path = os.path.join(root, 'examples', 'os-startfile.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 15)
 
     def test_pickle(self):
-        path = os.path.join(os.getcwd(), 'examples', 'pickle.py')
+        path = os.path.join(root, 'examples', 'pickle.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 11)
 
     def test_random(self):
-        path = os.path.join(os.getcwd(), 'examples', 'random.py')
+        path = os.path.join(root, 'examples', 'random.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 3)
 
     def test_requests_ssl_verify_disabled_aliases(self):
-        path = os.path.join(os.getcwd(), 'examples',
+        path = os.path.join(root, 'examples',
             'requests-ssl-verify-disabled-aliases.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 20)
 
     def test_requests_ssl_verify_disabled(self):
-        path = os.path.join(os.getcwd(), 'examples',
+        path = os.path.join(root, 'examples',
             'requests-ssl-verify-disabled.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 20)
 
     def test_skip(self):
-        path = os.path.join(os.getcwd(), 'examples', 'skip.py')
+        path = os.path.join(root, 'examples', 'skip.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 35)
 
     def test_sql_statements_with_sqlalchemy(self):
-        path = os.path.join(os.getcwd(), 'examples',
+        path = os.path.join(root, 'examples',
             'sql_statements_with_sqlalchemy.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 4)
 
     def test_sql_statements_without_sql_alchemy(self):
-        path = os.path.join(os.getcwd(), 'examples',
+        path = os.path.join(root, 'examples',
             'sql_statements_without_sql_alchemy.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 20)
 
     def test_ssl_insecure_version(self):
-        path = os.path.join(os.getcwd(), 'examples', 'ssl-insecure-version.py')
+        path = os.path.join(root, 'examples', 'ssl-insecure-version.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 141)
 
     def test_subprocess_call_linebreaks(self):
-        path = os.path.join(os.getcwd(), 'examples',
+        path = os.path.join(root, 'examples',
             'subprocess-call-linebreaks.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 6)
 
     def test_subprocess_call(self):
-        path = os.path.join(os.getcwd(), 'examples', 'subprocess-call.py')
+        path = os.path.join(root, 'examples', 'subprocess-call.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 6)
 
     def test_subprocess_popen_shell(self):
-        path = os.path.join(os.getcwd(), 'examples',
+        path = os.path.join(root, 'examples',
             'subprocess-popen-shell.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 21)
 
     def test_subprocess_popen_shell2(self):
-        path = os.path.join(os.getcwd(), 'examples',
+        path = os.path.join(root, 'examples',
             'subprocess-popen-shell2.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 16)
 
     def test_urlopen(self):
-        path = os.path.join(os.getcwd(), 'examples', 'urlopen.py')
+        path = os.path.join(root, 'examples', 'urlopen.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 30)
 
     def test_utils_shell(self):
-        path = os.path.join(os.getcwd(), 'examples', 'utils-shell.py')
+        path = os.path.join(root, 'examples', 'utils-shell.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 60)
 
     def test_wildcard_injection(self):
-        path = os.path.join(os.getcwd(), 'examples', 'wildcard-injection.py')
+        path = os.path.join(root, 'examples', 'wildcard-injection.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 81)
 
     def test_yaml(self):
-        path = os.path.join(os.getcwd(), 'examples', 'yaml_load.py')
+        path = os.path.join(root, 'examples', 'yaml_load.py')
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.scores[0], 5)
