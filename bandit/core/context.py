@@ -31,6 +31,14 @@ class Context():
         else:
             self._context = dict()
 
+    def __repr__(self):
+        '''Generate representation of object for printing / interactive use
+
+        :return: A string representation of the object
+        '''
+        objrepr = vars(self)
+        return "<Context %s>" % objrepr
+
     @property
     def call_args(self):
         '''Get a list of function args
