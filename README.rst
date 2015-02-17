@@ -18,7 +18,7 @@ lists security issues identified within the target source code.
 Installation
 ------------
 Bandit is distributed as an installable package.  To clone and install in a
-Python virtual environment:
+Python virtual environment::
 
     $ git clone https://git.openstack.org/stackforge/bandit.git
     $ cd bandit
