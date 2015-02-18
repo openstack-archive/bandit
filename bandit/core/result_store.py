@@ -83,6 +83,28 @@ class BanditResultStore():
                                             issue_text), ]
         self.count += 1
 
+    def iter_results(self):
+        '''Iterate over results yielding a dictionary of fields
+        '''
+        for filename, issues in self.resstore.items():
+            for lineno, test, issue_type, issue_text in issues:
+                yield {
+                    "filename": filename,
+                    "lineno": lineno,
+                    "line": linecache.getline(filename, lineno),
+                    "test": test,
+                    "issue_type": issue_type,
+                    "issue_text": issue_text
+                }
+
+    def report_with_format(self, fmt):
+        '''Allow user supplied format string
+
+        --format="{filename},{lineno},{issue_text}"
+        '''
+        for result in self.iter_results():
+            print(fmt.format(**result))
+
     def report(self, scope, scores, lines=0, level=1, output_filename=None):
         '''Prints the contents of the result store
 

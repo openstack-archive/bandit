@@ -92,6 +92,14 @@ class BanditManager():
         '''
         return self.b_rs.count
 
+    def output_results_with_format(self, fmt):
+        '''Outputs the results using user supplied format
+        :param fmt: User supplied format string for output. Valid fields
+        are: ("filename", "lineno", "line", "test", "issue_type", "issue_text")
+        :return: -
+        '''
+        return self.b_rs.report_with_format(fmt)
+
     def output_results(self, lines, level, output_filename):
         '''Outputs results from the result store
 

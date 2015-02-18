@@ -65,6 +65,10 @@ def main():
         '-d', '--debug', dest='debug', action='store_true',
         help='turn on debug mode'
     )
+    parser.add_argument(
+        '-f', '--format', dest='fmt', action='store', default=None,
+        help="Specify format string for result output"
+    )
     parser.set_defaults(debug=False)
 
     args = parser.parse_args()
@@ -74,7 +78,12 @@ def main():
     b_mgr.run_scope(args.files)
     if args.debug:
         b_mgr.output_metaast()
-    b_mgr.output_results(args.context_lines, args.level - 1, args.output_file)
+
+    if args.fmt:
+        b_mgr.output_results_with_format(args.fmt)
+    else:
+        b_mgr.output_results(args.context_lines, args.level - 1,
+                             args.output_file)
 
     # return an exit code of 1 if there are results, 0 otherwise
     if b_mgr.results_count > 0:
