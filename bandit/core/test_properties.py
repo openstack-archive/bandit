@@ -13,6 +13,59 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+import ast
+
+import constants
+
+
+def risk(func, risk):
+    '''Decorator function to set 'risk' attribute.'''
+    if risk not in constants.RISK:
+        raise TypeError("Risk error: %s is not one of %s." % (risk,
+                        ",".join(constants.RISK)))
+    func._risk = risk
+    return func
+
+
+def confidence(func, conf):
+    '''Decorator function to set 'severity' attribute.'''
+    if conf not in constants.CONFIDENCE:
+        raise TypeError("Confidence error: %s is not one of %s." % (conf,
+                        ",".join(constants.CONFIDENCE)))
+    func._severity = conf
+    return func
+
+
+def category(func, category):
+    '''Decorator function to set 'category'.'''
+    if category not in constants.CATEGORIES:
+        raise TypeError("Category error: %s is not one of %s." % (category,
+                        ",".join(constants.CATEGORIES)))
+
+
+def title(func, title):
+    '''Decorator function to set 'title' attribute.'''
+    func._title = title
+    return func
+
+
+def uuid(func, uuid):
+    '''Decorator function to set 'uuid' attribute.'''
+    func._id = uuid
+    return func
+
+
+def checks(func, *args):
+    '''Decorator function to set checks to be run.'''
+    if not hasattr(func, "_checks"):
+        func._checks = []
+    for a in args:
+        holder = getattr(ast, a)
+        if holder and issubclass(holder, ast.stmt):
+            func._checks.append(a)
+        else:
+            raise TypeError("Error: %s is not a valid node type in AST" % a)
+    return func
 
 
 def checks_functions(func):
