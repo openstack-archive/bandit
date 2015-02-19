@@ -57,6 +57,16 @@ def main():
         '-l', '--level', dest='level', action='count',
         default=1, help='results level filter'
     )
+    # mutually exclusive group for output file type
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        '--output-json', dest='output_type', action='store_const',
+        const='json', help='write report to filename in JSON format'
+    )
+    group.add_argument(
+        '--output-text', dest='output_type', action='store_const',
+        const='txt', help='write report to filename in TXT format'
+    )
     parser.add_argument(
         '-o', '--output', dest='output_file', action='store',
         default=None, help='write report to filename'
@@ -74,7 +84,8 @@ def main():
     b_mgr.run_scope(args.files)
     if args.debug:
         b_mgr.output_metaast()
-    b_mgr.output_results(args.context_lines, args.level - 1, args.output_file)
+    b_mgr.output_results(args.context_lines, args.level - 1, args.output_file,
+                         args.output_type)
 
     # return an exit code of 1 if there are results, 0 otherwise
     if b_mgr.results_count > 0:

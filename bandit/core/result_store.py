@@ -25,6 +25,8 @@ from sys import stdout
 
 import constants
 import utils
+import json
+from operator import itemgetter
 
 
 class BanditResultStore():
@@ -67,6 +69,8 @@ class BanditResultStore():
         filename, lineno = context['filename'], context['lineno']
         (issue_type, issue_text) = issue
 
+        # XXX: tuple usage is fragile because ordering changes on agg_type;
+        # ordering is important for reporting as seen in report_json()
         if self.agg_type == 'vuln':
             if test in self.resstore:
                 self.resstore[test].append((filename, lineno, issue_type,
@@ -80,10 +84,66 @@ class BanditResultStore():
                                                 issue_text))
             else:
                 self.resstore[filename] = [(lineno, test, issue_type,
-                                            issue_text), ]
+                                            issue_text)]
         self.count += 1
 
-    def report(self, scope, scores, lines=0, level=1, output_filename=None):
+    def report_json(self, output_filename=None):
+        '''Prints/returns warnings in JSON format
+
+        :param output_filename: File to output the results (optional)
+        :param output_filetype: File type to output
+        :return: JSON string
+        '''
+        machine_output = dict({'results': list(), 'errors': list()})
+        collector = list()
+        for (fname, reason) in self.skipped:
+            machine_output['errors'].append({'filename': fname,
+                                            'reason': reason})
+
+        # array indicies are determined by order of tuples defined in add()
+        if self.agg_type == 'file':
+            for item in self.resstore.items():
+                filename = item[0]
+                filelist = item[1]
+                for x in filelist:
+                    holder = dict({"filename": filename,
+                                   "line_num": str(x[0]),
+                                   "error_label": str(x[1]).strip(),
+                                   "error_type": str(x[2]).strip(),
+                                   "reason": str(x[3]).strip()})
+                    collector.append(holder)
+        else:
+            for item in self.resstore.items():
+                vuln_label = item[0]
+                filelist = item[1]
+                for x in filelist:
+                    holder = dict({"filename": str(x[0]),
+                                   "line_num": str(x[1]),
+                                   "error_label": vuln_label.strip(),
+                                   "error_type": str(x[2]).strip(),
+                                   "reason": str(x[3]).strip()})
+                    collector.append(holder)
+
+        if self.agg_type == 'vuln':
+            machine_output['results'] = sorted(collector,
+                                               key=itemgetter('error_type'))
+        else:
+            machine_output['results'] = sorted(collector,
+                                               key=itemgetter('filename'))
+
+        json_output = json.dumps(machine_output, sort_keys=True,
+                                 indent=2, separators=(',', ': '))
+
+        # allow disabling of output file if just want JSON object
+        if output_filename:
+            with open(output_filename, 'w+') as fout:
+                fout.write(json_output)
+                print("Output written to file: %s" % output_filename)
+
+        return json_output
+
+    def report(self, scope, scores, lines=0, level=1, output_filename=None,
+               output_filetype=None):
         '''Prints the contents of the result store
 
         :param scope: Which files were inspected
@@ -91,11 +151,17 @@ class BanditResultStore():
         :param lines: # of lines around the issue line to display (optional)
         :param level: What level of severity to display (optional)
         :param output_filename: File to output the results (optional)
+        :param output_filetype: File type to output
         :return: -
         '''
 
         # display output using colors if not writing to a file
         is_tty = False if output_filename is not None else stdout.isatty()
+
+        if output_filetype == 'json' and not output_filename:
+            return self.report_json('results.json')
+        elif output_filetype == 'json':
+            return self.report_json(output_filename)
 
         if level >= len(constants.SEVERITY):
             level = len(constants.SEVERITY) - 1

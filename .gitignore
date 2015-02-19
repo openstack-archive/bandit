@@ -1,3 +1,6 @@
+env
+results.json
+results.txt
 *.pyc
 .DS_Store
 *.egg
