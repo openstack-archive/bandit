@@ -18,6 +18,15 @@ plugin_name_pattern: '*.py'
 # optional: log format string
 #log_format: "[%(module)s]\t%(levelname)s\t%(message)s"
 
+# extensions of files which should be analyzed
+scan_filetypes:
+    - '.py'
+    - '.pyw'
+
+# a list of paths which should be excluded (eg project/tests)
+excluded_paths:
+
+
 profiles:
     ShellInjection:
         include:

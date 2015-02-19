@@ -16,6 +16,7 @@
 
 import ast
 import logging
+import os
 import sys
 
 import config as b_config
@@ -40,6 +41,8 @@ class BanditManager():
         self.debug = debug
         self.logger = self._init_logger(debug)
         self.b_conf = b_config.BanditConfig(self.logger, config_file)
+        self.files_list = []
+        self.excluded_files = []
 
         # if the log format string was set in the options, reinitialize
         if self.b_conf.get_option('log_format'):
@@ -92,6 +95,53 @@ class BanditManager():
         '''
         return self.b_rs.count
 
+    def discover_files(self, scope, recursive=False):
+        '''Add tests directly and from a directory to the test set
+
+        :param scope: The command line list of files and directories
+        :param recursive: True/False - whether to add all files from dirs
+        :return:
+        '''
+        # We'll mantain a list of files which are added, and ones which have
+        # been explicitly excluded
+        files_list = set()
+        excluded_files = set()
+
+        excluded_paths = None
+        extensions = None
+        excluded_paths = self.b_conf.get_option('excluded_paths')
+        extensions = self.b_conf.get_option('scan_filetypes')
+
+        if not excluded_paths:
+            excluded_paths = []
+
+        if not extensions:
+            extensions = '.py'
+
+        # build list of files we will analyze
+        for _, fname in enumerate(scope):
+            # if this is a directory and recursive is set, find all files
+            if os.path.isdir(fname) and recursive:
+                new_files, newly_excluded = _get_files_from_dir(
+                    fname,
+                    extensions=extensions,
+                    excluded_paths=excluded_paths
+                )
+                files_list.update(new_files)
+                excluded_files.update(newly_excluded)
+            else:
+                file_ext = os.path.splitext(fname)[-1].lower()
+                if file_ext in extensions:
+                    if not any(x in fname for x in excluded_paths):
+                        files_list.add(fname)
+                    else:
+                        excluded_files.add(fname)
+
+                    files_list.add(fname)
+
+        self.files_list = sorted(files_list)
+        self.excluded_files = sorted(excluded_files)
+
     def output_results(self, lines, level, output_filename):
         '''Outputs results from the result store
 
@@ -101,7 +151,8 @@ class BanditManager():
         :return: -
         '''
         self.b_rs.report(
-            scope=self.scope, scores=self.scores, lines=lines,
+            files_list=self.files_list, scores=self.scores,
+            excluded_files=self.excluded_files, lines=lines,
             level=level, output_filename=output_filename
         )
 
@@ -109,25 +160,23 @@ class BanditManager():
         '''Outputs all the nodes from the Meta AST.'''
         self.b_ma.report()
 
-    def run_scope(self, scope):
+    def run_tests(self):
         '''Runs through all files in the scope
 
-        :param scope: A set of all files to inspect
         :return: -
         '''
-        self.scope = scope
-
         # display progress, if number of files warrants it
-        if len(scope) > self.progress:
-            sys.stdout.write("%s [" % len(scope))
+        if len(self.files_list) > self.progress:
+            sys.stdout.write("%s [" % len(self.files_list))
 
-        for i, fname in enumerate(scope):
+        cur_count = 0
+        for fname in self.files_list:
             self.logger.debug("working on file : %s" % fname)
 
-            if len(scope) > self.progress:
+            if len(self.files_list) > self.progress:
                 # is it time to update the progress indicator?
-                if i % self.progress == 0:
-                    sys.stdout.write("%s.. " % i)
+                if cur_count % self.progress == 0:
+                    sys.stdout.write("%s.. " % cur_count)
                     sys.stdout.flush()
             try:
                 with open(fname, 'rU') as fdata:
@@ -142,8 +191,9 @@ class BanditManager():
                         sys.exit(2)
             except IOError as e:
                 self.b_rs.skip(fname, e.strerror)
+            cur_count += 1
 
-        if len(scope) > self.progress:
+        if len(self.files_list) > self.progress:
             sys.stdout.write("]\n")
             sys.stdout.flush()
 
@@ -191,3 +241,26 @@ class BanditManager():
         logger.addHandler(handler)
         logger.debug("logging initialized")
         return logger
+
+
+def _get_files_from_dir(dir, extensions='.py', excluded_paths=None):
+    if not excluded_paths:
+        excluded_paths = []
+
+    files_list = set()
+    excluded_files = set()
+
+    for root, subdirs, files in os.walk(dir):
+        for filename in files:
+            file_ext = os.path.splitext(filename)[-1].lower()
+            path = os.path.join(root, filename)
+
+            # if this is one of the file extensions we look at, and it isn't
+            # in an excluded path
+            if file_ext in extensions:
+                if not any(x in path for x in excluded_paths):
+                    files_list.add(path)
+                else:
+                    excluded_files.add(path)
+
+    return files_list, excluded_files
