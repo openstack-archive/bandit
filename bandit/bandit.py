@@ -58,6 +58,11 @@ def main():
         default=1, help='results level filter'
     )
     parser.add_argument(
+        '--output-format', dest='output_type', action='store',
+        default=None, help='write report to filename in JSON format',
+        type=validate_format
+    )
+    parser.add_argument(
         '-o', '--output', dest='output_file', action='store',
         default=None, help='write report to filename'
     )
@@ -74,13 +79,21 @@ def main():
     b_mgr.run_scope(args.files)
     if args.debug:
         b_mgr.output_metaast()
-    b_mgr.output_results(args.context_lines, args.level - 1, args.output_file)
+    b_mgr.output_results(args.context_lines, args.level - 1, args.output_file,
+                         args.output_type)
 
     # return an exit code of 1 if there are results, 0 otherwise
     if b_mgr.results_count > 0:
         sys.exit(1)
     else:
         sys.exit(0)
+
+
+def validate_format(former):
+    if former not in ['txt', 'json']:
+        msg = 'Not a valid format: %s' % former
+        raise argparse.ArgumentTypeError(msg)
+    return former
 
 if __name__ == '__main__':
     main()
