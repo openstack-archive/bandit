@@ -31,6 +31,10 @@ To test the new installation::
     $ pip install tox
     $ tox -epy27
 
+To run PEP8 tests on diffs::
+
+    $ tox -v -epep8
+
 
 Usage
 -----
@@ -74,7 +78,9 @@ Usage::
                             tests)
       -l, --level           results level filter
       -o OUTPUT_FILE, --output OUTPUT_FILE
-                            write report to filename
+                            write report to filename OUTPUT_FILE
+      --output-format FORMAT_TYPE
+                            FORMAT_TYPE is either 'json' or 'txt'
       -d, --debug           turn on debug mode
 
 
