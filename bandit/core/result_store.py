@@ -83,16 +83,21 @@ class BanditResultStore():
                                             issue_text), ]
         self.count += 1
 
-    def report(self, scope, scores, lines=0, level=1, output_filename=None):
+    def report(self, files_list, scores, excluded_files=None, lines=0, level=1,
+               output_filename=None):
         '''Prints the contents of the result store
 
-        :param scope: Which files were inspected
+        :param files_list: Which files were inspected
         :param scores: The scores awarded to each file in the scope
+        :param excluded_files: A list of files which have been excluded
         :param lines: # of lines around the issue line to display (optional)
         :param level: What level of severity to display (optional)
         :param output_filename: File to output the results (optional)
         :return: -
         '''
+
+        if not excluded_files:
+            excluded_files = []
 
         # display output using colors if not writing to a file
         is_tty = False if output_filename is not None else stdout.isatty()
@@ -123,13 +128,13 @@ class BanditResultStore():
         # print which files were inspected
         if is_tty:
             tmpstr += "%sFiles in scope (%s):%s\n" % (
-                color['HEADER'], len(scope),
+                color['HEADER'], len(files_list),
                 color['DEFAULT']
             )
         else:
-            tmpstr += "Files in scope (%s):\n" % (len(scope))
+            tmpstr += "Files in scope (%s):\n" % (len(files_list))
 
-        for item in zip(scope, scores):
+        for item in zip(files_list, scores):
             tmpstr += "\t%s (score: %i)\n" % item
 
         # print which files were skipped and why
@@ -143,6 +148,19 @@ class BanditResultStore():
 
         for (fname, reason) in self.skipped:
             tmpstr += "\n\t%s (%s)" % (fname, reason)
+
+        # print which files were excluded
+        if is_tty:
+            tmpstr += "%sFiles excluded (%s):%s" % (
+                color['HEADER'], len(excluded_files),
+                color['DEFAULT']
+            )
+        else:
+            tmpstr += "Files excluded (%s):" % len(excluded_files)
+
+        for fname in excluded_files:
+            tmpstr += "\n\t%s" % fname
+
 
         # print the results
         if is_tty:
