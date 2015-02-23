@@ -18,6 +18,15 @@ plugin_name_pattern: '*.py'
 # optional: log format string
 #log_format: "[%(module)s]\t%(levelname)s\t%(message)s"
 
+# extensions of files which should be analyzed
+include:
+    - '.py'
+    - '.pyw'
+
+# a list of paths which should be excluded (eg project/tests)
+# common choices are: /tests/, /.tox/, and /.venv/
+exclude_dir:
+
 profiles:
     ShellInjection:
         include:
