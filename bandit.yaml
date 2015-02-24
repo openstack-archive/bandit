@@ -38,10 +38,6 @@ profiles:
         include:
             - hardcoded_sql_expressions
 
-    RunAsRoot:
-        include:
-            - execute_with_run_as_root_equals_true
-
 blacklist_functions:
     bad_name_sets:
         - pickle:
@@ -108,3 +104,11 @@ ssl_with_bad_version:
         - 'PROTOCOL_TLSv1'  # strict option
         - 'SSLv3_METHOD'    # strict option
         - 'TLSv1_METHOD'    # strict option
+
+execute_with_run_as_root_equals_true:
+    function_names:
+        - ceilometer.utils.execute
+        - cinder.utils.execute
+        - neutron.agent.linux.utils.execute
+        - nova.utils.execute
+        - nova.utils.trycmd
