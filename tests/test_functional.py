@@ -293,3 +293,10 @@ class FunctionalTests(unittest.TestCase):
         self.b_mgr.run_tests()
         expected = 2 * C.SEVERITY_VALUES['WARN'] + C.SEVERITY_VALUES['INFO']
         self.assertEqual(expected, self.b_mgr.scores[0])
+
+    def test_mako_templating(self):
+        path = os.path.join(os.getcwd(), 'examples', 'mako_templating.py')
+        self.b_mgr.discover_files([path], True)
+        self.b_mgr.run_tests()
+        self.assertEqual(2, self.b_mgr.results_count)
+        self.assertEqual(10, self.b_mgr.scores[0])
