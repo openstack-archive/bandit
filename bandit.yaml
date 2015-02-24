@@ -19,6 +19,11 @@ plugin_name_pattern: '*.py'
 #log_format: "[%(module)s]\t%(levelname)s\t%(message)s"
 
 profiles:
+    XSS:
+        include:
+            - jinja2_autoescape_false
+            - use_of_mako_templates
+
     ShellInjection:
         include:
             - subprocess_popen_with_shell_equals_true
