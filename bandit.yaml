@@ -42,6 +42,10 @@ profiles:
         include:
             - execute_with_run_as_root_equals_true
 
+    InformationExposure:
+        include:
+            - password_config_option_not_marked_secret
+
 blacklist_functions:
     bad_name_sets:
         - pickle:
