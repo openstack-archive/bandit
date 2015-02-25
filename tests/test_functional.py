@@ -246,3 +246,8 @@ class FunctionalTests(unittest.TestCase):
         self.b_mgr.run_scope([path])
         self.assertEqual(self.b_mgr.results_count, 4)
         self.assertEqual(self.b_mgr.scores[0], 22)
+
+    def test_secret_config_option(self):
+        path = os.path.join(os.getcwd(), 'examples', 'secret-config-option.py')
+        self.b_mgr.run_scope([path])
+        self.assertEqual(self.b_mgr.scores[0], 5)
