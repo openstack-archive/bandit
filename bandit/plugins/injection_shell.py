@@ -25,6 +25,8 @@ def subprocess_popen_with_shell_equals_true(context):
             context.call_function_name_qual == 'utils.execute_with_timeout'):
         if context.check_call_arg_value('shell') == 'True':
 
+            context.set_lineno_for_call_arg('shell')
+
             return(bandit.ERROR, 'Popen call with shell=True '
                    'identified, security issue.  %s' %
                    context.call_args_string)
@@ -37,6 +39,8 @@ def any_other_function_with_shell_equals_true(context):
     # various OpenStack projects).
     if context.call_function_name_qual != 'subprocess.Popen':
         if context.check_call_arg_value('shell') == 'True':
+
+            context.set_lineno_for_call_arg('shell')
 
             return(bandit.WARN, 'Function call with shell=True '
                    'parameter identified, possible security issue.  %s' %
