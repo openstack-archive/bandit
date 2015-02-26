@@ -68,7 +68,7 @@ class BanditTester():
         what += "%s " % test
         what += "on file %s at line %i: " % (
             context._context['filename'],
-            context._context['lineno']
+            context._context['statement']['lineno'][0]
         )
         what += str(error)
         self.logger.error(what)
