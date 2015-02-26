@@ -149,6 +149,17 @@ class Context():
             return None
 
     @property
+    def statement(self):
+        '''Get the raw AST for the current statement
+
+        :return: The raw AST for the current statement
+        '''
+        if 'statement' in self._context:
+            return self._context['statement']
+        else:
+            return None
+
+    @property
     def function_def_defaults_qual(self):
         '''Get a list of fully qualified default values in a function def
 
