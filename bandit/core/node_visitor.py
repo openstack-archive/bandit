@@ -21,6 +21,62 @@ import tester as b_tester
 import utils as b_utils
 
 
+class StatementBuffer():
+    '''Buffer for code statements
+
+    Creates a buffer to store a code file as individual statements
+    for AST processing
+    :param: -
+    :return: -
+    '''
+    def __init__(self):
+        self._buffer = []
+        self.file_len = 0
+
+    def load_buffer(self, fdata):
+        '''Buffer initialization
+
+        Read the file as lines, so we can store the length of the file
+        so we don't lose multi-line statements at the bottom of the target
+        file
+        :param fdata: The code to be parsed into the buffer
+        '''
+        lines = fdata.readlines()
+        self.file_len = len(lines)
+        f_ast = ast.parse("".join(lines))
+        self._buffer = f_ast.body
+
+    def get_next(self):
+        '''Statment Retrieval
+
+        Grab the next statement in the buffer for detailed processing
+        :return statement: the next statement to be processed, or None
+        '''
+        if len(self._buffer):
+            # Update the context, and shift the next statement off the array
+            statement = {}
+            statement['node'] = self._buffer[0]
+            statement['lineno'] = self.linenumber_range(statement['node'])
+            self._buffer = self._buffer[1:]
+
+            return statement
+        return None
+
+    def linenumber_range(self, node):
+        '''Get set of line numbers for statement
+
+        Walks the given statement node, and creates a set
+        of line numbers covered by the code
+        :param node: The statment line numbers are required for
+        :return lines: A set of line numbers
+        '''
+        lines = set()
+        for n in ast.walk(node):
+            if hasattr(n, 'lineno'):
+                lines.add(n.lineno)
+        return sorted(lines)
+
+
 class BanditNodeVisitor(ast.NodeVisitor):
 
     imports = set()
@@ -33,10 +89,12 @@ class BanditNodeVisitor(ast.NodeVisitor):
     depth = 0
 
     context = None
-    context_template = {'node': None, 'filename': None, 'lineno': None,
+    context_template = {'node': None, 'filename': None, 'statement': None,
                         'name': None, 'qualname': None, 'module': None,
                         'imports': None, 'import_aliases': None, 'call': None,
                         'function': None}
+
+    stmt_buffer = None
 
     def __init__(self, fname, logger, config, metaast, results, testset,
                  debug):
@@ -59,6 +117,8 @@ class BanditNodeVisitor(ast.NodeVisitor):
 
         self.namespace = b_utils.get_module_qualname_from_path(fname)
         self.logger.debug('Module qualified name: {}'.format(self.namespace))
+        self.stmt_buffer = StatementBuffer()
+        self.statement = {}
 
     def visit_ClassDef(self, node):
         '''Visitor for AST ClassDef node
@@ -83,7 +143,6 @@ class BanditNodeVisitor(ast.NodeVisitor):
         :return: -
         '''
 
-        self.context['lineno'] = self.linenumber_range(node)
         self.context['function'] = node
 
         self.logger.debug("visit_FunctionDef called (%s)" % ast.dump(node))
@@ -110,7 +169,6 @@ class BanditNodeVisitor(ast.NodeVisitor):
         :return: -
         '''
 
-        self.context['lineno'] = self.linenumber_range(node)
         self.context['call'] = node
 
         self.logger.debug("visit_Call called (%s)" % ast.dump(node))
@@ -133,7 +191,6 @@ class BanditNodeVisitor(ast.NodeVisitor):
         :return: -
         '''
 
-        self.context['lineno'] = self.linenumber_range(node)
         self.logger.debug("visit_Import called (%s)" % ast.dump(node))
         for nodename in node.names:
             if nodename.asname:
@@ -152,7 +209,6 @@ class BanditNodeVisitor(ast.NodeVisitor):
         :return: -
         '''
 
-        self.context['lineno'] = self.linenumber_range(node)
         self.logger.debug("visit_ImportFrom called (%s)" % ast.dump(node))
 
         module = node.module
@@ -188,7 +244,6 @@ class BanditNodeVisitor(ast.NodeVisitor):
         :param node: The node that is being inspected
         :return: -
         '''
-        self.context['lineno'] = self.linenumber_range(node)
         self.context['str'] = node.s
         self.logger.debug("visit_Str called (%s)" % ast.dump(node))
 
@@ -196,7 +251,6 @@ class BanditNodeVisitor(ast.NodeVisitor):
         super(BanditNodeVisitor, self).generic_visit(node)
 
     def visit_Exec(self, node):
-        self.context['lineno'] = self.linenumber_range(node)
         self.context['str'] = 'exec'
 
         self.logger.debug("visit_Exec called (%s)" % ast.dump(node))
@@ -214,6 +268,7 @@ class BanditNodeVisitor(ast.NodeVisitor):
         self.metaast.add_node(node, '', self.depth)
 
         self.context = copy.copy(self.context_template)
+        self.context['statement'] = self.statement
         self.context['node'] = node
         self.context['filename'] = self.fname
 
@@ -227,9 +282,21 @@ class BanditNodeVisitor(ast.NodeVisitor):
         self.logger.debug("%s\texiting : %s" % (self.depth, hex(id(node))))
         return self.score
 
-    def linenumber_range(self, node):
-        lines = set()
-        for n in ast.walk(node):
-            if hasattr(n, 'lineno'):
-                lines.add(n.lineno)
-        return sorted(lines)
+    def process(self, fdata):
+        '''Main process loop
+
+        Iniitalizes the statement buffer, iterates over each statement
+        in the buffer testing each AST in turn
+        :param fdata: the open filehandle for the code to be processed
+        :return score: the aggregated score for the current file
+        '''
+        self.stmt_buffer.load_buffer(fdata)
+        self.statement = self.stmt_buffer.get_next()
+        while self.statement is not None:
+            self.logger.debug('New statement loaded')
+            self.logger.debug('s_node: %s' % ast.dump(self.statement['node']))
+            self.logger.debug('s_lineno: %s' % self.statement['lineno'])
+
+            self.visit(self.statement['node'])
+            self.statement = self.stmt_buffer.get_next()
+        return self.score

@@ -65,7 +65,7 @@ class BanditResultStore():
         :param issue: Which issue was found
         :return: -
         '''
-        filename, lineno = context['filename'], context['lineno']
+        filename, lineno = context['filename'], context['statement']['lineno']
         (issue_type, issue_text) = issue
 
         # XXX(fletcher): tuple usage is fragile because ordering changes on
