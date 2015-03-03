@@ -50,17 +50,29 @@ class FunctionalTests(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_binding(self):
-        path = os.path.join(os.getcwd(), 'examples', 'binding.py')
+    def check_example(self, example_script, info=0, warn=0, error=0):
+        '''A helper method to test the scores for example scripts.
+
+        :param example_script: Path to the script to test
+        :param info: The expected number of INFO-level issues to find
+        :param warn: The expected number of WARN-level issues to find
+        :param error: The expected number of ERROR-level issues to find
+        '''
+        path = os.path.join(os.getcwd(), 'examples', example_script)
         self.b_mgr.discover_files([path], True)
         self.b_mgr.run_tests()
-        self.assertEqual(5, self.b_mgr.scores[0])
+        expected = (info * C.SEVERITY_VALUES['INFO'] +
+                    warn * C.SEVERITY_VALUES['WARN'] +
+                    error * C.SEVERITY_VALUES['ERROR'])
+        self.assertEqual(expected, self.b_mgr.scores[0])
+
+    def test_binding(self):
+        '''Test the bind-to-0.0.0.0 example.'''
+        self.check_example('binding.py', warn=1)
 
     def test_call_tests(self):
-        path = os.path.join(os.getcwd(), 'examples', 'call-tests.py')
-        self.b_mgr.discover_files([path], True)
-        self.b_mgr.run_tests()
-        self.assertEqual(6, self.b_mgr.scores[0])
+        '''Test the `subprocess.call` example.'''
+        self.check_example('call-tests.py', info=1, warn=1)
 
     def test_crypto_md5(self):
         path = os.path.join(os.getcwd(), 'examples', 'crypto-md5.py')
