@@ -20,6 +20,7 @@ from bandit.core.test_properties import *
 
 @checks('Call')
 def linux_commands_wildcard_injection(context):
+    # FIXME: this list of system calls should be read from the config.
     system_calls = ['os.system', 'subprocess.Popen', 'os.popen']
     vulnerable_funcs = ['chown', 'chmod', 'tar', 'rsync']
 
