@@ -80,7 +80,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_eval(self):
         '''Test the `eval` example.'''
-        self.check_example('eval.py', warn=3)
+        self.check_example('eval.py', warn=4)
 
     def test_exec(self):
         '''Test the `exec` example.'''
@@ -105,7 +105,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_imports_aliases(self):
         '''Test the `import X as Y` syntax.'''
-        self.check_example('imports-aliases.py', info=3, warn=6, error=1)
+        self.check_example('imports-aliases.py', info=3, warn=5, error=1)
 
     def test_imports_from(self):
         '''Test the `from X import Y` syntax.'''
@@ -114,6 +114,11 @@ class FunctionalTests(unittest.TestCase):
     def test_imports_function(self):
         '''Test the `__import__` function.'''
         self.check_example('imports-function.py', info=2)
+
+    @unittest.skip('cannot detect dotted names after `from X import *`')
+    def test_imports_star(self):
+        '''Test dotted names with the `from X import *` syntax.'''
+        self.check_example('imports-star.py', error=1)
 
     def test_imports_telnetlib(self):
         '''Test for `import telnetlib`.'''
@@ -140,31 +145,37 @@ class FunctionalTests(unittest.TestCase):
         '''Test setting file permissions.'''
         self.check_example('os-chmod.py', warn=1, error=8)
 
-    @unittest.skip('the `os.exec*` tests are currently broken')
     def test_os_exec(self):
         '''Test for `os.exec*`.'''
-        self.check_example('os-exec.py')
+        self.check_example('os-exec.py', warn=8)
 
     def test_os_popen(self):
         '''Test for `os.popen`.'''
-        self.check_example('os-popen.py', warn=4)
+        self.check_example('os-popen.py', error=7)
 
-    @unittest.skip('the `os.spawn*` tests are currently broken')
     def test_os_spawn(self):
         '''Test for `os.spawn*`.'''
-        self.check_example('os-spawn.py')
+        self.check_example('os-spawn.py', warn=8)
 
     def test_os_startfile(self):
         '''Test for `os.startfile`.'''
         self.check_example('os-startfile.py', warn=3)
 
+    def test_os_system(self):
+        '''Test for `os.system`.'''
+        self.check_example('os_system.py', error=1)
+
     def test_pickle(self):
         '''Test for the `pickle` module.'''
-        self.check_example('pickle.py', info=1, warn=2)
+        self.check_example('pickle_deserialize.py', info=2, warn=6)
 
-    def test_random(self):
+    def test_popen_wrappers(self):
+        '''Test the `popen2` and `commands` modules.'''
+        self.check_example('popen_wrappers.py', error=7)
+
+    def test_random_module(self):
         '''Test for the `random` module.'''
-        self.check_example('random.py', info=3)
+        self.check_example('random_module.py', info=3)
 
     def test_requests_ssl_verify_disabled(self):
         '''Test for the `requests` library skipping verification.'''
@@ -187,13 +198,9 @@ class FunctionalTests(unittest.TestCase):
         '''Test for insecure SSL protocol versions.'''
         self.check_example('ssl-insecure-version.py', info=1, warn=10, error=7)
 
-    def test_subprocess_call(self):
-        '''Test for `subprocess.call`.'''
-        self.check_example('subprocess-call.py', info=1, warn=2)
-
-    def test_subprocess_popen_shell(self):
+    def test_subprocess_shell(self):
         '''Test for `subprocess.Popen` with `shell=True`.'''
-        self.check_example('subprocess-popen-shell.py', info=2, warn=5, error=2)
+        self.check_example('subprocess_shell.py', info=2, warn=6, error=5)
 
     def test_urlopen(self):
         '''Test for dangerous URL opening.'''
@@ -201,11 +208,11 @@ class FunctionalTests(unittest.TestCase):
 
     def test_utils_shell(self):
         '''Test for `utils.execute*` with `shell=True`.'''
-        self.check_example('utils-shell.py', warn=4, error=4)
+        self.check_example('utils-shell.py', error=4)
 
     def test_wildcard_injection(self):
         '''Test for wildcard injection in shell commands.'''
-        self.check_example('wildcard-injection.py', info=1, warn=4, error=6)
+        self.check_example('wildcard-injection.py', info=1, warn=4, error=10)
 
     def test_yaml(self):
         '''Test for `yaml.load`.'''
@@ -220,4 +227,5 @@ class FunctionalTests(unittest.TestCase):
         self.check_example('secret-config-option.py', info=1, warn=2)
 
     def test_mako_templating(self):
+        '''Test Mako templates for XSS.'''
         self.check_example('mako_templating.py', warn=3)

@@ -16,14 +16,14 @@
 
 import bandit
 from bandit.core.test_properties import *
+from bandit.plugins.injection_shell import ALL_PROCESS_FUNCTIONS
 
 
 @checks('Call')
 def linux_commands_wildcard_injection(context):
-    system_calls = ['os.system', 'subprocess.Popen', 'os.popen']
     vulnerable_funcs = ['chown', 'chmod', 'tar', 'rsync']
 
-    for system_call in system_calls:
+    for system_call in ALL_PROCESS_FUNCTIONS:
         if system_call in context.call_function_name_qual:
             if context.call_args_count == 1:
                 call_argument = context.get_call_arg_at_position(0)
