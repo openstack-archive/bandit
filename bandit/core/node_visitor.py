@@ -299,8 +299,9 @@ class BanditNodeVisitor(ast.NodeVisitor):
         self.context['lineno'] = node.lineno
         self.logger.debug("visit_Str called (%s)" % ast.dump(node))
 
-        self.score += self.tester.run_tests(self.context, 'Str')
-        super(BanditNodeVisitor, self).generic_visit(node)
+        if not isinstance(self.context['statement']['node'], ast.Str):
+            self.score += self.tester.run_tests(self.context, 'Str')
+            super(BanditNodeVisitor, self).generic_visit(node)
 
     def visit_Exec(self, node):
         self.context['str'] = 'exec'
