@@ -93,7 +93,7 @@ class FunctionalTests(unittest.TestCase):
     @unittest.skip('the password plugin is currently disabled')
     def test_hardcoded_passwords(self):
         '''Test for hard-coded passwords.'''
-        self.check_example('hardcoded-passswords.py')
+        self.check_example('hardcoded-passswords.py', info=2)
 
     def test_hardcoded_tmp(self):
         '''Test for hard-coded /tmp.'''
