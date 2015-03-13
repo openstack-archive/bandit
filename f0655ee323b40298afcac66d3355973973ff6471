@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: Tim Kelsey <tim.kelsey@hp.com>
+Code-Review+2: Travis McPeak <travis.mcpeak@hp.com>
+Workflow+1: Travis McPeak <travis.mcpeak@hp.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 13 Mar 2015 12:20:55 +0000
+Reviewed-on: https://review.openstack.org/163981
+Project: stackforge/bandit
+Branch: refs/heads/master
