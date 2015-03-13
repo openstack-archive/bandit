@@ -80,7 +80,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_exec(self):
         '''Test the `exec` example.'''
-        self.check_example('exec.py', error=2)
+        self.check_example('exec.py', warn=2)
 
     def test_exec_as_root(self):
         '''Test for the `run_as_root=True` keyword argument.'''
@@ -133,7 +133,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_os_chmod(self):
         '''Test setting file permissions.'''
-        self.check_example('os-chmod.py', warn=1, error=8)
+        self.check_example('os-chmod.py', warn=2, error=9)
 
     def test_os_exec(self):
         '''Test for `os.exec*`.'''
