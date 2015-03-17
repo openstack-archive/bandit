@@ -16,6 +16,7 @@
 
 import argparse
 import sys
+import logging
 
 from core import manager as b_manager
 
@@ -80,6 +81,15 @@ def main():
 
     b_mgr = b_manager.BanditManager(args.config_file, args.agg_type,
                                     args.debug, profile_name=args.profile)
+    # we getLogger() here because BanditManager has configured it at this point
+    logger = logging.getLogger()
+    check_dest = b_mgr.check_output_destination(args.output_file)
+    if check_dest is not True:
+        logger.error(
+            'Problem with specified output destination\n\t%s: %s',
+            check_dest, args.output_file
+        )
+        sys.exit(1)
     b_mgr.discover_files(args.targets, args.recursive)
     b_mgr.run_tests()
     if args.debug:
