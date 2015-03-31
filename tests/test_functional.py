@@ -64,7 +64,8 @@ class FunctionalTests(unittest.TestCase):
         expected = sum([info * C.SEVERITY_VALUES['INFO'],
                         warn * C.SEVERITY_VALUES['WARN'],
                         error * C.SEVERITY_VALUES['ERROR']])
-        self.assertEqual(expected, sum(self.b_mgr.scores[0]))
+        if self.b_mgr.scores:
+            self.assertEqual(expected, sum(self.b_mgr.scores[0]))
 
     def test_binding(self):
         '''Test the bind-to-0.0.0.0 example.'''
