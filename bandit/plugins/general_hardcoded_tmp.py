@@ -21,4 +21,4 @@ from bandit.core.test_properties import *
 @checks('Str')
 def hardcoded_tmp_directory(context):
     if '/tmp' in context.string_val:
-        return bandit.WARN, "Probable insecure usage of temp file/directory"
+        return bandit.MEDIUM, "Probable insecure usage of temp file/directory"

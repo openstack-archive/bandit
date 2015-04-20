@@ -23,9 +23,9 @@ import os
 color = {
     'DEFAULT': '\033[0m',
     'HEADER': '\033[95m',
-    'INFO': '\033[94m',
-    'WARN': '\033[93m',
-    'ERROR': '\033[91m',
+    'LOW': '\033[94m',
+    'MEDIUM': '\033[93m',
+    'HIGH': '\033[91m',
 }
 
 # default plugin name pattern
@@ -40,21 +40,14 @@ plugins_dir = os.path.join(get_python_lib(), 'bandit', 'plugins')
 # flag/s used to mark lines where identified issues should not be reported
 SKIP_FLAGS = ['nosec', ]
 
-# list severities in ascending order
-SEVERITY = ['INFO', 'WARN', 'ERROR']
-SEVERITY_VALUES = {'INFO': 1, 'WARN': 5, 'ERROR': 10}
+RANKING = ['UNDEFINED', 'LOW', 'MEDIUM', 'HIGH']
+RANKING_VALUES = {'UNDEFINED': 0, 'LOW': 1, 'MEDIUM': 5, 'HIGH': 10}
 
-# add each severity to globals, to allow direct access in module name space
-for sev in SEVERITY:
-    globals()[sev] = sev
+# add each ranking to globals, to allow direct access in module name space
+for rank in RANKING:
+    globals()[rank] = rank
 
-# severity level constants for assignment to individual plugins
-severity_namedtuple = namedtuple('SeverityLevel', 'HIGH MEDIUM LOW')
-SEVERITY_LEVEL = severity_namedtuple(HIGH=10, MEDIUM=5, LOW=0)
-
-# confidence level constants for return from individual plugins
-confidence_namedtuple = namedtuple('ConfidenceLevel', 'HIGH MEDIUM LOW')
-CONFIDENCE_LEVEL = confidence_namedtuple(HIGH=10, MEDIUM=5, LOW=0)
+CONFIDENCE_DEFAULT = 'UNDEFINED'
 
 # A list of values Python considers to be False.
 # These can be useful in tests to check if a value is True or False.

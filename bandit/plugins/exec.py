@@ -20,4 +20,7 @@ from bandit.core.test_properties import *
 
 @checks('Exec')
 def exec_used(context):
-    return (bandit.WARN, "Use of exec detected.")
+    return (
+        bandit.MEDIUM, bandit.HIGH,
+        "Use of exec detected."
+    )
