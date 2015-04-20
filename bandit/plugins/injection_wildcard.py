@@ -44,6 +44,6 @@ def linux_commands_wildcard_injection(context, config):
                             '*' in argument_string
                     ):
 
-                        return(bandit.ERROR, 'Possible wildcard '
+                        return(bandit.HIGH, 'Possible wildcard '
                                'injection in call: %s' %
                                context.call_function_name_qual)

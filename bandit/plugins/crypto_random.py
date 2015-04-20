@@ -27,7 +27,7 @@ def random_lib_calls(context):
         qualname_list = context.call_function_name_qual.split('.')
         # if the library is random
         if len(qualname_list) >= 2 and qualname_list[-2] == 'random':
-            return(bandit.INFO, 'Use of random is not suitable for security/'
+            return(bandit.LOW, 'Use of random is not suitable for security/'
                    'cryptographic purposes.')
 
 
@@ -36,5 +36,5 @@ def random_lib_imports(context):
     # Alerts on importing the 'random' library
 
     if context.is_module_being_imported('random'):
-        return(bandit.INFO, 'Random library should not be used for any '
+        return(bandit.LOW, 'Random library should not be used for any '
                'security or cryptographic purposes')

@@ -69,12 +69,12 @@ def hardcoded_sql_expressions(context):
         test_str.startswith('delete from ')
     ):
         # if sqlalchemy is not imported and it looks like they are using SQL
-        # statements, mark it as a WARNING
+        # statements, mark it as a medium severity issue
         if not context.is_module_imported_like("sqlalchemy"):
-            return(bandit.WARN, 'Possible SQL injection vector through '
+            return(bandit.MEDIUM, 'Possible SQL injection vector through '
                    'string-based query construction, without SQLALCHEMY use')
 
-        # otherwise, if sqlalchemy is being used, mark it as INFO
+        # otherwise, if sqlalchemy is being used, mark it as low severity
         else:
-            return(bandit.INFO, 'Possible SQL injection vector through'
+            return(bandit.LOW, 'Possible SQL injection vector through'
                    ' string-based query construction')

@@ -30,11 +30,11 @@ def set_bad_file_permissions(context):
                 mode is not None and type(mode) == int and
                 (mode & stat.S_IWOTH or mode & stat.S_IXGRP)
             ):
-                # world writable is an ERROR, group executable is a WARN
+                # world writable is an HIGH, group executable is a MEDIUM
                 if mode & stat.S_IWOTH:
-                    sev_level = bandit.ERROR
+                    sev_level = bandit.HIGH
                 else:
-                    sev_level = bandit.WARN
+                    sev_level = bandit.MEDIUM
 
                 filename = context.get_call_arg_at_position(0)
                 if filename is None:
