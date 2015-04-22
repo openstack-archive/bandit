@@ -70,6 +70,8 @@ class FunctionalTests(unittest.TestCase):
         :param warn: The expected number of WARN-level issues to find
         :param error: The expected number of ERROR-level issues to find
         '''
+        # reset scores for subsequent calls to check_example
+        self.b_mgr.scores = []
         self.run_example(example_script)
         expected = sum([info * C.SEVERITY_VALUES['INFO'],
                         warn * C.SEVERITY_VALUES['WARN'],
@@ -232,3 +234,15 @@ class FunctionalTests(unittest.TestCase):
     def test_mako_templating(self):
         '''Test Mako templates for XSS.'''
         self.check_example('mako_templating.py', warn=3)
+
+    def test_xml(self):
+        '''Test xml vulnerabilities.'''
+        self.check_example('xml_etree_celementtree.py', info=1, error=4)
+        self.check_example('xml_expatbuilder.py', info=1, error=2)
+        self.check_example('xml_lxml.py', info=3, error=1)
+        self.check_example('xml_pulldom.py', info=2, error=2)
+        self.check_example('xml_xmlrpc.py', error=1)
+        self.check_example('xml_etree_elementtree.py', info=1, error=4)
+        self.check_example('xml_expatreader.py', info=1, error=1)
+        self.check_example('xml_minidom.py', info=2, error=2)
+        self.check_example('xml_sax.py', info=1, error=6)
