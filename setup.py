@@ -18,5 +18,10 @@
 import setuptools
 
 setuptools.setup(
+    name='bandit',
     setup_requires=['pbr'],
-    pbr=True)
+    package_data={
+        'bandit': ['config/bandit.yaml']
+    },
+    pbr=True,
+    )
