@@ -24,6 +24,7 @@ from datetime import datetime
 import json
 import linecache
 from operator import itemgetter
+import sys
 
 import constants
 import utils
@@ -90,6 +91,43 @@ class BanditResultStore():
              'issue_text': issue_text})
 
         self.count += 1
+
+    def _report_xml(self, file_list, scores, excluded_files):
+        '''Prints/returns warnings in XML format (Xunit compatible)
+
+        :param files_list: Which files were inspected
+        :param scores: The scores awarded to each file in the scope
+        :param excluded_files: Which files were excluded from the scope
+        :return: A collection containing the XML data
+        '''
+
+        import xml.etree.cElementTree as ET
+
+        if self.out_file is None:
+            self.out_file = 'bandit_results.xml'
+
+        items = self.resstore.items()
+        root = ET.Element('testsuite', name='bandit', tests=str(len(items)))
+        for filename, issues in items:
+            for issue in issues:
+                testcase = ET.SubElement(root, 'testcase',
+                                         classname=filename, name=issue['test'])
+                if self._check_severity(issue['issue_severity']):
+                    text = 'Severity: %s Confidence: %s \n%s\nLocation %s:%s' % (
+                        issue['issue_severity'], issue['issue_confidence'],
+                        issue['issue_text'], issue['fname'], issue['lineno'])
+                    ET.SubElement(testcase, 'error',
+                                  type=issue['issue_severity'],
+                                  message=issue['issue_text']).text = text
+
+        tree = ET.ElementTree(root)
+        try:
+            tree.write(self.out_file, encoding='utf-8', xml_declaration=True)
+        except Exception:
+            print("Failed to write XML file to %s" % self.out_file)
+            sys.exit(2)
+
+        print("XML output written to file: %s" % self.out_file)
 
     def _report_csv(self, file_list, scores, excluded_files):
         '''Prints/returns warnings in JSON format
@@ -308,6 +346,9 @@ class BanditResultStore():
                 self._report_csv(files_list, scores,
                                  excluded_files=excluded_files)
 
+            elif self.format == 'xml':
+                self._report_xml(files_list, scores,
+                                 excluded_files=excluded_files)
             else:
                 # format is the default "txt"
                 if self.out_file:
