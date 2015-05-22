@@ -17,6 +17,8 @@
 import ast
 import copy
 
+from collections import defaultdict
+
 import constants
 import tester as b_tester
 import utils as b_utils
@@ -31,7 +33,10 @@ class StatementBuffer():
     '''
     def __init__(self):
         self._buffer = []
+        self._node_archive = defaultdict()
         self.skip_lines = []
+        self.parent_map = defaultdict(int)
+        self.file_len = 0
 
     def load_buffer(self, fdata):
         '''Buffer initialization
@@ -42,7 +47,9 @@ class StatementBuffer():
         :param fdata: The code to be parsed into the buffer
         '''
         self._buffer = []
+        self._node_archive = defaultdict()
         self.skip_lines = []
+        self.parent_map = defaultdict(int)
         lines = fdata.readlines()
         self.file_len = len(lines)
 
@@ -66,11 +73,14 @@ class StatementBuffer():
             # the temporary buffer, then clear the body of the special
             # statement before adding it to the primary buffer
             stmt = tmp_buf.pop(0)
+            self._archive_node(stmt)
             if (isinstance(stmt, ast.ClassDef)
                     or isinstance(stmt, ast.FunctionDef)
                     or isinstance(stmt, ast.With)
                     or isinstance(stmt, ast.Module)
                     or isinstance(stmt, ast.Interactive)):
+
+                self._set_parents(stmt)
                 stmt.body.extend(tmp_buf)
                 tmp_buf = stmt.body
                 stmt.body = []
@@ -83,6 +93,7 @@ class StatementBuffer():
                 stmt.body = []
                 stmt.orelse = []
             elif (isinstance(stmt, ast.TryExcept)):
+                self._set_parents(stmt)
                 for handler in stmt.handlers:
                     stmt.body.extend(handler.body)
                 stmt.body.extend(stmt.orelse)
@@ -92,6 +103,7 @@ class StatementBuffer():
                 stmt.orelse = []
                 stmt.handlers = []
             elif (isinstance(stmt, ast.TryFinally)):
+                self._set_parents(stmt)
                 stmt.body.extend(stmt.finalbody)
                 stmt.body.extend(tmp_buf)
                 tmp_buf = stmt.body
@@ -104,6 +116,86 @@ class StatementBuffer():
             # must be removed so the ast isn't walked multiple times
             # and isn't included in line-by-line output
             self._buffer.append(stmt)
+
+    def _archive_node(self, node):
+        '''Store node archive
+
+        Stores a deep copy of each node, before node buffer messes with
+        things, allowing us to always retrieve a full clean node for
+        any given line.
+        :param node: The node to be archived
+        '''
+        line = self.linenumber_range(node)[0]
+        self._node_archive[line] = copy.deepcopy(node)
+
+    def get_node(self, line):
+        '''Get node for given line
+
+        Returns the node associated with the given line
+        :param line: The line to retrieve the node for
+        :return: The node associated with the given line
+        '''
+        if line == 0:
+            return None
+        else:
+            return self._node_archive[line]
+
+    def _set_parents(self, stmt):
+        '''Assign Parents
+
+        Takes a parent node, complete with children, and assigns
+        the line number of the node as the parent of all child nodes.
+        This will occur recursively as the buffer is processed, ensuring
+        all children have the correct parent.
+        :param stmt: The statement block to process
+        '''
+        lines = self.linenumber_range(stmt)
+        parent = lines.pop(0)
+        for line in lines:
+            self.parent_map[line] = parent
+
+    def get_parent(self, line):
+        '''Retrieve parent for line
+
+        For a given line, this returns the line number of the parent
+        node. If the node has no parent, returns 0.
+        :param line: The line number of the child to find a parent for
+        :return int: the line number of the parent node
+        '''
+        return self.parent_map[line]
+
+    def get_children(self, line):
+        '''Retrieve children for line
+
+        For a given line, returns all child lines encapsulated by that
+        line. This recursively includes all child parent nodes, and
+        their own children.
+        :param line: The parent line for which to find children
+        :return List: a list of line numbers representing all children
+        '''
+        return self.get_children_range(line, range(self.file_len))
+
+    def get_children_range(self, parent, line_range):
+        '''Recursively get all children
+
+        This function returns child node line numbers, and also calls
+        itself recursively on any parent nodes discovered as children.
+        :param parent: The parent line to find children for
+        :param range: The scope for which to search. Typically the file len
+        :return List: Returns a list of line numbers comprising all
+        children
+        '''
+        def findall(item):
+            return self.parent_map[item] == parent
+        lines = filter(findall, line_range)
+
+        if lines == []:
+            return lines
+        else:
+            tmp_lines = lines
+            for line in tmp_lines:
+                lines += self.get_children_range(line, line_range)
+            return lines
 
     def get_next(self):
         '''Statment Retrieval
