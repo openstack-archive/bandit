@@ -309,6 +309,23 @@ class BanditResultStore():
         else:
             print(result)
 
+    def _write_report(self, files_list, scores, excluded_files):
+        if self.format == 'json':
+            format_func = self._report_json
+        elif self.format == 'csv':
+            self.max_lines = 1
+            format_func = self._report_csv
+        elif self.format == 'xml':
+            format_func = self._report_xml
+        else:
+            format_func = self._report_text
+            # format is the default "txt"
+            if self.out_file:
+                # output to file, specify plain text
+                self.format = 'plain'
+
+        format_func(files_list, scores, excluded_files=excluded_files)
+
     def report(self, files_list, scores, excluded_files=None, lines=-1,
                level=1, output_filename=None, output_format=None):
         '''Prints the contents of the result store
@@ -334,26 +351,7 @@ class BanditResultStore():
         self.out_file = output_filename
 
         try:
-            if self.format == 'json':
-                self._report_json(files_list, scores,
-                                  excluded_files=excluded_files)
-
-            elif self.format == 'csv':
-                self.max_lines = 1
-                self._report_csv(files_list, scores,
-                                 excluded_files=excluded_files)
-
-            elif self.format == 'xml':
-                self._report_xml(files_list, scores,
-                                 excluded_files=excluded_files)
-            else:
-                # format is the default "txt"
-                if self.out_file:
-                    # output to file, specify plain text
-                    self.format = 'plain'
-                self._report_text(files_list, scores,
-                                  excluded_files=excluded_files)
-
+            self._write_report(files_list, scores, excluded_files)
         except IOError:
             print("Unable to write to file: %s" % self.out_file)
 
