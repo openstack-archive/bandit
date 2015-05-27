@@ -17,10 +17,16 @@
 import ast
 import copy
 
-import constants
-import tester as b_tester
-import utils as b_utils
-from utils import InvalidModulePath
+from bandit.core import constants
+from bandit.core import tester as b_tester
+from bandit.core import utils as b_utils
+from bandit.core.utils import InvalidModulePath
+
+
+if hasattr(ast, 'TryExcept'):
+    ast_Try = (ast.TryExcept, ast.TryFinally)
+else:  # Python 3.3+
+    ast_Try = ast.Try
 
 
 class StatementBuffer():
@@ -82,20 +88,15 @@ class StatementBuffer():
                 tmp_buf = stmt.body
                 stmt.body = []
                 stmt.orelse = []
-            elif (isinstance(stmt, ast.TryExcept)):
-                for handler in stmt.handlers:
+            elif isinstance(stmt, ast_Try):
+                for handler in getattr(stmt, 'handlers', []):
                     stmt.body.extend(handler.body)
-                stmt.body.extend(stmt.orelse)
+                stmt.body.extend(getattr(stmt, 'orelse', []))
                 stmt.body.extend(tmp_buf)
                 tmp_buf = stmt.body
                 stmt.body = []
                 stmt.orelse = []
                 stmt.handlers = []
-            elif (isinstance(stmt, ast.TryFinally)):
-                stmt.body.extend(stmt.finalbody)
-                stmt.body.extend(tmp_buf)
-                tmp_buf = stmt.body
-                stmt.body = []
                 stmt.finalbody = []
 
             # once we are sure it's either a single statement or that

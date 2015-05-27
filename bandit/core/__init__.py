@@ -13,16 +13,17 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+from __future__ import absolute_import
 
-import config  # noqa
-import context  # noqa
-import manager  # noqa
-import meta_ast  # noqa
-import node_visitor  # noqa
-import result_store  # noqa
-import test_set  # noqa
-import tester  # noqa
-import utils  # noqa
-from constants import *  # noqa
-from objects import *  # noqa
-from test_properties import *  # noqa
+from . import config  # noqa
+from . import context  # noqa
+from . import manager  # noqa
+from . import meta_ast  # noqa
+from . import node_visitor  # noqa
+from . import result_store  # noqa
+from . import test_set  # noqa
+from . import tester  # noqa
+from . import utils  # noqa
+from .constants import *  # noqa
+from .objects import *  # noqa
+from .test_properties import *  # noqa
