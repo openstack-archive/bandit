@@ -25,8 +25,8 @@ import json
 import linecache
 from operator import itemgetter
 
-import constants
-import utils
+from bandit.core import constants
+from bandit.core import utils
 
 
 class BanditResultStore():
@@ -44,14 +44,6 @@ class BanditResultStore():
         self.max_lines = -1
         self.format = 'txt'
         self.out_file = None
-
-    @property
-    def count(self):
-        '''Count property - used to get the current number of test results
-
-        :return: The current count of test results
-        '''
-        return self.count
 
     def skip(self, filename, reason):
         '''Indicates that the specified file was skipped and why
