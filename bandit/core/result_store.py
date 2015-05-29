@@ -21,11 +21,13 @@ from collections import defaultdict
 from collections import OrderedDict
 import csv
 from datetime import datetime
+import functools
 import json
 import linecache
 from operator import itemgetter
 
 import constants
+import subunit
 import utils
 
 
@@ -125,6 +127,71 @@ class BanditResultStore():
         tree.write(self.out_file, encoding='utf-8', xml_declaration=True)
 
         print("XML output written to file: %s" % self.out_file)
+
+    def _write_subunit_result(self, output, status, name, metadata=None,
+                              attachments=None):
+        STATUS_CODES = frozenset([
+            'exists',
+            'fail',
+            'skip',
+            'success',
+            'uxsuccess',
+            'xfail',
+        ])
+        metadata = metadata or {}
+        write_status = output.status
+        if 'tags' in metadata:
+            tags = metadata['tags']
+            write_status = functools.partial(write_status,
+                                             test_tags=tags.split(','))
+        write_status = functools.partial(write_status, test_id=name)
+        write_status()
+        write_status = functools.partial(write_status, test_id=name)
+        if status in STATUS_CODES:
+            write_status = functools.partial(write_status,
+                                             test_status=status)
+        write_status()
+        if attachments:
+            for attach in attachments:
+                write_status = functools.partial(
+                    write_status,
+                    filename=attach,
+                    file_bytes=attachments[attach],
+                    eof=True)
+        write_status()
+
+    def _report_subunit(self, file_list, scores, excluded_files):
+        '''Prints/returns warnings in subunit format
+
+        :param files_list: Which files were inspected
+        :param scores: The scores awarded to each file in the scope
+        :param excluded_files: Which files were excluded from the scope
+        :return: A collection containing the CSV data
+        '''
+
+        if self.out_file is None:
+            self.out_file = 'bandit_results.subunit'
+
+        items = self.resstore.items()
+        output = open(self.out_file, 'w')
+        output = subunit.v2.StreamResultToBytes(output)
+        output.startTestRun()
+        for filename, issues in items:
+            for issue in issues:
+                test = issue['test']
+                name = filename + '[' + test + ']'
+                text = 'Severity: %s Confidence: %s\n%s\nLocation %s:%s'
+                text = text % (
+                    issue['issue_severity'], issue['issue_confidence'],
+                    issue['issue_text'], issue['fname'], issue['lineno'])
+                attachments = {'issue': text}
+                self._write_subunit_result(output, 'fail', name,
+                                           attachments=attachments)
+        for filename in excluded_files:
+            self._write_subunit_result(output, 'skip', filename)
+        output.stopTestRun()
+
+        print('subunit output written to file %s' % self.out_file)
 
     def _report_csv(self, file_list, scores, excluded_files):
         '''Prints/returns warnings in JSON format
