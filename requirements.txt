@@ -1,2 +1,2 @@
 PyYAML>=3.1.0
-
+python-subunit>=0.0.18

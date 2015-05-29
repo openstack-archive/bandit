@@ -66,7 +66,7 @@ def main():
     parser.add_argument(
         '-f', '--format', dest='output_format', action='store',
         default='txt', help='specify output format',
-        choices=['txt', 'json', 'csv', 'xml']
+        choices=['txt', 'json', 'csv', 'xml', 'subunit']
     )
     parser.add_argument(
         '-o', '--output', dest='output_file', action='store',
