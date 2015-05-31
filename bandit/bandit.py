@@ -19,7 +19,7 @@ import logging
 import os
 import sys
 
-from core import manager as b_manager
+from bandit.core import manager as b_manager
 
 default_test_config = 'bandit.yaml'
 
