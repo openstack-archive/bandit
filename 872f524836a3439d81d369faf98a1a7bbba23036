@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Code-Review+2: Jamie Finnigan <jamie.finnigan@hp.com>
+Code-Review+2: Tim Kelsey <tim.kelsey@hp.com>
+Workflow+1: Tim Kelsey <tim.kelsey@hp.com>
+Code-Review+1: Ian Cordasco <ian.cordasco@rackspace.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 02 Jun 2015 08:44:57 +0000
+Reviewed-on: https://review.openstack.org/187013
+Project: stackforge/bandit
+Branch: refs/heads/master
