@@ -68,19 +68,21 @@ Usage::
     optional arguments:
       -h, --help            show this help message and exit
       -r, --recursive       process files in subdirectories
-      -a AGG_TYPE, --aggregate AGG_TYPE
-                            group results by (vuln)erability type or (file) it
-                            occurs in
+      -a {file,vuln}, --aggregate {file,vuln}
+                            group results by vulnerability type or file it occurs
+                            in
       -n CONTEXT_LINES, --number CONTEXT_LINES
-                            number of context lines to print
+                            max number of code lines to display for each issue
+                            identified
       -c CONFIG_FILE, --configfile CONFIG_FILE
-                            test config file (default: bandit.yaml)
+                            test config file, defaults to /etc/bandit/bandit.yaml,
+                            or./bandit.yaml if not given
       -p PROFILE, --profile PROFILE
                             test set profile in config to use (defaults to all
                             tests)
       -l, --level           results level filter
-      -f {txt,json}, --format {txt,json}
-                            output format for STDOUT or file
+      -f {csv,json,txt,xml}, --format {csv,json,txt,xml}
+                            specify output format
       -o OUTPUT_FILE, --output OUTPUT_FILE
                             write report to filename
       -d, --debug           turn on debug mode
