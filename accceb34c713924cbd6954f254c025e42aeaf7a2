@@ -1,0 +1,12 @@
+Verified+2: Jenkins
+Code-Review+1: David Stanek <dstanek@dstanek.com>
+Code-Review+1: Eric Brown <browne@vmware.com>
+Code-Review+2: Jamie Finnigan <jamie.finnigan@hp.com>
+Workflow+1: Jamie Finnigan <jamie.finnigan@hp.com>
+Code-Review+2: Travis McPeak <travis.mcpeak@hp.com>
+Code-Review-1: Rob Fletcher <rfletch.vol@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 08 Jun 2015 23:24:10 +0000
+Reviewed-on: https://review.openstack.org/189140
+Project: stackforge/bandit
+Branch: refs/heads/master
