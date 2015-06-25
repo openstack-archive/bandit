@@ -161,7 +161,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_multiline_str(self):
         '''Test docstrings and multi-line strings are handled properly.'''
-        expect = {'SEVERITY': {'MEDIUM': 2}, 'CONFIDENCE': {'MEDIUM': 2}}
+        expect = {'SEVERITY': {'MEDIUM': 3}, 'CONFIDENCE': {'MEDIUM': 3}}
         self.check_example('multiline-str.py', expect)
 
     def test_mktemp(self):
@@ -372,3 +372,23 @@ class FunctionalTests(unittest.TestCase):
                   'CONFIDENCE': {'HIGH': 2}}
         self.check_example('paramiko_injection.py', expect)
 
+    def test_multiline_code(self):
+        '''Test issues in multiline statements return code as expected.'''
+        self.run_example('multiline-str.py')
+        self.assertEqual(len(self.b_mgr.b_rs.skipped), 0)
+        self.assertEqual(len(self.b_mgr.files_list), 1)
+        self.assertTrue(self.b_mgr.files_list[0].endswith('multiline-str.py'))
+        issues = self.b_mgr.b_rs._get_issue_list()
+        self.assertEqual(3, len(issues))
+        self.assertTrue(
+            issues[0]['filename'].endswith('examples/multiline-str.py')
+        )
+        self.assertEqual(issues[0]['line_number'], 4)
+        self.assertEqual(issues[0]['line_range'], range(2, 7))
+        self.assertIn('/tmp', issues[0]['code'])
+        self.assertEqual(issues[1]['line_number'], 18)
+        self.assertEqual(issues[1]['line_range'], range(16, 21))
+        self.assertIn('/tmp', issues[1]['code'])
+        self.assertEqual(issues[2]['line_number'], 23)
+        self.assertEqual(issues[2]['line_range'], range(22, 31))
+        self.assertIn('/tmp', issues[2]['code'])
