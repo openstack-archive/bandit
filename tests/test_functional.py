@@ -123,7 +123,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_hardcoded_tmp(self):
         '''Test for hard-coded /tmp.'''
-        expect = {'SEVERITY': {'MEDIUM': 1}, 'CONFIDENCE': {'MEDIUM': 1}}
+        expect = {'SEVERITY': {'MEDIUM': 1}, 'CONFIDENCE': {'LOW': 1}}
         self.check_example('hardcoded-tmp.py', expect)
 
     def test_httplib_https(self):
@@ -161,7 +161,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_multiline_str(self):
         '''Test docstrings and multi-line strings are handled properly.'''
-        expect = {'SEVERITY': {'MEDIUM': 3}, 'CONFIDENCE': {'MEDIUM': 3}}
+        expect = {'SEVERITY': {'MEDIUM': 3}, 'CONFIDENCE':{'LOW': 3}}
         self.check_example('multiline-str.py', expect)
 
     def test_mktemp(self):
