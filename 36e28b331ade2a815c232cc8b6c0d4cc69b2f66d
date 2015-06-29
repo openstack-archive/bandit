@@ -1,0 +1,11 @@
+Verified+2: Jenkins
+Code-Review+1: Dave Walker <email@daviey.com>
+Code-Review+2: Eric Brown <browne@vmware.com>
+Workflow+1: Eric Brown <browne@vmware.com>
+Code-Review+2: Travis McPeak <travis.mcpeak@hp.com>
+Code-Review+2: Ian Cordasco <ian.cordasco@rackspace.com>
+Submitted-by: Jenkins
+Submitted-at: Mon, 29 Jun 2015 20:23:57 +0000
+Reviewed-on: https://review.openstack.org/195761
+Project: stackforge/bandit
+Branch: refs/heads/master
