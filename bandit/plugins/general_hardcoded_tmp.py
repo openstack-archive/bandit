@@ -23,6 +23,7 @@ def hardcoded_tmp_directory(context):
     if '/tmp' in context.string_val:
         return bandit.Issue(
             severity=bandit.MEDIUM,
-            confidence=bandit.MEDIUM,
-            text="Probable insecure usage of temp file/directory."
+            confidence=bandit.LOW,
+            text="Possible insecure usage of temp file/directory "
+                 "(hardcoded '/tmp' in string)."
         )
