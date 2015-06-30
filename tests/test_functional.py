@@ -134,8 +134,8 @@ class FunctionalTests(unittest.TestCase):
     def test_imports_aliases(self):
         '''Test the `import X as Y` syntax.'''
         expect = {
-            'SEVERITY': {'LOW': 3, 'MEDIUM': 5, 'HIGH': 1},
-            'CONFIDENCE': {'HIGH': 9}
+            'SEVERITY': {'LOW': 4, 'MEDIUM': 5, 'HIGH': 1},
+            'CONFIDENCE': {'HIGH': 10}
         }
         self.check_example('imports-aliases.py', expect)
 
@@ -246,7 +246,8 @@ class FunctionalTests(unittest.TestCase):
 
     def test_skip(self):
         '''Test `#nosec` and `#noqa` comments.'''
-        expect = {'SEVERITY': {'LOW': 5}, 'CONFIDENCE': {'HIGH': 5}}
+        expect = {'SEVERITY': {'LOW': 10},
+                  'CONFIDENCE': {'HIGH': 10}}
         self.check_example('skip.py', expect)
 
     def test_sql_statements_with_sqlalchemy(self):
@@ -270,8 +271,8 @@ class FunctionalTests(unittest.TestCase):
     def test_subprocess_shell(self):
         '''Test for `subprocess.Popen` with `shell=True`.'''
         expect = {
-            'SEVERITY': {'HIGH': 5, 'MEDIUM': 1, 'LOW': 7},
-            'CONFIDENCE': {'HIGH': 13}
+            'SEVERITY': {'HIGH': 5, 'MEDIUM': 1, 'LOW': 18},
+            'CONFIDENCE': {'HIGH': 24}
         }
         self.check_example('subprocess_shell.py', expect)
 
@@ -283,16 +284,16 @@ class FunctionalTests(unittest.TestCase):
     def test_utils_shell(self):
         '''Test for `utils.execute*` with `shell=True`.'''
         expect = {
-            'SEVERITY': {'HIGH': 4, 'LOW': 1},
-            'CONFIDENCE': {'HIGH': 5}
+            'SEVERITY': {'HIGH': 4, 'LOW': 6},
+            'CONFIDENCE': {'HIGH': 10}
         }
         self.check_example('utils-shell.py', expect)
 
     def test_wildcard_injection(self):
         '''Test for wildcard injection in shell commands.'''
         expect = {
-            'SEVERITY': {'HIGH': 5, 'MEDIUM':3, 'LOW': 6},
-            'CONFIDENCE': {'MEDIUM': 8, 'HIGH': 6}
+            'SEVERITY': {'HIGH': 5, 'MEDIUM':3, 'LOW': 11},
+            'CONFIDENCE': {'MEDIUM': 8, 'HIGH': 11}
         }
         self.check_example('wildcard-injection.py', expect)
 
