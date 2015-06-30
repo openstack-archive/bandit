@@ -82,3 +82,22 @@ def start_process_with_no_shell(context, config):
             confidence=bandit.MEDIUM,
             text="Starting a process without a shell."
         )
+
+
+@takes_config('shell_injection')
+@checks('Call')
+def start_process_with_partial_path(context, config):
+    if config and len(context.call_args):
+        if(context.call_function_name_qual in config['subprocess'] or
+           context.call_function_name_qual in config['shell'] or
+           context.call_function_name_qual in config['no_shell']):
+
+            delims = ['/', '\\']
+            # call_args[0] is the executable path or name string
+            if context.call_args[0][0] not in delims:
+                return bandit.Issue(
+                    severity=bandit.LOW,
+                    confidence=bandit.HIGH,
+                    text=("Starting a process with a partial executable path"
+                          " %s" % context.call_args_string)
+                )
