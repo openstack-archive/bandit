@@ -22,3 +22,6 @@ subprocess.check_call('ls -l', shell=True)
 
 subprocess.check_output(['ls', '-l'])
 subprocess.check_output('ls -l', shell=True)
+
+# this should be benign 
+subproces.Popen('/bin/ls -l')

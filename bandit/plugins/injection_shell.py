@@ -34,6 +34,21 @@ def subprocess_popen_with_shell_equals_true(context, config):
 
 @takes_config('shell_injection')
 @checks('Call')
+def subprocess_popen_with_partial_path(context, config):
+    delims = ['/', '\\']
+    if config and context.call_function_name_qual in config['subprocess']:
+        # should be the executable path or name string
+        if context.call_args[0][0] not in delims:
+            return bandit.Issue(
+                severity=bandit.LOW,
+                confidence=bandit.MEDIUM,
+                text=("subprocess call with parital path identified %s" %
+                      context.call_args_string)
+            )
+
+
+@takes_config('shell_injection')
+@checks('Call')
 def subprocess_without_shell_equals_true(context, config):
     if config and context.call_function_name_qual in config['subprocess']:
         if not context.check_call_arg_value('shell', 'True'):
