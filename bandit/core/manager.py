@@ -106,6 +106,7 @@ class BanditManager():
         :param output_format: output format, either 'json' or 'txt'
         :return: -
         '''
+        self.b_rs._get_issue_list()
 
         self.b_rs.report(
             self.files_list, self.scores,
