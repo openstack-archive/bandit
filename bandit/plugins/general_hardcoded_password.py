@@ -14,27 +14,49 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import os.path
+import sys
+from appdirs import site_data_dir
+
 import bandit
 from bandit.core.test_properties import *
+
+
+def find_word_list(cfg_word_list_f):
+    if type(cfg_word_list_f) == str:
+        if "(site_data_dir)" in cfg_word_list_f:
+            # We have a substitution to deal with
+            site_data_dir_list = site_data_dir("bandit", "",
+                                               multipath=True).split(':')
+            site_data_dir_list.insert(0, ".")  # Support relative substitution
+            for f in site_data_dir_list:
+                # check each of the locations for a file
+                word_list_f = cfg_word_list_f.replace("(site_data_dir)", f)
+                if os.path.isfile(word_list_f):
+                    return word_list_f
+            logger.error("Could not substitute '(site_data_dir)' "
+                         "with a valid word_list file")
+            sys.exit(2)
+
+        return cfg_word_list_f  # Return what we were given
 
 
 @takes_config
 @checks('Str')
 def hardcoded_password(context, config):
-    word_list_file = ""
-
-    # try to read the word list file from config
-    if(config is not None and 'word_list' in config and
-            type(config['word_list']) == str):
-        word_list_file = config['word_list']
-
+    word_list_file = None
     word_list = []
+    # try to read the word list file from config
+    if (config is not None and 'word_list' in config):
+        word_list_file = find_word_list(config['word_list'])
 
     # try to open the word list file and read passwords from it
     try:
         f = open(word_list_file, 'r')
     except (OSError, IOError):
-        return
+        logger.error("Could not open word_list (from config"
+                     " file): %s" % word_list_file)
+        sys.exit(2)
     else:
         for word in f:
             word_list.append(word.strip())
