@@ -16,73 +16,52 @@
 
 import bandit
 from bandit.core.test_properties import *
-from bandit.core import utils
 
 
-def _ast_build_string(data):
-    # used to return a string representation of AST data
-
-    if isinstance(data, ast.Str):
-        # Already a string, just return the value
-        return utils.safe_str(data.s)
-
-    if isinstance(data, ast.BinOp):
-        # need to build the string from a binary operation
-        return _ast_binop_stringify(data)
-
-    if isinstance(data, ast.Name):
-        # a variable, stringify the variable name
-        return "[[" + utils.safe_str(data.id) + "]]"
-
-    return "XXX"  # placeholder for unaccounted for values
+def _check_string(data):
+    val = data.lower()
+    return ((val.startswith('select ') and ' from ' in val) or
+            val.startswith('insert into') or
+            (val.startswith('update ') and ' set ' in val) or
+            val.startswith('delete from '))
 
 
-def _ast_binop_stringify(data):
-    # used to recursively build a string from a binary operation
-    left = data.left
-    right = data.right
+def _get(node, bits, stop):
+    if node != stop:
+        bits.append(
+            _get(node.left, bits, stop) if isinstance(node.left, ast.BinOp)
+            else node.left)
+        bits.append(
+            _get(node.right, bits, stop) if isinstance(node.right, ast.BinOp)
+            else node.right)
 
-    return _ast_build_string(left) + _ast_build_string(right)
+
+def _evaluate_ast(node):
+    stop = node.parent
+    bits = [node]
+    names = ['execute', 'executemany']
+    while isinstance(node.parent, ast.BinOp):
+        node = node.parent
+    if isinstance(node, ast.BinOp):
+        _get(node, bits, stop)
+        out = " ".join([x.s for x in bits if isinstance(x, ast.Str)])
+
+        if isinstance(node.parent, ast.Call):  # wrapped in "exectue" call?
+            name = (node.parent.func.attr if
+                    isinstance(node.parent.func, ast.Attribute)
+                    else node.parent.func.id)
+            return (name in names, out)
+        return (False, out)
+    return (False, "")
 
 
 @checks('Str')
 def hardcoded_sql_expressions(context):
-    statement = context.node.parent
-    if isinstance(statement, ast.Assign):
-        test_str = _ast_build_string(statement.value).lower()
-
-    elif isinstance(statement, ast.Expr):
-        test_str = ""
-        if isinstance(statement.value, ast.Call):
-            ctx_str = context.string_val.lower()
-            for arg in statement.value.args:
-                temp_str = _ast_build_string(arg).lower()
-                if ctx_str in temp_str:
-                    test_str = temp_str
-    else:
-        test_str = context.string_val.lower()
-
-    if (
-        (test_str.startswith('select ') and ' from ' in test_str) or
-        test_str.startswith('insert into') or
-        (test_str.startswith('update ') and ' set ' in test_str) or
-        test_str.startswith('delete from ')
-    ):
-        # if sqlalchemy is not imported and it looks like they are using SQL
-        # statements, mark it as a medium severity issue
-        if not context.is_module_imported_like("sqlalchemy"):
-            return bandit.Issue(
-                severity=bandit.MEDIUM,
-                confidence=bandit.LOW,
-                text="Possible SQL injection vector through string-based "
-                     "query construction, without SQLAlchemy use."
-            )
-
-        # otherwise, if sqlalchemy is being used, mark it as low severity
-        else:
-            return bandit.Issue(
-                severity=bandit.LOW,
-                confidence=bandit.LOW,
-                text="Possible SQL injection vector through string-based "
-                     "query construction."
-            )
+    val = _evaluate_ast(context.node)
+    if _check_string(val[1]):
+        return bandit.Issue(
+            severity=bandit.MEDIUM,
+            confidence=bandit.MEDIUM if val[0] else bandit.LOW,
+            text="Possible SQL injection vector through string-based "
+                 "query construction."
+        )
