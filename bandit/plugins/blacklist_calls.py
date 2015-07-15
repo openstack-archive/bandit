@@ -103,11 +103,11 @@ def _get_tuple_for_item(blacklist_object):
         message = blacklist_object['message']
 
     if 'level' in blacklist_object:
-        if blacklist_object['level'] == 'HIGH':
+        if blacklist_object['level'].upper() == 'HIGH':
             level = 'HIGH'
-        elif blacklist_object['level'] == 'MEDIUM':
+        elif blacklist_object['level'].upper() == 'MEDIUM':
             level = 'MEDIUM'
-        elif blacklist_object['level'] == 'LOW':
+        elif blacklist_object['level'].upper() == 'LOW':
             level = 'LOW'
 
     if 'params' in blacklist_object:
