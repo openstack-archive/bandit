@@ -20,6 +20,7 @@ import warnings
 from appdirs import site_data_dir
 
 import bandit
+from bandit.core import utils
 from bandit.core.test_properties import *
 
 
@@ -74,12 +75,41 @@ def _get_wordlist(config):
 @checks('Str')
 def hardcoded_password(context, config):
     word_list = _get_wordlist(config)
-
     # for every password in the list, check against the current string
     for word in word_list:
         if context.string_val and context.string_val == word:
             return bandit.Issue(
                 severity=bandit.LOW,
                 confidence=bandit.LOW,
-                text="Possible hardcoded password '(%s)'" % word
+                text="Possible hardcoded password: '%s'" % word
+            )
+
+
+candidates = set(["password", "pass", "passwd", "pwd", "secret", "token"])
+
+
+@checks('Str')
+def hardcoded_password_assign(context):
+    node = context.node
+    if isinstance(node.parent, ast.Assign):
+        for targ in node.parent.targets:
+            if isinstance(targ, ast.Name) and targ.id in candidates:
+                return bandit.Issue(
+                    severity=bandit.LOW,
+                    confidence=bandit.MEDIUM,
+                    text=("Possible hardcoded password: '%s'" %
+                          utils.escaped_bytes_representation(node.s))
+                )
+
+
+@checks('Call')
+def hardcoded_password_funcarg(context):
+    # looks for "function(*pass*='some_string')"
+    for kw in context.node.keywords:
+        if isinstance(kw.value, ast.Str) and kw.arg in candidates:
+            return bandit.Issue(
+                severity=bandit.LOW,
+                confidence=bandit.MEDIUM,
+                text=("Possible hardcoded password: '%s'" %
+                      utils.escaped_bytes_representation(kw.value.s))
             )
