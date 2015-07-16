@@ -20,6 +20,7 @@ import warnings
 from appdirs import site_data_dir
 
 import bandit
+from bandit.core import utils
 from bandit.core.test_properties import *
 
 
@@ -45,35 +46,69 @@ def find_word_list(cfg_word_list_f):
                        "to a path with a valid word_list file")
 
 
+_wordlist = []
+
+
+def _get_wordlist(config):
+    if not len(_wordlist):
+        # try to read the word list file from config
+        if (config is not None and 'word_list' in config):
+            try:
+                word_list_file = find_word_list(config['word_list'])
+            except RuntimeError as e:
+                warnings.warn(e.message)
+                return
+
+        # try to open the word list file and read passwords from it
+        try:
+            f = open(word_list_file, 'r')
+        except (OSError, IOError):
+            raise RuntimeError("Could not open word_list (from config"
+                               " file): %s" % word_list_file)
+        else:
+            for word in f:
+                _wordlist.append(word.strip())
+            f.close()
+    return _wordlist
+
+
 @takes_config
 @checks('Str')
 def hardcoded_password(context, config):
-    word_list_file = None
-    word_list = []
-    # try to read the word list file from config
-    if (config is not None and 'word_list' in config):
-        try:
-            word_list_file = find_word_list(config['word_list'])
-        except RuntimeError as e:
-            warnings.warn(e.message)
-            return
-
-    # try to open the word list file and read passwords from it
-    try:
-        f = open(word_list_file, 'r')
-    except (OSError, IOError):
-        raise RuntimeError("Could not open word_list (from config"
-                           " file): %s" % word_list_file)
-    else:
-        for word in f:
-            word_list.append(word.strip())
-        f.close()
-
+    word_list = _get_wordlist(config)
     # for every password in the list, check against the current string
     for word in word_list:
         if context.string_val and context.string_val == word:
             return bandit.Issue(
                 severity=bandit.LOW,
                 confidence=bandit.LOW,
-                text="Possible hardcoded password '(%s)'" % word
+                text="Possible hardcoded password: '%s'" % word
+            )
+
+
+@checks('Str')
+def hardcoded_password2(context):
+    # looks for "*pass* = 'some_string'"
+    node = context.node
+    if isinstance(node.parent, ast.Assign):
+        for targ in node.parent.targets:
+            if isinstance(targ, ast.Name) and "pass" in targ.id:
+                return bandit.Issue(
+                    severity=bandit.LOW,
+                    confidence=bandit.MEDIUM,
+                    text=("Possible hardcoded password: '%s'" %
+                          utils.safe_str(node.s))
+                )
+
+
+@checks('Call')
+def hardcoded_password_call(context):
+    # looks for "function(*pass*='some_string')"
+    for kw in context.node.keywords:
+        if "pass" in kw.arg and isinstance(kw.value, ast.Str):
+            return bandit.Issue(
+                severity=bandit.LOW,
+                confidence=bandit.MEDIUM,
+                text=("Possible hardcoded password: '%s'" %
+                      utils.safe_str(kw.value.s))
             )
