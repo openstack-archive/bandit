@@ -150,10 +150,10 @@ class BanditConfig():
 
     def _init_plugins_dir(self):
         '''Sets settings['plugins_dir'] from default or config file.'''
-        plugins_dir = constants.plugins_dir
-        if self.get_option('plugins_dir'):
-            plugins_dir = self.get_option('plugins_dir')
-        self._settings['plugins_dir'] = plugins_dir
+        #plugins_dir = constants.plugins_dir
+        #if self.get_option('plugins_dir'):
+        #    plugins_dir = self.get_option('plugins_dir')
+        #self._settings['plugins_dir'] = plugins_dir
 
     def _init_plugin_name_pattern(self):
         '''Sets settings['plugin_name_pattern'] from default or config file.'''

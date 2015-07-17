@@ -23,6 +23,7 @@ from inspect import getmembers
 from inspect import isfunction
 import os
 import sys
+from stevedore import extension
 
 
 class BanditTestSet():
@@ -126,45 +127,66 @@ class BanditTestSet():
         self.logger.debug('_get_decorators_list returning: %s', return_list)
         return return_list
 
+    def _get_plugin_list(self):
+        plugins = extension.ExtensionManager(
+                            namespace='bandit.plugins',
+                            propagate_map_exceptions=True,
+                            invoke_on_load=False
+            )
+        return plugins
+
+
     def load_tests(self, filter=None):
         '''Loads all tests in the plugins directory into testsdictionary.'''
 
+        self.tests = dict()
+
+        available_plugins = self._get_plugin_list()
+        self.logger.error(available_plugins)
+        #import ipdb
+        #ipdb.set_trace()
+        #sys.exit(2)
         # tests are a dictionary of functions, grouped by check type
         # where the key is the function name, and the value is the
         # function itself.
         #  eg.   tests[check_type][fn_name] = function
-        self.tests = dict()
 
         directory = self.config.get_setting('plugins_dir')
         plugin_name_pattern = self.config.get_setting('plugin_name_pattern')
-
         decorators = self._get_decorators_list()
         # try to import each python file in the plugins directory
-        sys.path.append(os.path.dirname(directory))
-        for file in glob.glob1(directory, plugin_name_pattern):
-            module_name = os.path.basename(file).split('.')[0]
-
-            # try to import the module by name
-            try:
-                outer = os.path.basename(os.path.normpath(directory))
-                self.logger.debug("importing plugin module: %s",
-                                  outer + '.' + module_name)
-                module = importlib.import_module(outer + '.' + module_name)
-
-            # if it fails, die
-            except ImportError as e:
-                self.logger.error("could not import plugin module '%s.%s'",
-                                  directory, module_name)
-                self.logger.error("\tdetail: '%s'", str(e))
-                sys.exit(2)
-
-            # otherwise we want to obtain a list of all functions in the module
-            # and add them to our dictionary of tests
-            else:
-                functions_list = [
-                    o for o in getmembers(module) if isfunction(o[1])
-                ]
-                for cur_func in functions_list:
+        #sys.path.append(os.path.dirname(directory))
+        #for file in glob.glob1(directory, plugin_name_pattern):
+        #    module_name = os.path.basename(file).split('.')[0]
+        for module in available_plugins:
+    
+          #    self.logger.error(module.name)
+          #    #module = importlib.p.plugin)
+          #    # try to import the module by name
+          #    #try:
+          #    #    #outer = os.path.basename(os.path.normpath(directory))
+          #    #    #self.logger.debug("importing plugin module: %s",
+          #    #    #                  outer + '.' + module_name)
+          #    #    module = importlib.import_module(p.plugin)
+          #    #    #module = importlib.import_module(outer + '.' + module_name)
+          #    #  
+          #    # if it fails, die
+          #    #except ImportError as e:
+          #    #    self.logger.error("could not import plugin module '%s.%s'",
+          #    #                      directory, module_name)
+          #    #    self.logger.error("\tdetail: '%s'", str(e))
+          #    #    sys.exit(2)#
+          #
+          #    # otherwise we want to obtain a list of all functions in the module
+          #    # and add them to our dictionary of tests
+          #    #else:
+          self.logger.error(module.name)
+          functions_list = [
+                o for o in getmembers(module) if isfunction(o[1])
+            ]
+          #functions_list = dict((x.name, x.obj) for x in available_plugins)
+          self.logger.error("functions_list: %s" % functions_list)
+          for cur_func in functions_list:
                     # for every function in the module, add to the dictionary
                     # unless it's one of our decorators, then ignore it
                     fn_name = cur_func[0]

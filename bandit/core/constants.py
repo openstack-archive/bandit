@@ -34,7 +34,7 @@ plugin_name_pattern = '*.py'
 progress_increment = 50
 
 # default plugins dir
-plugins_dir = os.path.join(get_python_lib(), 'bandit', 'plugins')
+#plugins_dir = os.path.join(get_python_lib(), 'bandit', 'plugins')
 
 # flag/s used to mark lines where identified issues should not be reported
 SKIP_FLAGS = ['nosec', ]
