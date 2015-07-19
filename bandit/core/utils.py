@@ -181,6 +181,10 @@ class InvalidModulePath(Exception):
     pass
 
 
+class NoConfigFileFound(Exception):
+    pass
+
+
 def get_module_qualname_from_path(path):
     '''Get the module's qualified name by analysis of the path.
 
