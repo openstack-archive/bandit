@@ -102,13 +102,20 @@ The Bandit config file is used to set several things, including:
  - other - plugins directory, included file types, shell display
  colors, etc.
 
-Bandit requires a config file.  Bandit will use bandit.yaml in the following
-preference order:
+Bandit requires a config file which can be specified on the command line via
+-c/--configfile.  If this is not provided Bandit will search for a default
+config file (bandit.yaml) in the following preference order:
 
- - Bandit config file specified with -c command line option
- - bandit.yaml file from current working directory
- - bandit.yaml file from ~/.config/bandit/
- - bandit.yaml file in config/ directory of the Bandit package
+GNU/Linux:
+ - ./bandit.yaml
+ - /home/${USER}/.config/bandit/bandit.yaml
+ - /etc/bandit/bandit.yaml
+ - /usr/local/etc/bandit/bandit.yaml
+
+Mac OSX:
+ - ./bandit.yaml
+ - /Users/${USER}/Library/Application Support/bandit/bandit.yaml
+ - /Library/Application Support/bandit/bandit.yaml
 
 
 Exclusions
