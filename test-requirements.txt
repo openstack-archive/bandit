@@ -7,3 +7,6 @@ python-subunit>=0.0.18
 testrepository>=0.0.18
 testscenarios>=0.4
 testtools>=0.9.36,!=1.2.0
+
+sphinx
+oslosphinx
