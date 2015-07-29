@@ -97,7 +97,8 @@ def main():
     )
     parser.add_argument(
         '-l', '--level', dest='level', action='count',
-        default=1, help='results level filter'
+        default=1, help=('results filter, show only issue of this level or '
+                         'higher. -l for LOW -ll for MEDIUM -lll for HIGH')
     )
     parser.add_argument(
         '-f', '--format', dest='output_format', action='store',
