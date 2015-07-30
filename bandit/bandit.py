@@ -100,6 +100,12 @@ def main():
         default=1, help='results level filter'
     )
     parser.add_argument(
+        '-f', '--confidence', dest='confidence', action='count',
+        default=1, help='confidence results filter, show only issues of this '
+                        'level or higher. -l for LOW, -ll for MEDIUM, '
+                        '-lll for HIGH'
+    )
+    parser.add_argument(
         '-f', '--format', dest='output_format', action='store',
         default='txt', help='specify output format',
         choices=sorted(extension_mgr.formatter_names)
@@ -186,7 +192,8 @@ def main():
         b_mgr.output_metaast()
 
     # trigger output of results by Bandit Manager
-    b_mgr.output_results(args.context_lines, args.level - 1, args.output_file,
+    b_mgr.output_results(args.context_lines, args.level - 1,
+                         args.confidence - 1, args.output_file,
                          args.output_format)
 
     # return an exit code of 1 if there are results, 0 otherwise
