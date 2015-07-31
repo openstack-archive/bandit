@@ -1,0 +1,11 @@
+Verified+2: Jenkins
+Code-Review+1: Dave Walker <email@daviey.com>
+Code-Review+1: Brant Knudson <bknudson@us.ibm.com>
+Code-Review+2: Tim Kelsey <tim.kelsey@hp.com>
+Code-Review+2: Travis McPeak <travis.mcpeak@hp.com>
+Workflow+1: Ian Cordasco <ian.cordasco@rackspace.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 31 Jul 2015 22:51:25 +0000
+Reviewed-on: https://review.openstack.org/206868
+Project: openstack/bandit
+Branch: refs/heads/master
