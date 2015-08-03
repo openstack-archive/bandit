@@ -18,6 +18,7 @@
 """An object to store/access results associated with Bandit tests."""
 
 from collections import OrderedDict
+import datetime
 import linecache
 
 from bandit.core import constants
@@ -41,6 +42,9 @@ class BanditResultStore():
         self.format = 'txt'
         self.out_file = None
         self.verbose = verbose
+
+        ts_format = config.get_option('report_timestamp_format')
+        self.generated_time = _get_cur_timestring(ts_format)
 
     def skip(self, filename, reason):
         '''Indicates that the specified file was skipped and why
@@ -81,6 +85,7 @@ class BanditResultStore():
         self.count += 1
 
     def _write_report(self, files_list, scores, excluded_files):
+
         formatters_mgr = extension_loader.MANAGER.formatters_mgr
         try:
             formatter = formatters_mgr[self.format]
@@ -95,8 +100,8 @@ class BanditResultStore():
         report_func = formatter.plugin
         report_func(self, files_list, scores, excluded_files=excluded_files)
 
-    def report(self, files_list, scores, excluded_files=None, lines=-1,
-               level=1, output_filename=None, output_format=None):
+    def report(self, files_list, scores, excluded_files=None,
+               lines=-1, level=1, output_filename=None, output_format=None):
         '''Prints the contents of the result store
 
         :param scope: Which files were inspected
@@ -123,6 +128,10 @@ class BanditResultStore():
             self._write_report(files_list, scores, excluded_files)
         except IOError:
             print("Unable to write to file: %s" % self.out_file)
+
+    @property
+    def generated_time(self):
+        return self.generated_time
 
     def _get_issue_list(self):
 
@@ -200,3 +209,20 @@ class BanditResultStore():
         :return: boolean result
         '''
         return constants.RANKING.index(severity) >= self.level
+
+
+def _get_cur_timestring(ts_format):
+    if not ts_format:
+        # default timezone agnostic format
+        ts_format = "%Y-%m-%dT%H:%M:%SZ"
+
+    try:
+        time_object = datetime.datetime.utcnow()
+        time_string = time_object.strftime(ts_format)
+    except OSError as e:
+        # catch the case where we aren't able to get the time
+        return None
+    else:
+        return time_string
+
+

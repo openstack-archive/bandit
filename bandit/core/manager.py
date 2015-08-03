@@ -112,9 +112,8 @@ class BanditManager():
         '''
 
         self.b_rs.report(
-            self.files_list, self.scores,
-            excluded_files=self.excluded_files, lines=lines,
-            level=level, output_filename=output_filename,
+            self.files_list, self.scores, excluded_files=self.excluded_files,
+            lines=lines, level=level, output_filename=output_filename,
             output_format=output_format
         )
 

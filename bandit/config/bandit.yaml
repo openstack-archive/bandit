@@ -7,6 +7,9 @@
 # optional: plugins discovery name pattern
 plugin_name_pattern: '*.py'
 
+# optional: report timestamp format
+# report_timestamp_format: '%Y-%m-%dT%H:%M:%SZ'
+
 # optional: terminal escape sequences to display colors
 #output_colors:
 #    DEFAULT: '\033[0m'

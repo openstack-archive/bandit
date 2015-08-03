@@ -102,6 +102,10 @@ def report_json(result_store, file_list, scores, excluded_files):
         machine_output['results'] = sorted(collector,
                                            key=itemgetter('filename'))
 
+    # if timestamp exists, add it to the report
+    if result_store.generated_time:
+        machine_output['generated_at'] = result_store.generated_time
+
     result = json.dumps(machine_output, sort_keys=True,
                         indent=2, separators=(',', ': '))
 
