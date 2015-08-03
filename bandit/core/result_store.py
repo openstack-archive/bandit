@@ -80,7 +80,9 @@ class BanditResultStore():
 
         self.count += 1
 
-    def _write_report(self, files_list, scores, excluded_files):
+    def _write_report(self, files_list, scores, excluded_files,
+                      time_string):
+
         formatters_mgr = extension_loader.MANAGER.formatters_mgr
         try:
             formatter = formatters_mgr[self.format]
@@ -93,10 +95,11 @@ class BanditResultStore():
             self.format = 'plain'
 
         report_func = formatter.plugin
-        report_func(self, files_list, scores, excluded_files=excluded_files)
+        report_func(self, files_list, scores, excluded_files=excluded_files,
+                    time_string=time_string)
 
-    def report(self, files_list, scores, excluded_files=None, lines=-1,
-               level=1, output_filename=None, output_format=None):
+    def report(self, files_list, scores, time_string, excluded_files=None,
+               lines=-1, level=1, output_filename=None, output_format=None):
         '''Prints the contents of the result store
 
         :param scope: Which files were inspected
@@ -120,7 +123,8 @@ class BanditResultStore():
         self.out_file = output_filename
 
         try:
-            self._write_report(files_list, scores, excluded_files)
+            self._write_report(files_list, scores, excluded_files,
+                               time_string)
         except IOError:
             print("Unable to write to file: %s" % self.out_file)
 

@@ -14,6 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import datetime
 import fnmatch
 import logging
 import os
@@ -111,8 +112,10 @@ class BanditManager():
         :return: -
         '''
 
+        time_string = _get_cur_timestring()
+
         self.b_rs.report(
-            self.files_list, self.scores,
+            self.files_list, self.scores, time_string,
             excluded_files=self.excluded_files, lines=lines,
             level=level, output_filename=output_filename,
             output_format=output_format
@@ -246,6 +249,20 @@ class BanditManager():
             )
             score = res.process(fdata)
         return score
+
+
+def _get_cur_timestring():
+    # timezone agnostic format
+    TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+    try:
+        time_object = datetime.datetime.utcnow()
+        time_string = time_object.strftime(TIME_FORMAT)
+    except OSError as e:
+        # catch the case where we aren't able to get the time
+        return None
+    else:
+        return time_string
 
 
 def _get_files_from_dir(files_dir, included_globs='*.py',

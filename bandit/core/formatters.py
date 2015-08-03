@@ -22,7 +22,7 @@ import six
 from bandit.core import constants
 
 
-def report_csv(result_store, file_list, scores, excluded_files):
+def report_csv(result_store, file_list, scores, excluded_files, time_string):
     '''Prints/returns warnings in JSON format
 
     :param files_list: Which files were inspected
@@ -60,7 +60,8 @@ def report_csv(result_store, file_list, scores, excluded_files):
     print("CSV output written to file: %s" % result_store.out_file)
 
 
-def report_json(result_store, file_list, scores, excluded_files):
+def report_json(result_store, file_list, scores, excluded_files,
+                time_string):
     '''Prints/returns warnings in JSON format
 
     :param files_list: Which files were inspected
@@ -102,6 +103,10 @@ def report_json(result_store, file_list, scores, excluded_files):
         machine_output['results'] = sorted(collector,
                                            key=itemgetter('filename'))
 
+    # if there is a timestamp, include it in the JSON
+    if time_string:
+        machine_output['timestamp'] = time_string
+
     result = json.dumps(machine_output, sort_keys=True,
                         indent=2, separators=(',', ': '))
 
@@ -114,7 +119,7 @@ def report_json(result_store, file_list, scores, excluded_files):
         print(result)
 
 
-def report_text(result_store, files_list, scores, excluded_files):
+def report_text(result_store, files_list, scores, excluded_files, time_string):
     '''Prints the contents of the result store
 
     :param files_list: Which files were inspected
@@ -212,7 +217,7 @@ def report_text(result_store, files_list, scores, excluded_files):
         print(result)
 
 
-def report_xml(result_store, file_list, scores, excluded_files):
+def report_xml(result_store, file_list, scores, excluded_files, time_string):
     '''Prints/returns warnings in XML format (Xunit compatible)
 
     :param files_list: Which files were inspected
