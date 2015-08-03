@@ -18,6 +18,7 @@
 """An object to store/access results associated with Bandit tests."""
 
 from collections import OrderedDict
+import datetime
 import linecache
 
 from bandit.core import constants
@@ -41,6 +42,7 @@ class BanditResultStore():
         self.format = 'txt'
         self.out_file = None
         self.verbose = verbose
+        self.generated_time = _get_cur_datetime()
 
     def skip(self, filename, reason):
         '''Indicates that the specified file was skipped and why
@@ -95,8 +97,8 @@ class BanditResultStore():
         report_func = formatter.plugin
         report_func(self, files_list, scores, excluded_files=excluded_files)
 
-    def report(self, files_list, scores, excluded_files=None, lines=-1,
-               level=1, output_filename=None, output_format=None):
+    def report(self, files_list, scores, excluded_files=None,
+               lines=-1, level=1, output_filename=None, output_format=None):
         '''Prints the contents of the result store
 
         :param scope: Which files were inspected
@@ -123,6 +125,10 @@ class BanditResultStore():
             self._write_report(files_list, scores, excluded_files)
         except IOError:
             print("Unable to write to file: %s" % self.out_file)
+
+    @property
+    def generated_time(self):
+        return self.generated_time
 
     def _get_issue_list(self):
 
@@ -200,3 +206,15 @@ class BanditResultStore():
         :return: boolean result
         '''
         return constants.RANKING.index(severity) >= self.level
+
+
+def _get_cur_datetime():
+    try:
+        time_object = datetime.datetime.utcnow()
+    except OSError as e:
+        # catch the case where we aren't able to get the time
+        return None
+    else:
+        return time_object
+
+
