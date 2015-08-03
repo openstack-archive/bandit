@@ -18,6 +18,7 @@
 """An object to store/access results associated with Bandit tests."""
 
 from collections import OrderedDict
+import datetime
 import linecache
 
 from bandit.core import constants
@@ -41,6 +42,7 @@ class BanditResultStore():
         self.format = 'txt'
         self.out_file = None
         self.verbose = verbose
+        self.generated_time = _get_cur_datetime()
 
     def skip(self, filename, reason):
         '''Indicates that the specified file was skipped and why
@@ -200,3 +202,7 @@ class BanditResultStore():
         :return: boolean result
         '''
         return constants.RANKING.index(severity) >= self.level
+
+
+def _get_cur_datetime():
+    return datetime.datetime.utcnow()
