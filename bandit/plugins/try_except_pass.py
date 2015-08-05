@@ -17,11 +17,12 @@
 import ast
 
 import bandit
-from bandit.core import test_properties
+from bandit.core.test_properties import checks
+from bandit.core.test_properties import takes_config
 
 
-@test_properties.takes_config
-@test_properties.checks('ExceptHandler')
+@takes_config
+@checks('ExceptHandler')
 def try_except_pass(context, config):
     node = context.node
     if len(node.body) == 1:
