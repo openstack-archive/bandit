@@ -37,12 +37,11 @@ def find_word_list(cfg_word_list_f):
         word_list_path = cfg_word_list_f % {'site_data_dir': dir}
         if os.path.isfile(word_list_path):
             if dir == ".":
-                warnings.warn("Using relative path for word_list: %s"
-                              % word_list_path)
+                raise RuntimeError("Using relative path for word_list: {0}"
+                                   "".format(word_list_path))
             return word_list_path
 
-    raise RuntimeError("Could not substitute '%(site_data_dir)s' "
-                       "to a path with a valid word_list file")
+    raise RuntimeError("Could not find a valid word list file")
 
 
 @takes_config
