@@ -62,6 +62,7 @@ class BanditTester():
                     test_config = self.config.get_option(
                         test._takes_config)
                     if test_config is None:
+                        warnings.formatwarning = _warning
                         warnings.warn(
                             '"{0}" has been skipped due to missing config '
                             '"{1}".'.format(test.__name__, test._takes_config)
@@ -114,3 +115,11 @@ class BanditTester():
         import traceback
         what += traceback.format_exc()
         self.logger.error(what)
+
+
+def _warning(message,
+             category = UserWarning,
+             filename = '',
+             lineno = -1,
+             line = ''):
+    return(str(message) + '\n')
