@@ -19,6 +19,7 @@ import argparse
 import logging
 import os
 import sys
+import warnings
 
 from appdirs import site_config_dir
 from appdirs import user_config_dir
@@ -44,6 +45,9 @@ def _init_logger(debug=False, log_format=None):
         log_format_string = '[%(module)s]\t%(levelname)s\t%(message)s'
     else:
         log_format_string = log_format
+
+    logging.captureWarnings(True)
+    warnings.formatwarning = _warning
 
     logger = logging.getLogger()
     logger.setLevel(log_level)
@@ -79,6 +83,15 @@ def _find_config():
     else:
         # Failed to find any config, raise an error.
         raise utils.NoConfigFileFound(config_locations)
+
+
+def _warning(message,
+             category=UserWarning,
+             filename='',
+             lineno=-1,
+             line=''):
+    '''Monkey patch for warnings.warn to suppress cruft output.'''
+    return "{0}\n".format(message)
 
 
 def main():
