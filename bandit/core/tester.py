@@ -21,10 +21,12 @@ import six
 
 from bandit.core import constants
 from bandit.core import context as b_context
+from bandit.core import utils
 
 
 class BanditTester():
 
+    warnings.formatwarning = utils.warnings_formatter
     results = None
 
     def __init__(self, logger, config, results, testset, debug):
