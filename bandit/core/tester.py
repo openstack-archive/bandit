@@ -60,6 +60,8 @@ class BanditTester():
                     # TODO(??): Possibly allow override from profile
                     test_config = self.config.get_option(
                         test._takes_config)
+                    if test_config is None:
+                        continue
                     result = test(context, test_config)
                 else:
                     result = test(context)
