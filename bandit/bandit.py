@@ -66,6 +66,9 @@ def _find_config():
     config_dirs = (
         ['.'] + [appdirs.user_config_dir("bandit")] +
         appdirs.site_config_dir("bandit", multipath=True).split(':'))
+    if hasattr(sys, 'real_prefix'):
+        config_dirs.append(os.environ['VIRTUAL_ENV'] +
+            appdirs.site_config_dir("bandit"))
     config_locations = [s + BASE_CONFIG for s in config_dirs]
 
     # pip on Mac installs to the following path, but appdirs expects to
