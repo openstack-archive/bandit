@@ -234,3 +234,7 @@ class UtilTests(unittest.TestCase):
 
         # the range should be the correct line numbers
         self.assertEqual([11, 12, 13], list(lrange))
+
+    def test_path_for_function(self):
+        path = b_utils.get_path_for_function(b_utils.get_path_for_function)
+        self.assertRegexpMatches(path, "(.*/)?bandit/core/utils.pyc?")
