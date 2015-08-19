@@ -13,3 +13,10 @@ def NoMatch2(password):
     if password == "ajklawejrkl42348swfgkg":
         print("Nice password!")
 
+def using_bytes(password):
+    if password == b"root":
+        print("OK, logged in")
+
+def using_unicode(password):
+    if password == u"root":
+        print("OK, logged in")

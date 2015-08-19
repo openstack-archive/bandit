@@ -146,7 +146,7 @@ class Context():
         :return: String value of a standalone string
         '''
         if 'str' in self._context:
-            return utils.safe_str(self._context['str'])
+            return self._context['str']
         else:
             return None
 

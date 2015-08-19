@@ -46,7 +46,7 @@ def find_word_list(cfg_word_list_f):
 
 
 @takes_config
-@checks('Str')
+@checks('Str', 'Bytes')
 def hardcoded_password(context, config):
     word_list_file = None
     word_list = []
@@ -69,9 +69,14 @@ def hardcoded_password(context, config):
             word_list.append(word.strip())
         f.close()
 
+    if not context.string_val:
+        return
+
+    val = context.string_val
     # for every password in the list, check against the current string
     for word in word_list:
-        if context.string_val and context.string_val == word:
+        if ((isinstance(val, bytes) and val == word.encode('utf8')) or
+                (val == word)):
             return bandit.Issue(
                 severity=bandit.LOW,
                 confidence=bandit.LOW,

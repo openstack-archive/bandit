@@ -260,25 +260,6 @@ def namespace_path_split(path):
     return tuple(path.rsplit('.', 1))
 
 
-def safe_unicode(obj, *args):
-    '''return the unicode representation of obj.'''
-    try:
-        return unicode(obj, *args)
-    except UnicodeDecodeError:
-        # obj is byte string
-        ascii_text = str(obj).encode('string_escape')
-        return unicode(ascii_text)
-
-
-def safe_str(obj):
-    '''return the byte string representation of obj.'''
-    try:
-        return str(obj)
-    except UnicodeEncodeError:
-        # obj is unicode
-        return unicode(obj).encode('unicode_escape')
-
-
 def linerange(node):
     """Get line number range from a node."""
     strip = {"body": None, "orelse": None,

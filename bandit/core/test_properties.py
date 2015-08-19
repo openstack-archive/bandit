@@ -65,9 +65,13 @@ def checks(*args):
             try:
                 holder = getattr(ast, a)
             except AttributeError:
-                raise TypeError(
-                    "Error: %s is not a valid node type in AST" % a
-                )
+                if a == 'Bytes':
+                    logger.debug("check on AST.Bytes requested, but not "
+                                 "available in current python")
+                else:
+                    raise TypeError(
+                        "Error: %s is not a valid node type in AST" % a
+                    )
             else:
                 if holder and issubclass(holder, ast.AST):
                     func._checks.append(a)
