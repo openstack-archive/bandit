@@ -18,6 +18,7 @@ import _ast
 import ast
 import os.path
 import symtable
+import sys
 
 
 """Various helper functions."""
@@ -360,3 +361,18 @@ def get_called_name(node):
         return (func.attr if isinstance(func, ast.Attribute) else func.id)
     except AttributeError:
         return ""
+
+
+def get_path_for_function(f):
+    if hasattr(f, "__module__"):
+        module_name = f.__module__
+    elif hasattr(f, "im_func"):
+        module_name = f.im_func.__module__
+    else:
+        return None
+
+    module = sys.modules[module_name]
+    if hasattr(module, "__file__"):
+        return module.__file__
+    else:
+        return None
