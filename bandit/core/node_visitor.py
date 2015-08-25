@@ -257,6 +257,7 @@ class BanditNodeVisitor(object):
             if ("# nosec" in self.lines[node.lineno - 1] or
                     "#nosec" in self.lines[node.lineno - 1]):
                 self.logger.debug("skipped, nosec")
+                self.results.metrics['nosec'] += 1
                 return
 
         self.context['node'] = node
@@ -317,6 +318,7 @@ class BanditNodeVisitor(object):
         '''
         fdata.seek(0)
         self.lines = fdata.readlines()
+        self.results.metrics['loc'] += len(self.lines)
         f_ast = ast.parse("".join(self.lines))
         self.generic_visit(f_ast)
         return self.scores

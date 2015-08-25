@@ -32,6 +32,7 @@ class BanditResultStore():
 
     def __init__(self, logger, config, agg_type, verbose):
         self.resstore = OrderedDict()
+        self.metrics = {'nosec': 0, 'loc': 0, 'issues': None}
         self.count = 0
         self.skipped = []
         self.logger = logger
@@ -132,6 +133,10 @@ class BanditResultStore():
         except IOError:
             print("Unable to write to file: %s" % self.out_file)
 
+        self.logger.debug("Scores from run: %s", scores)
+        self.metrics['issues'] = self._get_issue_counts(scores)
+        self.logger.debug("Metrics collected from run: %s", self.metrics)
+
     def _get_issue_list(self):
 
         collector = list()
@@ -200,6 +205,25 @@ class BanditResultStore():
         for score_type in scores:
             total = total + sum(scores[score_type][self.sev_level:])
         return total
+
+    def _get_issue_counts(self, scores):
+        '''Get issue counts aggregated by confidence/severity rankings.
+
+        :param scores: list of scores to aggregate / count
+        :return: aggregated total (count) of issues identified
+        '''
+        issue_counts = {}
+        for res in ['CONFIDENCE', 'SEVERITY']:
+            issue_counts[res] = {f: 0 for f in constants.RANKING}
+            for score in scores:
+                for i, subscore in enumerate(score[res]):
+                    label = constants.RANKING[i]
+                    count = (
+                        subscore /
+                        constants.RANKING_VALUES[label]
+                    )
+                    issue_counts[res][label] += count
+        return issue_counts
 
     def _check_severity(self, severity):
         '''Check severity level
