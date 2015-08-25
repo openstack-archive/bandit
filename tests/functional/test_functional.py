@@ -82,6 +82,29 @@ class FunctionalTests(testtools.TestCase):
                 result += sum(test_scores[score_type])
         self.assertEqual(expected, result)
 
+    def check_metrics(self, example_script, expect):
+        '''A helper method to test the metrics being returned.
+
+        :param example_script: Filename of an example script to test
+        :param expect: dict with expected values of metrics
+        '''
+        self.setUp()  # need to reset manager for each test that is run
+        self.run_example(example_script)
+        metrics = self.b_mgr.b_rs.metrics
+        metrics['issues'] = self.b_mgr.b_rs._get_issue_counts(self.b_mgr.scores)
+        # test general metrics (excludes issue counts)
+        for k in expect:
+            if k != 'issues':
+                self.assertEqual(expect[k], metrics[k])
+        # test issue counts
+        if 'issues' in expect:
+            for res in ['CONFIDENCE', 'SEVERITY']:
+                for rank in C.RANKING:
+                    expected = 0
+                    if expect['issues'].get(res, None).get(rank, None):
+                        expected = expect['issues'][res][rank]
+                    self.assertEqual(expected, metrics['issues'][res][rank])
+
     def test_binding(self):
         '''Test the bind-to-0.0.0.0 example.'''
         expect = {'SEVERITY': {'MEDIUM': 1}, 'CONFIDENCE': {'MEDIUM': 1}}
@@ -379,6 +402,23 @@ class FunctionalTests(testtools.TestCase):
                   'CONFIDENCE': {'HIGH': 3}}
 
         self.check_example('try_except_pass.py', expect)
+
+    def test_metric_gathering(self):
+        expect = {
+            'nosec': 2, 'loc': 7,
+            'issues': { 'CONFIDENCE': {'HIGH': 5}, 'SEVERITY': {'LOW': 5} }
+        }
+        self.check_metrics('skip.py', expect)
+        expect = {
+            'nosec': 0, 'loc': 31,
+            'issues': { 'CONFIDENCE': {'MEDIUM': 3}, 'SEVERITY': {'MEDIUM': 3} }
+        }
+        self.check_metrics('multiline-str.py', expect)
+        expect = {
+            'nosec': 0, 'loc': 4,
+            'issues': { 'CONFIDENCE': {'HIGH': 2}, 'SEVERITY': {'LOW': 2} }
+        }
+        self.check_metrics('imports.py', expect)
 
     def test_multiline_code(self):
         '''Test issues in multiline statements return code as expected.'''
