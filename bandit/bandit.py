@@ -230,6 +230,7 @@ def main():
     b_mgr.run_tests()
     if args.debug:
         print(b_mgr.b_ma)
+        print(b_mgr.metrics)
 
     # trigger output of results by Bandit Manager
     sev_level = constants.RANKING[args.severity - 1]
