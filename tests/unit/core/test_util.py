@@ -21,6 +21,8 @@ import shutil
 import tempfile
 import unittest
 
+import six
+
 from bandit.core import utils as b_utils
 
 
@@ -234,3 +236,58 @@ class UtilTests(unittest.TestCase):
 
         # the range should be the correct line numbers
         self.assertEqual([11, 12, 13], list(lrange))
+
+    def test_ast_args_to_str(self):
+        call_node = ast.parse('foo(a, b)')
+        args_str = b_utils.ast_args_to_str(call_node.body[0].value.args)
+        expected = ("\n\tArgument/s:\n\t\tName(id='a', ctx=Load())"
+                    "\n\t\tName(id='b', ctx=Load())")
+        self.assertEqual(expected, args_str)
+        call_node = ast.parse("foo(True, 1, 'cc')")
+        args_str = b_utils.ast_args_to_str(call_node.body[0].value.args)
+        if six.PY2:
+            expected = ("\n\tArgument/s:\n\t\tName(id='True', ctx=Load())"
+                        "\n\t\tNum(n=1)\n\t\tStr(s='cc')")
+        else:
+            expected = ("\n\tArgument/s:\n\t\tNameConstant(value=True)"
+                        "\n\t\tNum(n=1)\n\t\tStr(s='cc')")
+        self.assertEqual(expected, args_str)
+
+    def test_deepgetattr(self):
+        a = type('', (), {})
+        a.b = type('', (), {})
+        a.b.c = type('', (), {})
+        a.b.c.d = 'deep value'
+        a.b.c.d2 = 'deep value 2'
+        a.b.c.e = 'a.b.c'
+        self.assertEqual('deep value', b_utils.deepgetattr(a.b.c, 'd'))
+        self.assertEqual('deep value 2', b_utils.deepgetattr(a.b.c, 'd2'))
+        self.assertEqual('a.b.c', b_utils.deepgetattr(a.b.c, 'e'))
+        self.assertEqual('deep value', b_utils.deepgetattr(a, 'b.c.d'))
+        self.assertEqual('deep value 2', b_utils.deepgetattr(a, 'b.c.d2'))
+        self.assertRaises(AttributeError, b_utils.deepgetattr, a.b, 'z')
+
+    def test_lines_with_context(self):
+        res = b_utils.lines_with_context(2, [0, 1, 2, 3, 4], 20, 100)
+        self.assertEqual([-1, 0, 1, 2, 3, 4, 5], res)
+        res = b_utils.lines_with_context(8, [0, 1, 2, 3, 4, 5, 6, 7], 3, 100)
+        self.assertEqual([7, 8], res)
+        res = b_utils.lines_with_context(8, [0, 1, 2, 3, 4, 5, 6, 7], 3, 6)
+        self.assertEqual([2, 3, 4], res)
+        res = b_utils.lines_with_context(1, [0, 1, 2, 3, 4, 5, 6, 7], 3, 6)
+        self.assertEqual([0, 1, 2], res)
+        res = b_utils.lines_with_context(5, [5, 6, 7], 4, 6)
+        self.assertEqual([4, 5, 6, 7], res)
+        res = b_utils.lines_with_context(0, [0], 0, 0)
+        self.assertEqual([], res)
+        self.assertRaises(
+            ValueError, b_utils.lines_with_context,
+            3, [5, 6, 7], 4, 6
+        )
+
+    def test_safe_str(self):
+        self.assertEqual('abc', b_utils.safe_str('abc'))
+        self.assertEqual('abc', b_utils.safe_str(u'abc'))
+        if six.PY2:
+            self.assertEqual('abc', b_utils.safe_str('abc'))
+            self.assertEqual('\\u2602', b_utils.safe_str(unichr(9730)))
