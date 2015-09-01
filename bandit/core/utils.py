@@ -18,6 +18,8 @@ import _ast
 import ast
 import os.path
 
+import six
+
 
 """Various helper functions."""
 
@@ -129,7 +131,7 @@ def lines_with_context(line_no, line_range, max_lines, file_len):
     # limit scope to max_lines
     if len(l_range) > max_lines:
         # figure out a sane distribution of scope (extra lines after)
-        after = (max_lines - 1) / 2
+        after = (max_lines - 1) // 2
         before = max_lines - (after + 1)
         target = l_range.index(line_no)
 
@@ -245,16 +247,6 @@ def namespace_path_split(path):
               path and the second is the last path component.
     '''
     return tuple(path.rsplit('.', 1))
-
-
-def safe_unicode(obj, *args):
-    '''return the unicode representation of obj.'''
-    try:
-        return unicode(obj, *args)
-    except UnicodeDecodeError:
-        # obj is byte string
-        ascii_text = str(obj).encode('string_escape')
-        return unicode(ascii_text)
 
 
 def safe_str(obj):
