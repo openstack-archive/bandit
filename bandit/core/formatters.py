@@ -54,8 +54,7 @@ def report_csv(result_store, file_list, scores, excluded_files):
         writer = csv.DictWriter(fout, fieldnames=fieldnames,
                                 extrasaction='ignore')
         writer.writeheader()
-        for result in results:
-            writer.writerow(result)
+        writer.writerows(results)
 
     print("CSV output written to file: %s" % result_store.out_file)
 
