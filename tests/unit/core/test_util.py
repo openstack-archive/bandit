@@ -234,3 +234,19 @@ class UtilTests(unittest.TestCase):
 
         # the range should be the correct line numbers
         self.assertEqual([11, 12, 13], list(lrange))
+
+    def test_escaped_representation_simple(self):
+        res = b_utils.escaped_bytes_representation(b"ascii")
+        self.assertEqual(res, b"ascii")
+
+    def test_escaped_representation_valid_not_printable(self):
+        res = b_utils.escaped_bytes_representation(b"\u0000")
+        self.assertEqual(res, b"\\x00")
+
+    def test_escaped_representation_invalid(self):
+        res = b_utils.escaped_bytes_representation(b"\uffff")
+        self.assertEqual(res, b"\\uffff")
+
+    def test_escaped_representation_mixed(self):
+        res = b_utils.escaped_bytes_representation(b"ascii\u0000\uffff")
+        self.assertEqual(res, b"ascii\\x00\\uffff")
