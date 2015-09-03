@@ -14,6 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import logging
 import sys
 
 import yaml
@@ -21,22 +22,21 @@ import yaml
 from bandit.core import constants
 
 
+logger = logging.getLogger(__name__)
+
+
 class BanditConfig():
 
     _config = dict()
-    _logger = None
     _settings = dict()
 
-    def __init__(self, logger, config_file):
+    def __init__(self, config_file):
         '''Attempt to initialize a config dictionary from a yaml file.
 
         Error out if loading the yaml file fails for any reason.
-        :param logger: Logger to be used in the case of errors
         :param config_file: The Bandit yaml config file
         :return: -
         '''
-
-        self._logger = logger
 
         try:
             f = open(config_file, 'r')

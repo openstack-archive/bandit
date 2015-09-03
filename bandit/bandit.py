@@ -184,8 +184,16 @@ def main():
             logger.error(e)
             sys.exit(2)
 
-    b_mgr = b_manager.BanditManager(config_file, args.agg_type,
-                                    args.debug, profile_name=args.profile,
+    b_conf = b_config.BanditConfig(config_file)
+    # if the log format string was set in the options, reinitialize
+    if self.b_conf.get_option('log_format'):
+        # have to clear old handler
+        logger.handlers = []
+        log_format = self.b_conf.get_option('log_format')
+        logger = _init_logger(debug, log_format=log_format)
+
+    b_mgr = b_manager.BanditManager(b_conf, args.agg_type, args.debug,
+                                    profile_name=args.profile,
                                     verbose=args.verbose)
 
     if args.output_format != "json":
