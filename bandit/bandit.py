@@ -23,6 +23,7 @@ import sysconfig
 
 import appdirs
 
+from bandit.core import config as b_config
 from bandit.core import manager as b_manager
 from bandit.core import utils
 
@@ -185,12 +186,21 @@ def main():
             sys.exit(2)
 
     try:
-        b_mgr = b_manager.BanditManager(config_file, args.agg_type,
-                                        args.debug, profile_name=args.profile,
-                                        verbose=args.verbose)
+        b_conf = b_config.BanditConfig(config_file)
     except (utils.ConfigFileUnopenable, utils.ConfigFileInvalidYaml) as e:
         logger.error('%s', e)
         sys.exit(2)
+
+    # if the log format string was set in the options, reinitialize
+    if b_conf.get_option('log_format'):
+        # have to clear old handler
+        logger.handlers = []
+        log_format = b_conf.get_option('log_format')
+        logger = _init_logger(debug, log_format=log_format)
+
+    b_mgr = b_manager.BanditManager(b_conf, args.agg_type, args.debug,
+                                    profile_name=args.profile,
+                                    verbose=args.verbose)
 
     if args.output_format != "json":
         logger.info("using config: %s", config_file)
