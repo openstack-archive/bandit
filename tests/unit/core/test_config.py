@@ -26,9 +26,6 @@ import testtools
 from bandit.core import config
 
 
-LOG = logging.getLogger('bandit.test')
-
-
 class TempFile(fixtures.Fixture):
     def __init__(self, contents=None):
         super(TempFile, self).__init__()
@@ -56,7 +53,7 @@ class TestInit(testtools.TestCase):
         # Can initialize a BanditConfig.
 
         f = self.useFixture(TempFile())
-        b_config = config.BanditConfig(LOG, f.name)
+        b_config = config.BanditConfig(f.name)
 
         # After initialization, can get settings.
         self.assertEqual(50, b_config.get_setting('progress'))
@@ -78,7 +75,7 @@ class TestInit(testtools.TestCase):
         m = self.useFixture(
             fixtures.MockPatch('sys.exit', side_effect=Exception)).mock
 
-        self.assertRaises(Exception, config.BanditConfig, LOG, cfg_file)
+        self.assertRaises(Exception, config.BanditConfig, cfg_file)
 
         m.assert_called_once_with(2)
 
@@ -93,7 +90,7 @@ class TestInit(testtools.TestCase):
         m = self.useFixture(
             fixtures.MockPatch('sys.exit', side_effect=Exception)).mock
 
-        self.assertRaises(Exception, config.BanditConfig, LOG, f.name)
+        self.assertRaises(Exception, config.BanditConfig, f.name)
 
         m.assert_called_once_with(2)
 
@@ -105,7 +102,7 @@ class TestInit(testtools.TestCase):
         sample_yaml = 'show_progress_every: %s' % example_value
         f = self.useFixture(TempFile(sample_yaml))
 
-        b_config = config.BanditConfig(LOG, f.name)
+        b_config = config.BanditConfig(f.name)
         self.assertEqual(example_value, b_config.get_setting('progress'))
 
     def test_colors_isatty_defaults(self):
@@ -116,7 +113,7 @@ class TestInit(testtools.TestCase):
         self.useFixture(
             fixtures.MockPatch('sys.stdout.isatty', return_value=True))
 
-        b_config = config.BanditConfig(LOG, f.name)
+        b_config = config.BanditConfig(f.name)
 
         self.assertEqual('\x1b[95m', b_config.get_setting('color_HEADER'))
         self.assertEqual('\x1b[0m', b_config.get_setting('color_DEFAULT'))
@@ -136,7 +133,7 @@ output_colors:
 """
         f = self.useFixture(TempFile(sample_yaml))
 
-        b_config = config.BanditConfig(LOG, f.name)
+        b_config = config.BanditConfig(f.name)
 
         self.assertEqual('\x1b[23m', b_config.get_setting('color_HEADER'))
 
@@ -154,7 +151,7 @@ class TestGetOption(testtools.TestCase):
 """ % (self.example_key, self.example_subkey, self.example_subvalue)
         f = self.useFixture(TempFile(sample_yaml))
 
-        self.b_config = config.BanditConfig(LOG, f.name)
+        self.b_config = config.BanditConfig(f.name)
 
     def test_levels(self):
         # get_option with .-separated string.
@@ -174,7 +171,7 @@ class TestGetSetting(testtools.TestCase):
     def setUp(self):
         super(TestGetSetting, self).setUp()
         f = self.useFixture(TempFile())
-        self.b_config = config.BanditConfig(LOG, f.name)
+        self.b_config = config.BanditConfig(f.name)
 
     def test_not_exist(self):
         # get_setting() when the name doesn't exist returns None

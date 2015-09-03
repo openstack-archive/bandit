@@ -16,6 +16,7 @@
 
 import ast
 import copy
+import logging
 
 from bandit.core import constants
 from bandit.core import tester as b_tester
@@ -23,11 +24,13 @@ from bandit.core import utils as b_utils
 from bandit.core.utils import InvalidModulePath
 
 
+logger = logging.getLogger(__name__)
+
+
 class BanditNodeVisitor(object):
 
     imports = set()
     import_aliases = {}
-    logger = None
     results = None
     tester = None
     testset = None
@@ -40,7 +43,7 @@ class BanditNodeVisitor(object):
                         'imports': None, 'import_aliases': None, 'call': None,
                         'function': None, 'lineno': None, 'skip_lines': None}
 
-    def __init__(self, fname, logger, config, metaast, results, testset,
+    def __init__(self, fname, config, metaast, results, testset,
                  debug):
         self.debug = debug
         self.seen = 0
@@ -49,7 +52,6 @@ class BanditNodeVisitor(object):
             'CONFIDENCE': [0] * len(constants.RANKING)
         }
         self.fname = fname
-        self.logger = logger
         self.config = config
         self.metaast = metaast
         self.results = results
@@ -59,17 +61,17 @@ class BanditNodeVisitor(object):
         self.import_aliases = {}
         self.context_template['import_aliases'] = self.import_aliases
         self.tester = b_tester.BanditTester(
-            self.logger, self.config, self.results, self.testset, self.debug
+            self.config, self.results, self.testset, self.debug
         )
 
         # in some cases we can't determine a qualified name
         try:
             self.namespace = b_utils.get_module_qualname_from_path(fname)
         except InvalidModulePath:
-            self.logger.info('Unable to find qualified name for module: %s',
-                             self.fname)
+            logger.info('Unable to find qualified name for module: %s',
+                        self.fname)
             self.namespace = ""
-        self.logger.debug('Module qualified name: %s', self.namespace)
+        logger.debug('Module qualified name: %s', self.namespace)
         self.lines = []
 
     def visit_ClassDef(self, node):
@@ -81,7 +83,7 @@ class BanditNodeVisitor(object):
         '''
 
         if self.debug:
-            self.logger.debug("visit_ClassDef called (%s)", ast.dump(node))
+            logger.debug("visit_ClassDef called (%s)", ast.dump(node))
 
         # For all child nodes, add this class name to current namespace
         self.namespace = b_utils.namespace_path_join(self.namespace, node.name)
@@ -101,7 +103,7 @@ class BanditNodeVisitor(object):
         self.context['function'] = node
 
         if self.debug:
-            self.logger.debug("visit_FunctionDef called (%s)", ast.dump(node))
+            logger.debug("visit_FunctionDef called (%s)", ast.dump(node))
 
         qualname = self.namespace + '.' + b_utils.get_func_name(node)
         name = qualname.split('.')[-1]
@@ -128,7 +130,7 @@ class BanditNodeVisitor(object):
         self.context['call'] = node
 
         if self.debug:
-            self.logger.debug("visit_Call called (%s)", ast.dump(node))
+            logger.debug("visit_Call called (%s)", ast.dump(node))
 
         qualname = b_utils.get_call_name(node, self.import_aliases)
         name = qualname.split('.')[-1]
@@ -148,7 +150,7 @@ class BanditNodeVisitor(object):
         :return: -
         '''
         if self.debug:
-            self.logger.debug("visit_Import called (%s)", ast.dump(node))
+            logger.debug("visit_Import called (%s)", ast.dump(node))
 
         for nodename in node.names:
             if nodename.asname:
@@ -167,7 +169,7 @@ class BanditNodeVisitor(object):
         :return: -
         '''
         if self.debug:
-            self.logger.debug("visit_ImportFrom called (%s)", ast.dump(node))
+            logger.debug("visit_ImportFrom called (%s)", ast.dump(node))
 
         module = node.module
         if module is None:
@@ -205,7 +207,7 @@ class BanditNodeVisitor(object):
         self.context['str'] = node.s
 
         if self.debug:
-            self.logger.debug("visit_Str called (%s)", ast.dump(node))
+            logger.debug("visit_Str called (%s)", ast.dump(node))
 
         if not isinstance(node.parent, ast.Expr):  # docstring
             self.context['linerange'] = b_utils.linerange_fix(node.parent)
@@ -223,7 +225,7 @@ class BanditNodeVisitor(object):
         self.context['bytes'] = node.s
 
         if self.debug:
-            self.logger.debug("visit_Bytes called (%s)", ast.dump(node))
+            logger.debug("visit_Bytes called (%s)", ast.dump(node))
 
         if not isinstance(node.parent, ast.Expr):  # docstring
             self.context['linerange'] = b_utils.linerange_fix(node.parent)
@@ -234,7 +236,7 @@ class BanditNodeVisitor(object):
         self.context['str'] = 'exec'
 
         if self.debug:
-            self.logger.debug("visit_Exec called (%s)", ast.dump(node))
+            logger.debug("visit_Exec called (%s)", ast.dump(node))
 
         self.update_scores(self.tester.run_tests(self.context, 'Exec'))
         self.generic_visit(node)
@@ -243,15 +245,15 @@ class BanditNodeVisitor(object):
         self.context['str'] = 'assert'
 
         if self.debug:
-            self.logger.debug("visit_Assert called (%s)", ast.dump(node))
+            logger.debug("visit_Assert called (%s)", ast.dump(node))
 
         self.update_scores(self.tester.run_tests(self.context, 'Assert'))
         self.generic_visit(node)
 
     def visit_ExceptHandler(self, node):
         if self.debug:
-            self.logger.debug("visit_ExceptHandler called (%s)",
-                              ast.dump(node))
+            logger.debug("visit_ExceptHandler called (%s)",
+                         ast.dump(node))
 
         self.update_scores(self.tester.run_tests(self.context,
                                                  'ExceptHandler'))
@@ -267,14 +269,14 @@ class BanditNodeVisitor(object):
         self.context = copy.copy(self.context_template)
 
         if self.debug:
-            self.logger.debug(ast.dump(node))
+            logger.debug(ast.dump(node))
 
         self.metaast.add_node(node, '', self.depth)
         if hasattr(node, 'lineno'):
             self.context['lineno'] = node.lineno
             if ("# nosec" in self.lines[node.lineno - 1] or
                     "#nosec" in self.lines[node.lineno - 1]):
-                self.logger.debug("skipped, nosec")
+                logger.debug("skipped, nosec")
                 return
 
         self.context['node'] = node
@@ -282,8 +284,8 @@ class BanditNodeVisitor(object):
         self.context['filename'] = self.fname
 
         self.seen += 1
-        self.logger.debug("entering: %s %s [%s]", hex(id(node)), type(node),
-                          self.depth)
+        logger.debug("entering: %s %s [%s]", hex(id(node)), type(node),
+                     self.depth)
         self.depth += 1
 
         method = 'visit_' + node.__class__.__name__
@@ -291,7 +293,7 @@ class BanditNodeVisitor(object):
         visitor(node)
 
         self.depth -= 1
-        self.logger.debug("%s\texiting : %s", self.depth, hex(id(node)))
+        logger.debug("%s\texiting : %s", self.depth, hex(id(node)))
 
     def generic_visit(self, node):
         """Drive the visitor."""
