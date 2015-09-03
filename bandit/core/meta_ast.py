@@ -14,16 +14,17 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import logging
 
 from collections import OrderedDict
+
+
+logger = logging.getLogger(__name__)
 
 
 class BanditMetaAst():
 
     nodes = OrderedDict()
-
-    def __init__(self, logger):
-        self.logger = logger
 
     def add_node(self, node, parent_id, depth):
         '''Add a node to the AST node collection
@@ -34,7 +35,7 @@ class BanditMetaAst():
         :return: -
         '''
         node_id = hex(id(node))
-        self.logger.debug('adding node : %s [%s]', node_id, depth)
+        logger.debug('adding node : %s [%s]', node_id, depth)
         self.nodes[node_id] = {
             'raw': node, 'parent_id': parent_id, 'depth': depth
         }
