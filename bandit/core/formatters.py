@@ -16,6 +16,7 @@ import csv
 import datetime
 import json
 from operator import itemgetter
+import sys
 
 import six
 
@@ -42,10 +43,12 @@ def report_csv(manager, filename, sev_level, conf_level, lines, out_format):
 
     results = manager.get_issue_list()
 
-    if filename is None:
-        filename = 'bandit_results.csv'
+    try:
+        if filename is not None:
+            out = open(filename, 'w')
+        else:
+            out = sys.stdout
 
-    with open(filename, 'w') as fout:
         fieldnames = ['filename',
                       'test_name',
                       'issue_severity',
@@ -54,7 +57,7 @@ def report_csv(manager, filename, sev_level, conf_level, lines, out_format):
                       'line_number',
                       'line_range']
 
-        writer = csv.DictWriter(fout, fieldnames=fieldnames,
+        writer = csv.DictWriter(out, fieldnames=fieldnames,
                                 extrasaction='ignore')
         writer.writeheader()
         for result in results:
@@ -62,7 +65,13 @@ def report_csv(manager, filename, sev_level, conf_level, lines, out_format):
             if result.filter(rank[sev_level], rank[conf_level]):
                 writer.writerow(result.as_dict(with_code=False))
 
-    print("CSV output written to file: %s" % filename)
+        print("CSV output written to file: %s" % filename)
+    except Exception:
+        raise
+
+    finally:
+        if filename is not None:
+            out.close()
 
 
 def report_json(manager, filename, sev_level, conf_level, lines, out_format):
@@ -238,27 +247,35 @@ def report_xml(manager, filename, sev_level, conf_level, lines, out_format):
 
     import xml.etree.cElementTree as ET
 
-    if filename is None:
-        filename = 'bandit_results.xml'
+    try:
+        if filename is not None:
+            out = open(filename, 'w')
+        else:
+            out = sys.stdout
 
-    issues = manager.get_issue_list()
-    root = ET.Element('testsuite', name='bandit', tests=str(len(issues)))
+        issues = manager.get_issue_list()
+        root = ET.Element('testsuite', name='bandit', tests=str(len(issues)))
 
-    for issue in issues:
-        test = issue.test
-        testcase = ET.SubElement(root, 'testcase',
-                                 classname=issue.fname, name=test)
-        rank = constants.RANKING
-        if issue.filter(rank[sev_level], rank[conf_level]):
-            text = 'Severity: %s Confidence: %s\n%s\nLocation %s:%s'
-            text = text % (
-                issue.severity, issue.confidence,
-                issue.text, issue.fname, issue.lineno)
-            ET.SubElement(testcase, 'error',
-                          type=issue.severity,
-                          message=issue.text).text = text
+        for issue in issues:
+            test = issue.test
+            testcase = ET.SubElement(root, 'testcase',
+                                     classname=issue.fname, name=test)
+            rank = constants.RANKING
+            if issue.filter(rank[sev_level], rank[conf_level]):
+                text = 'Severity: %s Confidence: %s\n%s\nLocation %s:%s'
+                text = text % (
+                    issue.severity, issue.confidence,
+                    issue.text, issue.fname, issue.lineno)
+                ET.SubElement(testcase, 'error',
+                              type=issue.severity,
+                              message=issue.text).text = text
 
-    tree = ET.ElementTree(root)
-    tree.write(filename, encoding='utf-8', xml_declaration=True)
+        tree = ET.ElementTree(root)
+        tree.write(out, encoding='utf-8', xml_declaration=True)
 
-    print("XML output written to file: %s" % filename)
+        print("XML output written to file: %s" % filename)
+    except Exception:
+        raise
+    finally:
+        if filename is not None:
+            out.close()
