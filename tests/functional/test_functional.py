@@ -191,7 +191,7 @@ class FunctionalTests(testtools.TestCase):
                 'SEVERITY': {'MEDIUM': 2, 'HIGH': 9},
                 'CONFIDENCE': {'HIGH': 10, 'MEDIUM': 1}
             }
-        self.check_example('os-chmod.py', expect)
+        self.check_example(filename, expect)
 
     def test_os_exec(self):
         '''Test for `os.exec*`.'''
