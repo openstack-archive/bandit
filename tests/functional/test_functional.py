@@ -97,6 +97,11 @@ class FunctionalTests(testtools.TestCase):
         expect = {'SEVERITY': {'LOW': 1, 'HIGH': 8}, 'CONFIDENCE': {'HIGH': 9}}
         self.check_example('ciphers.py', expect)
 
+    def test_cipher_modes(self):
+        '''Test for insecure cipher modes.'''
+        expect = {'SEVERITY': {'HIGH': 8}, 'CONFIDENCE': {'HIGH': 8}}
+        self.check_example('cipher-modes.py', expect)
+
     def test_eval(self):
         '''Test the `eval` example.'''
         expect = {'SEVERITY': {'MEDIUM': 3}, 'CONFIDENCE': {'HIGH': 3}}
@@ -174,7 +179,7 @@ class FunctionalTests(testtools.TestCase):
     def test_nonsense(self):
         '''Test that a syntactically invalid module is skipped.'''
         self.run_example('nonsense.py')
-        self.assertEqual(1, len(self.b_mgr.b_rs.skipped))
+        self.assertEqual(1, len(self.b_mgr.skipped))
 
     def test_okay(self):
         '''Test a vulnerability-free file.'''
@@ -381,27 +386,6 @@ class FunctionalTests(testtools.TestCase):
 
         self.check_example('try_except_pass.py', expect)
 
-    def test_multiline_code(self):
-        '''Test issues in multiline statements return code as expected.'''
-        self.run_example('multiline-str.py')
-        self.assertEqual(0, len(self.b_mgr.b_rs.skipped))
-        self.assertEqual(1, len(self.b_mgr.files_list))
-        self.assertTrue(self.b_mgr.files_list[0].endswith('multiline-str.py'))
-        issues = self.b_mgr.b_rs._get_issue_list()
-        self.assertEqual(3, len(issues))
-        self.assertTrue(
-            issues[0]['filename'].endswith('examples/multiline-str.py')
-        )
-        self.assertEqual(4, issues[0]['line_number'])
-        self.assertEqual(range(2, 7), issues[0]['line_range'])
-        self.assertIn('/tmp', issues[0]['code'])
-        self.assertEqual(18, issues[1]['line_number'])
-        self.assertEqual(range(16, 19), issues[1]['line_range'])
-        self.assertIn('/tmp', issues[1]['code'])
-        self.assertEqual(23, issues[2]['line_number'])
-        self.assertEqual(range(22, 31), issues[2]['line_range'])
-        self.assertIn('/tmp', issues[2]['code'])
-
     def test_weak_cryptographic_key(self):
         '''Test for weak key sizes.'''
         expect = {
@@ -409,3 +393,25 @@ class FunctionalTests(testtools.TestCase):
             'CONFIDENCE': {'HIGH': 8}
         }
         self.check_example('weak_cryptographic_key_sizes.py', expect)
+
+    def test_multiline_code(self):
+        '''Test issues in multiline statements return code as expected.'''
+        self.run_example('multiline-str.py')
+        self.assertEqual(0, len(self.b_mgr.skipped))
+        self.assertEqual(1, len(self.b_mgr.files_list))
+        self.assertTrue(self.b_mgr.files_list[0].endswith('multiline-str.py'))
+        issues = self.b_mgr.get_issue_list()
+        self.assertEqual(3, len(issues))
+        self.assertTrue(
+            issues[0].fname.endswith('examples/multiline-str.py')
+        )
+
+        self.assertEqual(4, issues[0].lineno)
+        self.assertEqual(range(2, 7), issues[0].linerange)
+        self.assertIn('/tmp', issues[0].get_code())
+        self.assertEqual(18, issues[1].lineno)
+        self.assertEqual(range(16, 19), issues[1].linerange)
+        self.assertIn('/tmp', issues[1].get_code())
+        self.assertEqual(23, issues[2].lineno)
+        self.assertEqual(range(22, 31), issues[2].linerange)
+        self.assertIn('/tmp', issues[2].get_code())
