@@ -82,7 +82,7 @@ profiles:
 blacklist_calls:
     bad_name_sets:
         - pickle:
-            qualnames: 
+            qualnames:
                 - pickle.loads
                 - pickle.load
                 - pickle.Unpickler
@@ -96,7 +96,7 @@ blacklist_calls:
             message: >
                 Deserialization with the marshal module is possibly dangerous.
         - md5:
-            qualnames: 
+            qualnames:
                 - hashlib.md5
                 - Crypto.Hash.MD2.new
                 - Crypto.Hash.MD4.new
@@ -116,6 +116,17 @@ blacklist_calls:
             message: >
                 Use of insecure cipher {func}. Replace with a known secure
                 cipher such as AES.
+        - cipher_modes:
+            names:
+                - Crypto.Cipher.AES.MODE_ECB
+                - Crypto.Cipher.ARC2.MODE_ECB
+                - Crypto.Cipher.Blowfish.MODE_ECB
+                - Crypto.Cipher.CAST.MODE_ECB
+                - Crypto.Cipher.DES.MODE_ECB
+                - Crypto.Cipher.DES3.MODE_ECB
+                - Crypto.Cipher.blockalgo.MODE_ECB
+                - cryptography.hazmat.primitives.ciphers.modes.ECB
+            message: Use of insecure cipher mode {func}.
             level: HIGH
         - mktemp_q:
             qualnames: [tempfile.mktemp]
@@ -141,7 +152,7 @@ blacklist_calls:
                 Use of unsafe yaml load. Allows instantiation of arbitrary
                 objects. Consider yaml.safe_load().
         - urllib_urlopen:
-            qualnames: 
+            qualnames:
                 - urllib.urlopen
                 - urllib.urlretrieve
                 - urllib.URLopener
@@ -173,7 +184,7 @@ blacklist_calls:
         # Most of this is based off of Christian Heimes' work on defusedxml:
         #   https://pypi.python.org/pypi/defusedxml/#defusedxml-sax
         - xml_bad_cElementTree:
-            qualnames: 
+            qualnames:
                 - xml.etree.cElementTree.parse
                 - xml.etree.cElementTree.iterparse
                 - xml.etree.cElementTree.fromstring
