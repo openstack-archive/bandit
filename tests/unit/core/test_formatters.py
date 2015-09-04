@@ -19,6 +19,7 @@ import os
 import tempfile
 from xml.etree import cElementTree as ET
 
+from pyquery import PyQuery
 import six
 import testtools
 
@@ -137,3 +138,12 @@ class FormattersTests(testtools.TestCase):
                 data['testsuite']['testcase']['error']['@message'])
             self.assertEqual(self.check_name,
                 data['testsuite']['testcase']['@name'])
+
+    def test_report_html(self):
+        formatters.report_html(self.manager.b_rs, None, None, None)
+
+        with open(self.tmp_fname) as f:
+            pq = PyQuery(f.read())
+            self.assertEqual(self.issue[0], pq('span.severity').text())
+            self.assertEqual(self.issue[1], pq('span.confidence').text())
+            self.assertEqual(self.issue[2], pq('h2.test_text').text())
