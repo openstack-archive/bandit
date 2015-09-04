@@ -18,6 +18,10 @@ import json
 from operator import itemgetter
 
 import six
+from pygments import highlight
+from pygments.lexers import PythonLexer
+from pygments.formatters import HtmlFormatter
+
 
 from bandit.core import constants
 
@@ -257,3 +261,83 @@ def report_xml(result_store, file_list, scores, excluded_files):
     tree.write(result_store.out_file, encoding='utf-8', xml_declaration=True)
 
     print("XML output written to file: %s" % result_store.out_file)
+
+
+def report_html(result_store, file_list, scores, excluded_files):
+    '''Prints/returns warnings in HTML format
+
+    :param result_store: results of scan as BanditResultStore object
+    :param files_list: Which files were inspected
+    :param scores: The scores awarded to each file in the scope
+    :param excluded_files: Which files were excluded from the scope
+    :return: A collection containing the HTML data
+    '''
+
+    report_block = """
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    {style_css}
+</style>
+<title>
+    Bandit Report
+</title>
+</head>
+<body>
+    <div class="results">
+        {results}
+    </div>
+</body>
+</html>
+    """
+
+    if result_store.out_file is None:
+        result_store.out_file = 'bandit_results.html'
+
+    results = {}
+
+    for key in result_store.resstore:
+        file_issues = result_store.resstore[key]
+        file_name = key
+
+        issue_block = """
+<h2>{test_text}</h2>
+<div class="details">
+    <b>Severity: </b> <span class='severity_{severity}'>{severity}</span><br />
+    <b>Confidence: </b> {confidence} <br />
+    <b>File: </b><a href='{path}' target='_blank'>{path}</a> <br />
+</div>
+
+<div class="code">
+    {code}
+</div>
+        """
+        results[file_name] = []
+        for issue in file_issues:
+            formatter = HtmlFormatter(
+                linenos='table', linenostart=(min(issue['linerange']) - 1)
+            )
+            code = result_store._get_code(issue, False)
+            code = highlight(code, PythonLexer(), formatter)
+            temp_result = issue_block.format(
+                test_text=issue['issue_text'],
+                severity=issue['issue_severity'],
+                confidence=issue['issue_confidence'],
+                path=file_name, code=code
+            )
+            results[file_name].append(temp_result)
+
+    with open(result_store.out_file, 'w') as fout:
+        results_str = ""
+        for res in results:
+            if results[res]:
+                for result in results[res]:
+                    results_str += result + "\n"
+
+        report = report_block.format(
+            style_css=HtmlFormatter().get_style_defs(), results=results_str
+        )
+        fout.write(report)
+
+    print("HTML output written to file: %s" % result_store.out_file)
