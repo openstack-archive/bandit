@@ -19,6 +19,7 @@ import os
 import tempfile
 from xml.etree import cElementTree as ET
 
+from bs4 import BeautifulSoup
 import six
 import testtools
 
@@ -137,3 +138,15 @@ class FormattersTests(testtools.TestCase):
                 data['testsuite']['testcase']['error']['@message'])
             self.assertEqual(self.check_name,
                 data['testsuite']['testcase']['@name'])
+
+    def test_report_html(self):
+        formatters.report_html(self.manager.b_rs, None, None, None)
+
+        with open(self.tmp_fname) as f:
+            soup = BeautifulSoup(f.read(), 'html.parser')
+            sev_span = soup.find_all('span', class_='severity')[0]
+            conf_span = soup.find_all('span', class_='confidence')[0]
+            text_h2 = soup.find_all('h2', class_='test_text')[0]
+            self.assertEqual(self.issue[0], sev_span.string)
+            self.assertEqual(self.issue[1], conf_span.string)
+            self.assertEqual(self.issue[2], text_h2.string)
