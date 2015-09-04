@@ -96,13 +96,25 @@ blacklist_calls:
             message: >
                 Deserialization with the marshal module is possibly dangerous.
         - md5:
-            qualnames: 
+            qualnames:
                 - hashlib.md5
                 - Crypto.Hash.MD2.new
                 - Crypto.Hash.MD4.new
                 - Crypto.Hash.MD5.new
                 - cryptography.hazmat.primitives.hashes.MD5
             message: Use of insecure MD2, MD4, or MD5 hash function.
+        - cipher_modes:
+            names:
+                - Crypto.Cipher.AES.MODE_ECB
+                - Crypto.Cipher.ARC2.MODE_ECB
+                - Crypto.Cipher.Blowfish.MODE_ECB
+                - Crypto.Cipher.CAST.MODE_ECB
+                - Crypto.Cipher.DES.MODE_ECB
+                - Crypto.Cipher.DES3.MODE_ECB
+                - Crypto.Cipher.blockalgo.MODE_ECB
+                - cryptography.hazmat.primitives.ciphers.modes.ECB
+            message: Use of insecure cipher mode {func}.
+            level: HIGH
         - mktemp_q:
             qualnames: [tempfile.mktemp]
             message: Use of insecure and deprecated function (mktemp).
