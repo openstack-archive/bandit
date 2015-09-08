@@ -26,9 +26,11 @@ import bandit
 from bandit.core import constants
 from bandit.core import config
 from bandit.core import manager
-from bandit.core import formatters
 from bandit.core import issue
-
+from bandit.formatters import csv as b_csv
+from bandit.formatters import json as b_json
+from bandit.formatters import text as b_text
+from bandit.formatters import xml as b_xml
 
 class FormattersTests(testtools.TestCase):
 
@@ -54,8 +56,8 @@ class FormattersTests(testtools.TestCase):
         self.manager.results.append(self.issue)
 
     def test_report_csv(self):
-        formatters.report_csv(self.manager, self.tmp_fname,
-                              self.issue.severity, self.issue.confidence)
+        b_csv.report(self.manager, self.tmp_fname, self.issue.severity,
+                     self.issue.confidence)
 
         with open(self.tmp_fname) as f:
             reader = csv.DictReader(f)
@@ -75,8 +77,8 @@ class FormattersTests(testtools.TestCase):
         self.manager.scores = [{'SEVERITY': [0] * len(constants.RANKING),
                                 'CONFIDENCE': [0] * len(constants.RANKING)}]
 
-        formatters.report_json(self.manager, self.tmp_fname,
-                               self.issue.severity, self.issue.confidence)
+        b_json.report(self.manager, self.tmp_fname, self.issue.severity,
+                      self.issue.confidence)
 
         with open(self.tmp_fname) as f:
             data = json.loads(f.read())
@@ -102,8 +104,8 @@ class FormattersTests(testtools.TestCase):
                    'CONFIDENCE': [0] * len(constants.RANKING)}]
         exc_files = ['test_binding.py']
 
-        formatters.report_text(self.manager, self.tmp_fname,
-                               self.issue.severity, self.issue.confidence)
+        b_text.report(self.manager, self.tmp_fname, self.issue.severity,
+                      self.issue.confidence)
 
         with open(self.tmp_fname) as f:
             data = f.read()
@@ -138,8 +140,8 @@ class FormattersTests(testtools.TestCase):
         return d
 
     def test_report_xml(self):
-        formatters.report_xml(self.manager, self.tmp_fname,
-                             self.issue.severity, self.issue.confidence)
+        b_xml.report(self.manager, self.tmp_fname, self.issue.severity,
+                     self.issue.confidence)
 
         with open(self.tmp_fname) as f:
             data = self._xml_to_dict(ET.XML(f.read()))
