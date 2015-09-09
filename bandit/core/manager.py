@@ -18,6 +18,8 @@ import fnmatch
 import logging
 import os
 import sys
+from functools import partial
+import multiprocessing
 
 from bandit.core import constants as constants
 from bandit.core import extension_loader
@@ -27,6 +29,55 @@ from bandit.core import test_set as b_test_set
 
 
 logger = logging.getLogger(__name__)
+
+
+def parallel_run_tests(b_conf, b_ma, b_ts, debug, fname):
+    '''Runs all tests for a single file, via the NodeVisitor
+
+    Implemented as a class-level function, so it can be passed into and
+    executed by the multiprocessing library.
+
+    :return: -
+    '''
+    pname = multiprocessing.current_process().name
+    logger.debug("%s working on file : %s", pname, fname)
+    skipped = False
+    results = []
+    scores = []
+    try:
+        with open(fname, 'rU') as fdata:
+            try:
+                results, scores = _execute_ast_visitor(
+                    fname, fdata, b_conf, b_ma, b_ts, debug
+                )
+            except KeyboardInterrupt as e:
+                sys.exit(2)
+    except IOError as e:
+        skipped = e.strerror
+    except SyntaxError as e:
+        skipped = "syntax error while parsing AST from file"
+    return (fname, results, scores, skipped)
+
+
+def _execute_ast_visitor(fname, fdata, b_conf, b_ma, b_ts, debug):
+    '''Execute AST parse on each file
+
+    :param fname: The name of the file being parsed
+    :param fdata: The file data of the file being parsed
+    :param b_ma: The Meta AST instance
+    :param b_ts: The test set instance
+    :param debug: Debug flag
+    :return: List of results and the accumulated test score
+    '''
+    results = []
+    scores = None
+    if fdata is not None:
+        res = b_node_visitor.BanditNodeVisitor(
+            fname, b_conf, b_ma, b_ts, debug
+        )
+        scores = res.process(fdata)
+        results.extend(res.tester.results)
+    return (results, scores)
 
 
 class BanditManager():
@@ -194,49 +245,55 @@ class BanditManager():
         return True
 
     def run_tests(self):
-        '''Runs through all files in the scope
+        '''Runs through all files in the scope using multiprocessing module
+
+        This function does not return results, but stores them within the
+        BanditManager instance.
 
         :return: -
         '''
-        # display progress, if number of files warrants it
-        if len(self.files_list) > self.progress:
-            sys.stdout.write("%s [" % len(self.files_list))
+        # create a pool using all available cores
+        # TODO(chair6) - investigate smarter Pool creation (# cores, etc)
+        pool = multiprocessing.Pool()
+        logger.debug(
+            'Multiprocessing pool created with %s processes',
+            pool._processes
+        )
+        # partial to freeze set args into pickle-able state for multiprocessing
+        func = partial(
+            parallel_run_tests, self.b_conf, self.b_ma, self.b_ts, self.debug
+        )
+        # pass the pool the partial fun and the list of files in scope
+        p = pool.map_async(func, self.files_list)
+        returned = []
+        # poll pool for results, exiting if KeyboardInterrupt received
+        # we use p.get(timeout) so we can respond to ctrl-c immediately
+        try:
+            interim_results = p.get(timeout=0xFFFF)
+            returned.extend(interim_results)
+        except KeyboardInterrupt:
+            print('Terminating scan - Ctrl-C received')
+            sys.exit(2)
+        pool.close()
+        pool.join()
 
-        # if we have problems with a file, we'll remove it from the files_list
-        # and add it to the skipped list instead
-        new_files_list = list(self.files_list)
-
-        for count, fname in enumerate(self.files_list):
-            logger.debug("working on file : %s", fname)
-
-            if len(self.files_list) > self.progress:
-                # is it time to update the progress indicator?
-                if count % self.progress == 0:
-                    sys.stdout.write("%s.. " % count)
-                    sys.stdout.flush()
-            try:
-                with open(fname, 'rU') as fdata:
-                    try:
-                        # parse the current file
-                        score = self._execute_ast_visitor(
-                            fname, fdata, self.b_ma, self.b_ts)
-                        self.scores.append(score)
-                    except KeyboardInterrupt as e:
-                        sys.exit(2)
-            except IOError as e:
-                self.skipped.append((fname, e.strerror))
-                new_files_list.remove(fname)
-            except SyntaxError as e:
-                self.skipped.append(
-                    (fname, "syntax error while parsing AST from file"))
-                new_files_list.remove(fname)
-
-        if len(self.files_list) > self.progress:
-            sys.stdout.write("]\n")
-            sys.stdout.flush()
-
-        # reflect any files which may have been skipped
-        self.files_list = new_files_list
+        # combine results from worker processes into BanditManager
+        issues_count = 0
+        for result in sorted(returned, key=lambda x: x[0]):
+            fname, issues, scores, skipped = result
+            if skipped:
+                self.skipped.append((fname, skipped))
+            else:
+                self.results.extend(issues)
+                issues_count += len(issues)
+                self.scores.append(scores)
+        logger.debug('Files identified: %s', len(self.files_list))
+        logger.debug(
+            'Files scanned: %s',
+            len(self.files_list) - len(self.skipped)
+        )
+        logger.debug('Files skipped: %s', len(self.skipped))
+        logger.debug('Issues identified: %s', issues_count)
 
     def _execute_ast_visitor(self, fname, fdata, b_ma, b_ts):
         '''Execute AST parse on each file
