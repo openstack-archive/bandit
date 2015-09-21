@@ -37,7 +37,7 @@ class Issue(object):
             self.text, (self.ident or self.test), self.severity,
             self.confidence, self.fname, self.lineno)
 
-    def filter(self, confidence, severity):
+    def filter(self, severity, confidence):
         '''Used to filter on confidence and severity.
 
         This wil return false if either the confidence or severity of the issue
