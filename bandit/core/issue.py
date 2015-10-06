@@ -18,6 +18,7 @@ from bandit.core import constants
 from bandit.core import utils
 
 import linecache
+import math
 
 
 class Issue(object):
@@ -57,15 +58,18 @@ class Issue(object):
         :param tabbed: Use tabbing in the output
         :return: strings of code
         '''
-        lc = linecache
-        file_len = sum(1 for line in open(self.fname))
-        lines = utils.lines_with_context(self.lineno, self.linerange,
-                                         max_lines, file_len)
 
-        if not tabbed:
-            return ''.join([lc.getline(self.fname, l) for l in lines])
-        return ''.join(["%s\t%s" % (l, lc.getline(self.fname, l))
-                        for l in lines])
+        lines = []
+        lmin = max(1, self.lineno - max_lines / 2)
+        lmax = lmin + len(self.linerange) + max_lines - 1
+
+        tmplt = "%i\t%s" if tabbed else "%i %s"
+        for line in xrange(lmin, lmax):
+            text = linecache.getline(self.fname, line)
+            if not len(text):
+                break
+            lines.append(tmplt % (line, text))
+        return ''.join(lines)
 
     def as_dict(self, with_code=True):
         '''Convert the issue to a dict of values for outputting.'''
