@@ -34,7 +34,7 @@ class BanditManager():
     scope = []
 
     def __init__(self, config, agg_type, debug=False, verbose=False,
-                 profile_name=None):
+                 profile_name=None, ignore_nosec=False):
         '''Get logger, config, AST handler, and result store ready
 
         :param config: config options object
@@ -47,6 +47,7 @@ class BanditManager():
         '''
         self.debug = debug
         self.verbose = verbose
+        self.ignore_nosec = ignore_nosec
         self.b_conf = config
         self.files_list = []
         self.excluded_files = []
@@ -244,7 +245,7 @@ class BanditManager():
         score = []
         if fdata is not None:
             res = b_node_visitor.BanditNodeVisitor(
-                fname, self.b_conf, b_ma, b_ts, self.debug
+                fname, self.b_conf, b_ma, b_ts, self.debug, self.ignore_nosec
             )
             score = res.process(fdata)
             self.results.extend(res.tester.results)
