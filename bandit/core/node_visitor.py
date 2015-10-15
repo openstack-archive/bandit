@@ -19,6 +19,7 @@ import copy
 import logging
 
 from bandit.core import constants
+from bandit.core import symtab
 from bandit.core import tester as b_tester
 from bandit.core import utils as b_utils
 from bandit.core.utils import InvalidModulePath
@@ -42,6 +43,7 @@ class BanditNodeVisitor(object):
             'SEVERITY': [0] * len(constants.RANKING),
             'CONFIDENCE': [0] * len(constants.RANKING)
         }
+        self.symtab = symtab.SymbolTable()
         self.metrics = {'loc': 0, 'nosec': 0}
         self.depth = 0
         self.fname = fname
@@ -130,8 +132,10 @@ class BanditNodeVisitor(object):
         self.context['qualname'] = qualname
         self.context['name'] = name
 
+        self.symtab.push_scope(node, qualname)
         self.update_scores(self.tester.run_tests(self.context, 'Call'))
         self.generic_visit(node)
+        self.symtab.pop_scope()
 
     def visit_Import(self, node):
         '''Visitor for AST Import nodes
@@ -251,6 +255,10 @@ class BanditNodeVisitor(object):
                                                  'ExceptHandler'))
         self.generic_visit(node)
 
+    def visit_Assign(self, node):
+        self.symtab.note_assignment(node)
+        self.generic_visit(node)
+
     def visit(self, node):
         '''Generic visitor
 
@@ -326,19 +334,24 @@ class BanditNodeVisitor(object):
                 add, self.scores[score_type], scores[score_type]
             ))
 
-    def process(self, fdata):
+    def process(self, fdata=None, sdata=None):
         '''Main process loop
 
         Build and process the AST
         :param fdata: the open filehandle for the code to be processed
         :return score: the aggregated score for the current file
         '''
-        fdata.seek(0)
-        self.lines = fdata.readlines()
-        # only include non-blank lines in the loc metric
+        if fdata:
+            fdata.seek(0)
+            self.lines = fdata.readlines()
+            # only include non-blank lines in the loc metric
+        elif sdata:
+            self.lines = sdata
+
         self.metrics['loc'] += len(
             [line for line in self.lines if line.strip()]
         )
         f_ast = ast.parse("".join(self.lines))
+        self.symtab.populate(f_ast)
         self.generic_visit(f_ast)
         return self.scores, self.metrics
