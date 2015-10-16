@@ -21,6 +21,7 @@ import bandit
 from bandit.core import constants
 from bandit.core import config
 from bandit.core import manager
+from bandit.core import metrics
 from bandit.core import issue
 from bandit.formatters import text as b_text
 
@@ -46,14 +47,14 @@ class TextFormatterTests(testtools.TestCase):
         self.issue.test = self.check_name
 
         self.manager.results.append(self.issue)
+        metrics.metrics = metrics.Metrics()
 
         #mock up the metrics
-        self.manager.metrics = {}
         for key in ['_totals', 'binding.py']:
-            self.manager.metrics[key] = {'loc':4, 'nosec':2}
+            metrics.metrics.metrics[key] = {'loc':4, 'nosec':2}
             for (criteria, default) in constants.CRITERIA:
                 for rank in constants.RANKING:
-                    self.manager.metrics[key]['{0}.{1}'.format(
+                    metrics.metrics.metrics[key]['{0}.{1}'.format(
                         criteria, rank
                     )] = 0
 
@@ -79,10 +80,10 @@ class TextFormatterTests(testtools.TestCase):
                                                self.context['lineno'])
             self.assertIn(expected, data)
             expected = 'Total lines of code: {0}'.format(
-                self.manager.metrics['_totals']['loc']
+                metrics.metrics.metrics['_totals']['loc']
             )
             self.assertIn(expected, data)
             expected = 'Total lines skipped (#nosec): {0}'.format(
-                self.manager.metrics['_totals']['nosec']
+                metrics.metrics.metrics['_totals']['nosec']
             )
             self.assertIn(expected, data)

@@ -24,6 +24,7 @@ import testtools
 from bandit.core import config as b_config
 from bandit.core import constants as C
 from bandit.core import manager as b_manager
+from bandit.core import metrics
 from bandit.core import test_set as b_test_set
 
 
@@ -90,14 +91,15 @@ class FunctionalTests(testtools.TestCase):
         :param expect: dict with expected values of metrics
         '''
         # reset scores and metrics for subsequent calls to run_example
+        metrics.metrics = metrics.Metrics()
         self.b_mgr.scores = []
-        self.b_mgr.metrics = {}
         self.run_example(example_script)
-        metrics = self.b_mgr.metrics
+
         # test general metrics (excludes issue counts)
+        m = metrics.metrics.metrics
         for k in expect:
             if k != 'issues':
-                self.assertEqual(expect[k], metrics['_totals'][k])
+                self.assertEqual(expect[k], m['_totals'][k])
         # test issue counts
         if 'issues' in expect:
             for (criteria, default) in C.CRITERIA:
@@ -106,7 +108,7 @@ class FunctionalTests(testtools.TestCase):
                     expected = 0
                     if expect['issues'].get(criteria, None).get(rank, None):
                         expected = expect['issues'][criteria][rank]
-                    self.assertEqual(expected, metrics['_totals'][label])
+                    self.assertEqual(expected, m['_totals'][label])
 
     def test_binding(self):
         '''Test the bind-to-0.0.0.0 example.'''

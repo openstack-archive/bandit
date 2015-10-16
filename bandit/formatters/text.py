@@ -17,6 +17,7 @@ import datetime
 import logging
 
 from bandit.core import constants
+from bandit.core import metrics
 from bandit.core import utils
 
 logger = logging.getLogger(__name__)
@@ -81,7 +82,7 @@ def report(manager, filename, sev_level, conf_level, lines=-1,
         ('Total lines skipped (#nosec)', 'nosec')
     ]:
         metrics_summary += "\t{0}: {1}\n".format(
-            label, manager.metrics['_totals'][metric]
+            label, metrics.metrics.metrics['_totals'][metric]
         )
     for (criteria, default) in constants.CRITERIA:
         metrics_summary += "\tTotal issues (by {0}):\n".format(
@@ -90,7 +91,8 @@ def report(manager, filename, sev_level, conf_level, lines=-1,
         for rank in constants.RANKING:
             metrics_summary += "\t\t{0}: {1}\n".format(
                 rank.capitalize(),
-                manager.metrics['_totals']['{0}.{1}'.format(criteria, rank)]
+                metrics.metrics.metrics['_totals']['{0}.{1}'.format(criteria,
+                                                                    rank)]
             )
     tmpstr_list.append("\n%sRun metrics:%s\n%s" % (
         color['HEADER'],
