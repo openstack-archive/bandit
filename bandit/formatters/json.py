@@ -21,6 +21,7 @@ from operator import itemgetter
 import six
 
 from bandit.core import constants
+from bandit.core import metrics
 from bandit.core import utils
 
 logger = logging.getLogger(__name__)
@@ -75,7 +76,7 @@ def report(manager, filename, sev_level, conf_level, lines=-1,
         machine_output['results'] = sorted(collector,
                                            key=itemgetter('filename'))
 
-    machine_output['metrics'] = manager.metrics
+    machine_output['metrics'] = metrics.metrics.metrics
 
     # timezone agnostic format
     TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"

@@ -19,6 +19,7 @@ import copy
 import logging
 
 from bandit.core import constants
+from bandit.core import metrics
 from bandit.core import tester as b_tester
 from bandit.core import utils as b_utils
 from bandit.core.utils import InvalidModulePath
@@ -42,7 +43,6 @@ class BanditNodeVisitor(object):
             'SEVERITY': [0] * len(constants.RANKING),
             'CONFIDENCE': [0] * len(constants.RANKING)
         }
-        self.metrics = {'loc': 0, 'nosec': 0}
         self.depth = 0
         self.fname = fname
         self.config = config
@@ -273,7 +273,7 @@ class BanditNodeVisitor(object):
                 if ("# nosec" in self.lines[node.lineno - 1] or
                         "#nosec" in self.lines[node.lineno - 1]):
                     logger.debug("skipped, nosec")
-                    self.metrics['nosec'] += 1
+                    metrics.metrics.note_nosec()
                     return
 
         self.context['node'] = node
@@ -326,19 +326,14 @@ class BanditNodeVisitor(object):
                 add, self.scores[score_type], scores[score_type]
             ))
 
-    def process(self, fdata):
+    def process(self, lines):
         '''Main process loop
 
         Build and process the AST
-        :param fdata: the open filehandle for the code to be processed
+        :param lines: lines code to process
         :return score: the aggregated score for the current file
         '''
-        fdata.seek(0)
-        self.lines = fdata.readlines()
-        # only include non-blank lines in the loc metric
-        self.metrics['loc'] += len(
-            [line for line in self.lines if line.strip()]
-        )
+        self.lines = lines
         f_ast = ast.parse("".join(self.lines))
         self.generic_visit(f_ast)
-        return self.scores, self.metrics
+        return self.scores
