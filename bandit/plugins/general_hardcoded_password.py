@@ -24,6 +24,18 @@ candidates = set(["password", "pass", "passwd", "pwd", "secret", "token",
                   "secrete"])
 
 
+def _report_if_actual_password(value):
+    """Create a report if VALUE really seems to be a password.
+
+    Sometimes, passwords are given an obviously fake value, such as '*'
+    repeated a few times.
+    """
+    if value and len(value) == value.count('*'):
+        return
+
+    return _report(value)
+
+
 def _report(value):
     return bandit.Issue(
         severity=bandit.LOW,
@@ -38,7 +50,7 @@ def hardcoded_password_string(context):
         # looks for "candidate='some_string'"
         for targ in node.parent.targets:
             if isinstance(targ, ast.Name) and targ.id in candidates:
-                return _report(node.s)
+                return _report_if_actual_password(node.s)
 
     elif isinstance(node.parent, ast.Index) and node.s in candidates:
         # looks for "dict[candidate]='some_string'"
@@ -46,14 +58,14 @@ def hardcoded_password_string(context):
         assign = node.parent.parent.parent
         if isinstance(assign, ast.Assign) and isinstance(assign.value,
                                                          ast.Str):
-            return _report(assign.value.s)
+            return _report_if_actual_password(assign.value.s)
 
     elif isinstance(node.parent, ast.Compare):
         # looks for "candidate == 'some_string'"
         comp = node.parent
         if isinstance(comp.left, ast.Name) and comp.left.id in candidates:
             if isinstance(comp.comparators[0], ast.Str):
-                return _report(comp.comparators[0].s)
+                return _report_if_actual_password(comp.comparators[0].s)
 
 
 @checks('Call')
@@ -61,7 +73,7 @@ def hardcoded_password_funcarg(context):
     # looks for "function(candidate='some_string')"
     for kw in context.node.keywords:
         if isinstance(kw.value, ast.Str) and kw.arg in candidates:
-            return _report(kw.value.s)
+            return _report_if_actual_password(kw.value.s)
 
 
 @checks('FunctionDef')
@@ -77,4 +89,4 @@ def hardcoded_password_default(context):
     for key, val in zip(context.node.args.args, defs):
         check = key.arg if sys.version_info.major > 2 else key.id  # Py3
         if isinstance(val, ast.Str) and check in candidates:
-            return _report(val.s)
+            return _report_if_actual_password(val.s)
