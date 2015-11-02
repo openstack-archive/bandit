@@ -62,10 +62,11 @@ def report(manager, filename, sev_level, conf_level, lines=-1,
             color['HEADER'], len(manager.files_list),
             color['DEFAULT']
         ))
-
-        for item in zip(manager.files_list, map(utils.sum_scores,
-                                                manager.scores)):
-            tmpstr_list.append("\t%s (score: %i)\n" % item)
+        for (item, score) in zip(manager.files_list, manager.scores):
+            score_str = str(
+                {'SEVERITY': sum(i for i in score['SEVERITY']),
+                 'CONFIDENCE': sum(i for i in score['CONFIDENCE'])})
+            tmpstr_list.append("\t%s (score: %s)\n" % (item, score_str))
 
         # print which files were excluded and why
         tmpstr_list.append("\n%sFiles excluded (%s):%s\n" %
