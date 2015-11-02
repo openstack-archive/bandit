@@ -39,14 +39,15 @@ class Issue(object):
             self.confidence, self.fname, self.lineno)
 
     def filter(self, severity, confidence):
-        '''Used to filter on confidence and severity.
+        """Utility to filter on confidence and severity, formatters will call
+        filter_results.  This will return false if either the confidence or
+        severity of the issue are lower then the given threshold values.
 
-        This wil return false if either the confidence or severity of the issue
-        are lower then the given threashold values.
+        :param severity: Severity threshold
+        :param confidence: Confidence threshold
+        :return: True/False depending on whether issue meets threshold
+        """
 
-        :param severity: Severity threashold
-        :param confidence: Confidence threashold
-        '''
         rank = constants.RANKING
         return (rank.index(self.severity) >= rank.index(severity) and
                 rank.index(self.confidence) >= rank.index(confidence))
