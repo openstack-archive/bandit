@@ -101,8 +101,24 @@ class Issue(object):
         self.severity = data["issue_severity"]
         self.confidence = data["issue_confidence"]
         self.text = data["issue_text"]
+        self.test = data["test_name"]
         self.lineno = data["line_number"]
         self.linerange = data["line_range"]
+
+    def matches_issue(self, compared_issue):
+        self_dict = self.as_dict()
+        match_dict = compared_issue.as_dict()
+
+        # if the issue text, severity, confidence, and filename match, it's
+        # the same issue from our perspective
+        match_types = ['issue_text', 'issue_severity', 'issue_confidence',
+                       'filename', 'test_name']
+
+        for key in match_types:
+            if not match_dict[key] == self_dict[key]:
+                return False
+
+        return True
 
 
 def issue_from_dict(data):
