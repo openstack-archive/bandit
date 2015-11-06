@@ -107,6 +107,9 @@ def main():
     os.environ['XDG_CONFIG_DIRS'] = '/etc:/usr/local/etc'
     extension_mgr = _init_extensions()
 
+    baseline_formatters = sorted(filter(lambda x: x.endswith('_baseline'),
+                                        extension_mgr.formatter_names))
+
     # now do normal startup
     parser = argparse.ArgumentParser(
         description='Bandit - a Python source code analyzer.',
@@ -154,10 +157,16 @@ def main():
                         'level or higher. -i for LOW, -ii for MEDIUM, '
                         '-iii for HIGH'
     )
+    # assumption: baseline formatters are the same as normal formatters except
+    # with a _baseline appended at the end of the name.  We don't want to show
+    # them here, because that would be redundant.  If we decide to have a
+    # baseline formatter that doesn't have a normal formatter in the future
+    # we'll change this
     parser.add_argument(
         '-f', '--format', dest='output_format', action='store',
         default='txt', help='specify output format',
-        choices=sorted(extension_mgr.formatter_names)
+        choices=sorted(filter(lambda x: x not in baseline_formatters,
+                       extension_mgr.formatter_names))
     )
     parser.add_argument(
         '-o', '--output', dest='output_file', action='store',
@@ -184,6 +193,9 @@ def main():
     parser.add_argument(
         '-b', '--baseline', dest='baseline', action='store',
         default=None, help='Path to a baseline report, in JSON format. '
+                           'Note: baseline reports must be output in one of '
+                           'the following formats: ' +
+                           str([x.split('_')[0] for x in baseline_formatters])
     )
     parser.set_defaults(debug=False)
     parser.set_defaults(verbose=False)
@@ -227,6 +239,16 @@ def main():
         except IOError:
             logger.warn("Could not open baseline report: %s", args.baseline)
             sys.exit(2)
+
+        # we're doing a baseline run, pick the appropriate baseline formatter
+        baseline_formatter = args.output_format + '_baseline'
+        if baseline_formatter not in baseline_formatters:
+            logger.warn('Baseline must be used with one of the following '
+                        'formats: ' + str([x.split('_')[0]
+                                           for x in baseline_formatters]))
+            sys.exit(2)
+        else:
+            args.output_format = baseline_formatter
 
     if args.output_format != "json":
         logger.info("using config: %s", config_file)
