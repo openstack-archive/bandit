@@ -79,6 +79,14 @@ def disable_checkers(config, disabled_checkers):
     return config
 
 
+def tweak_blacklist_calls(config, disabled_sets):
+    """Disable DISABLED_SETS from the blacklisted calls in CONFIG."""
+    bad_name_sets = [x for x in config['blacklist_calls']['bad_name_sets']
+                     if list(x.keys())[0] not in disabled_sets]
+    config['blacklist_calls']['bad_name_sets'] = bad_name_sets
+    return config
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Generate a bandit config')
     parser.add_argument('--out', default='bandit.yaml',
@@ -111,6 +119,11 @@ def main():
                            user_config.get('profile_name', 'default'))
     if 'exclude_checkers' in user_config:
         config = disable_checkers(config, user_config['exclude_checkers'])
+    if 'blacklist_calls' in user_config:
+        blacklist_calls = user_config['blacklist_calls']
+        config = tweak_blacklist_calls(
+            config,
+            blacklist_calls.get('_bcg_remove_bad_name_sets', []))
 
     try:
         with open(args.out, 'w') as f:
