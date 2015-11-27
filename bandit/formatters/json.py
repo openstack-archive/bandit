@@ -26,8 +26,7 @@ from bandit.core import utils
 logger = logging.getLogger(__name__)
 
 
-def report(manager, filename, sev_level, conf_level, lines=-1,
-           out_format='json'):
+def report(manager, filename, sev_level, conf_level, lines=-1):
     '''''Prints issues in JSON format
 
     :param manager: the bandit manager object

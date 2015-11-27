@@ -20,8 +20,7 @@ from xml.etree import cElementTree as ET
 logger = logging.getLogger(__name__)
 
 
-def report(manager, filename, sev_level, conf_level, lines=-1,
-           out_format='xml'):
+def report(manager, filename, sev_level, conf_level, lines=-1):
     '''Prints issues in XML formt
 
     :param manager: the bandit manager object
