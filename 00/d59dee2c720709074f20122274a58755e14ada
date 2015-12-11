@@ -1,0 +1,12 @@
+Verified+2: Jenkins
+Code-Review+1: Stanislaw Pitucha <stanislaw.pitucha@hpe.com>
+Code-Review+1: Michael McCune <msm@redhat.com>
+Code-Review+2: Jamie Finnigan <jamie.finnigan@hp.com>
+Workflow+1: Jamie Finnigan <jamie.finnigan@hp.com>
+Code-Review+2: Tim Kelsey <tim.kelsey@hpe.com>
+Code-Review+1: Victor Ryzhenkin <vryzhenkin@mirantis.com>
+Submitted-by: Jenkins
+Submitted-at: Fri, 11 Dec 2015 20:25:14 +0000
+Reviewed-on: https://review.openstack.org/254455
+Project: openstack/bandit
+Branch: refs/heads/master
