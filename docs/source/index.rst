@@ -17,6 +17,7 @@ Getting Started
    config
    tests/index
    formatters/index
+   api/bandit
 
 Indices and tables
 ==================
