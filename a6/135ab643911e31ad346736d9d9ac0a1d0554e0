@@ -1,0 +1,9 @@
+Code-Review+2: Stanislaw Pitucha <stanislaw.pitucha@hpe.com>
+Workflow+1: Tim Kelsey <tim.kelsey@hpe.com>
+Code-Review+2: Tim Kelsey <tim.kelsey@hpe.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Mon, 21 Dec 2015 22:23:47 +0000
+Reviewed-on: https://review.openstack.org/260228
+Project: openstack/bandit
+Branch: refs/heads/master
