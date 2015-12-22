@@ -37,6 +37,7 @@ Sample Output
 
 from __future__ import absolute_import
 import logging
+import six
 import sys
 from xml.etree import cElementTree as ET
 
@@ -71,7 +72,10 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
 
     tree = ET.ElementTree(root)
 
-    outfile = sys.stdout
+    if six.PY2:
+        outfile = sys.stdout
+    else:
+        outfile = sys.stdout.buffer
     if filename is not None:
         outfile = open(filename, "wb")
 
