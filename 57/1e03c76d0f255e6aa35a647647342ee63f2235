@@ -1,0 +1,10 @@
+Code-Review+2: Travis McPeak <travis.mcpeak@hpe.com>
+Code-Review+1: Victor Ryzhenkin <vryzhenkin@mirantis.com>
+Code-Review+2: Tim Kelsey <tim.kelsey@hpe.com>
+Workflow+1: Tim Kelsey <tim.kelsey@hpe.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 23 Dec 2015 16:40:17 +0000
+Reviewed-on: https://review.openstack.org/260281
+Project: openstack/bandit
+Branch: refs/heads/master
