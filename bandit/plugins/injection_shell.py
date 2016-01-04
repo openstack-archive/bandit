@@ -150,7 +150,8 @@ def subprocess_popen_with_shell_equals_true(context, config):
                         confidence=bandit.HIGH,
                         text="subprocess call with shell=True seems safe, but "
                              "may be changed in the future, consider "
-                             "rewriting without shell"
+                             "rewriting without shell",
+                        lineno=context.get_lineno_for_call_arg('shell'),
                     )
                 elif sev == bandit.MEDIUM:
                     return bandit.Issue(
@@ -158,14 +159,16 @@ def subprocess_popen_with_shell_equals_true(context, config):
                         confidence=bandit.HIGH,
                         text="call with shell=True contains special shell "
                              "characters, consider moving extra logic into "
-                             "Python code"
+                             "Python code",
+                        lineno=context.get_lineno_for_call_arg('shell'),
                     )
                 else:
                     return bandit.Issue(
                         severity=bandit.HIGH,
                         confidence=bandit.HIGH,
                         text="subprocess call with shell=True identified, "
-                             "security issue."
+                             "security issue.",
+                        lineno=context.get_lineno_for_call_arg('shell'),
                     )
 
 
@@ -244,7 +247,8 @@ def subprocess_without_shell_equals_true(context, config):
                 severity=bandit.LOW,
                 confidence=bandit.HIGH,
                 text="subprocess call - check for execution of untrusted "
-                     "input."
+                     "input.",
+                lineno=context.get_lineno_for_call_arg('shell'),
             )
 
 
@@ -326,7 +330,8 @@ def any_other_function_with_shell_equals_true(context, config):
                 severity=bandit.MEDIUM,
                 confidence=bandit.LOW,
                 text="Function call with shell=True parameter identifed, "
-                     "possible security issue."
+                     "possible security issue.",
+                lineno=context.get_lineno_for_call_arg('shell'),
                 )
 
 

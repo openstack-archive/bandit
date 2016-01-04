@@ -14,3 +14,7 @@ requests.options('https://gmail.com', verify=True)
 requests.options('https://gmail.com', verify=False)
 requests.head('https://gmail.com', verify=True)
 requests.head('https://gmail.com', verify=False)
+
+requests.get('https://gmail.com',
+             verify=False, #nosec
+             other_arg=abc)
