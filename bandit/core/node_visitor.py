@@ -29,9 +29,9 @@ logger = logging.getLogger(__name__)
 
 class BanditNodeVisitor(object):
     def __init__(self, fname, config, metaast, testset,
-                 debug, ignore_nosec, metrics):
+                 debug, nosec_lines, metrics):
         self.debug = debug
-        self.ignore_nosec = ignore_nosec
+        self.nosec_lines = nosec_lines
         self.seen = 0
         self.scores = {
             'SEVERITY': [0] * len(constants.RANKING),
@@ -45,7 +45,7 @@ class BanditNodeVisitor(object):
         self.imports = set()
         self.import_aliases = {}
         self.tester = b_tester.BanditTester(
-            self.config, self.testset, self.debug
+            self.config, self.testset, self.debug, nosec_lines,
         )
 
         # in some cases we can't determine a qualified name
@@ -194,12 +194,10 @@ class BanditNodeVisitor(object):
         if hasattr(node, 'lineno'):
             self.context['lineno'] = node.lineno
 
-            if not self.ignore_nosec:
-                if ("# nosec" in self.lines[node.lineno - 1] or
-                        "#nosec" in self.lines[node.lineno - 1]):
-                    logger.debug("skipped, nosec")
-                    self.metrics.note_nosec()
-                    return False
+            if node.lineno in self.nosec_lines:
+                logger.debug("skipped, nosec")
+                self.metrics.note_nosec()
+                return False
 
         self.context['node'] = node
         self.context['linerange'] = b_utils.linerange_fix(node)
