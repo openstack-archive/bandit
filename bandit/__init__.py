@@ -17,8 +17,6 @@
 # This is necessary on Python 2.7 because of the local bandit module
 # (bandit.bandit), without from bandit.core will fail since bandit.bandit has
 # no submodule "core"
-from __future__ import absolute_import
-
 from bandit.core import config  # noqa
 from bandit.core import context  # noqa
 from bandit.core import manager  # noqa
