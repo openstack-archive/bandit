@@ -65,13 +65,12 @@ class BanditManager():
         self.metrics = metrics.Metrics()
 
         # if the profile name was specified, try to find it in the config
-        if profile_name:
+        if isinstance(profile_name, list):
+            profile = {'include': profile_name}
+        elif profile_name:
             if profile_name in self.b_conf.config['profiles']:
                 profile = self.b_conf.config['profiles'][profile_name]
-                logger.debug(
-                    "read in profile '%s': %s",
-                    profile_name, profile
-                )
+                logger.debug("read in profile '%s': %s", profile_name, profile)
             else:
                 raise utils.ProfileNotFound(self.b_conf.config_file,
                                             profile_name)

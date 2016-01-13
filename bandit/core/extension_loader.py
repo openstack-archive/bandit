@@ -46,6 +46,10 @@ class Manager(object):
             verify_requirements=False,
             )
 
+    def get_plugin_id(self, plugin_name):
+        for p in self.plugins:
+            if p.name == plugin_name:
+                return p.plugin._test_id
 
 # Using entry-points and pkg_resources *can* be expensive. So let's load these
 # once, store them on the object, and have a module global object for

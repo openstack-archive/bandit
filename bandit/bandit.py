@@ -149,6 +149,11 @@ def main():
         help='test set profile in config to use (defaults to all tests)'
     )
     parser.add_argument(
+        '-t', '--tests', dest='tests',
+        action='store', default=None, type=str,
+        help='list of test names to run'
+    )
+    parser.add_argument(
         '-l', '--level', dest='severity', action='count',
         default=1, help=('results severity filter. Show only issues of a given'
                          ' severity level or higher. -l for LOW,'
@@ -225,9 +230,14 @@ def main():
         log_format = b_conf.get_option('log_format')
         _init_logger(debug, log_format=log_format)
 
+    if not args.profile and args.tests:
+        profile_name = args.tests.split(',')
+    else:
+        profile_name = args.profile
+
     try:
         b_mgr = b_manager.BanditManager(b_conf, args.agg_type, args.debug,
-                                        profile_name=args.profile,
+                                        profile_name=profile_name,
                                         verbose=args.verbose,
                                         ignore_nosec=args.ignore_nosec)
     except utils.ProfileNotFound as e:
