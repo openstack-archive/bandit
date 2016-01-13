@@ -1,5 +1,5 @@
-from bandit.bandit_config_generator import clean_profile
-from bandit.bandit_config_generator import disable_checkers
+from bandit.cli.config_generator import clean_profile
+from bandit.cli.config_generator import disable_checkers
 
 import testtools
 
