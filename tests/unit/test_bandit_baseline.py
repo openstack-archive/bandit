@@ -14,14 +14,13 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import bandit.bandit_baseline as baseline
-
-import fixtures
 import os
 import subprocess
+
+import fixtures
+import git
 import testtools
 
-import git
 
 config = """
 include:
@@ -39,6 +38,7 @@ shell_injection:
     shell:
         - os.system
 """
+
 
 class BanditBaselineToolTests(testtools.TestCase):
 
