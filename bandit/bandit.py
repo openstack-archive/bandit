@@ -154,6 +154,11 @@ def main():
         action='store', default=None, type=str,
         help='list of test names to run'
     )
+    group.add_argument(
+        '-s', '--skip', dest='skips',
+        action='store', default=None, type=str,
+        help='list of test names to skip'
+    )
     parser.add_argument(
         '-l', '--level', dest='severity', action='count',
         default=1, help=('results severity filter. Show only issues of a given'
@@ -231,7 +236,24 @@ def main():
         log_format = b_conf.get_option('log_format')
         _init_logger(debug, log_format=log_format)
 
-    profile_name = args.tests.split(',') if args.tests else args.profile
+    if args.tests:
+        test_list = args.tests.split(',')
+        test_set = set(test_list)
+        all_set = set(extension_mgr.plugins_by_id)
+        if not test_set.issubset(all_set):
+            logger.error("Unknown test id in test list: %s", args.tests)
+            sys.exit(2)
+        profile_name = test_list
+    elif args.skips:
+        skip_list = args.skips.split(',')
+        skip_set = set(skip_list)
+        all_set = set(extension_mgr.plugins_by_id)
+        if not skip_set.issubset(all_set):
+            logger.error("Unknown test id in skip list: %s", args.skips)
+            sys.exit(2)
+        profile_name = list(all_set - skip_set)
+    else:
+        profile_name = args.profile
 
     try:
         b_mgr = b_manager.BanditManager(b_conf, args.agg_type, args.debug,
