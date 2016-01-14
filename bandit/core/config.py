@@ -21,7 +21,7 @@ import yaml
 from bandit.core import constants
 from bandit.core import utils
 
-
+some_really_big_python_line_here_should_set_off_pep_8_and_well_see_if_it_does_or_not=1
 logger = logging.getLogger(__name__)
 
 
