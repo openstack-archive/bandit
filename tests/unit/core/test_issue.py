@@ -17,8 +17,8 @@
 import testtools
 
 import bandit
-from bandit.core import issue
 from bandit.core import constants
+from bandit.core import issue
 
 
 class IssueTests(testtools.TestCase):
@@ -53,11 +53,10 @@ class IssueTests(testtools.TestCase):
 
         for level in levels:
             rank = constants.RANKING.index(level)
-            for issue in issues:
-                test = constants.RANKING.index(issue.severity)
+            for i in issues:
+                test = constants.RANKING.index(i.severity)
                 result = issue.filter(level, bandit.UNDEFINED)
                 self.assertTrue((test >= rank) == result)
-
 
     def test_issue_filter_confidence(self):
         levels = [bandit.LOW, bandit.MEDIUM, bandit.HIGH]
@@ -65,8 +64,8 @@ class IssueTests(testtools.TestCase):
 
         for level in levels:
             rank = constants.RANKING.index(level)
-            for issue in issues:
-                test = constants.RANKING.index(issue.confidence)
+            for i in issues:
+                test = constants.RANKING.index(i.confidence)
                 result = issue.filter(bandit.UNDEFINED, level)
                 self.assertTrue((test >= rank) == result)
 
