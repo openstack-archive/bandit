@@ -255,6 +255,7 @@ pre {
 <span id='issue-{issue_no}'>
 <div class='issue-block {issue_class}'>
     <b>{test_name}: </b> {test_text}<br>
+    <b>{test_id}: </b> {test_id}<br>
     <b>Severity: </b>{severity}<br />
     <b>Confidence: </b>{confidence}</br />
     <b>File: </b><a href='{path}' target='_blank'>{path}</a> <br />
@@ -343,8 +344,8 @@ pre {
         results_str += issue_block.format(issue_no=index,
                                           issue_class='issue-sev-{}'.
                                           format(issue.severity.lower()),
-
                                           test_name=issue.test,
+                                          test_id=issue.test_id,
                                           test_text=issue.text,
                                           severity=issue.severity,
                                           confidence=issue.confidence,

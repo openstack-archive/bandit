@@ -65,12 +65,10 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
         testcase = ET.SubElement(root, 'testcase',
                                  classname=issue.fname, name=test)
 
-        text = 'Severity: %s Confidence: %s\n%s\nLocation %s:%s'
-        text = text % (
-            issue.severity, issue.confidence,
-            issue.text, issue.fname, issue.lineno)
-        ET.SubElement(testcase, 'error',
-                      type=issue.severity,
+        text = 'Test ID: %s Severity: %s Confidence: %s\n%s\nLocation %s:%s'
+        text = text % (issue.test_id, issue.severity, issue.confidence,
+                       issue.text, issue.fname, issue.lineno)
+        ET.SubElement(testcase, 'error', type=issue.severity,
                       message=issue.text).text = text
 
     tree = ET.ElementTree(root)

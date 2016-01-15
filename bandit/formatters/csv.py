@@ -21,8 +21,8 @@ Sample Output
 -------------
 .. code-block:: none
 
-    filename,test_name,issue_severity,issue_confidence,issue_text,line_number,
-    line_range
+    filename,test_name,test_id,issue_severity,issue_confidence,issue_text,
+    line_number,line_range
     examples/yaml_load.py,blacklist_calls,MEDIUM,HIGH,"Use of unsafe yaml load.
     Allows instantiation of arbitrary objects. Consider yaml.safe_load().
     ",5,[5]
@@ -58,6 +58,7 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
     with utils.output_file(filename, 'w') as fout:
         fieldnames = ['filename',
                       'test_name',
+                      'test_id',
                       'issue_severity',
                       'issue_confidence',
                       'issue_text',
