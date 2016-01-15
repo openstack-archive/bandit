@@ -1,0 +1,9 @@
+Code-Review+2: Jamie Finnigan <jamie.finnigan@hp.com>
+Code-Review+2: Ian Cordasco <ian.cordasco@rackspace.com>
+Workflow+1: Ian Cordasco <ian.cordasco@rackspace.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 15 Jan 2016 22:59:29 +0000
+Reviewed-on: https://review.openstack.org/268250
+Project: openstack/bandit
+Branch: refs/heads/master
