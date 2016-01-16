@@ -61,5 +61,6 @@ def assert_used(context):
             severity=bandit.LOW,
             confidence=bandit.HIGH,
             text=("Use of assert detected. The enclosed code "
-                  "will be removed when compiling to optimised byte code.")
+                  "will be removed when compiling to optimised byte code."),
+            bid='B101'
         )

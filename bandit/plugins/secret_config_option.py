@@ -102,6 +102,7 @@ def password_config_option_not_marked_secret(context, config):
                 text="oslo config option not marked secret=True "
                      "identifed, security issue.",
                 lineno=context.get_lineno_for_call_arg('secret'),
+                bid='B109'
             )
         # Checks whether secret is not True, for example when its set to a
         # variable, secret=secret.
@@ -112,4 +113,5 @@ def password_config_option_not_marked_secret(context, config):
                 text="oslo config option possibly not marked secret=True "
                      "identified.",
                 lineno=context.get_lineno_for_call_arg('secret'),
+                bid='B109'
             )

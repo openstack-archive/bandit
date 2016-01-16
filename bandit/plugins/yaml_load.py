@@ -63,5 +63,5 @@ def yaml_load(context):
                     confidence=bandit.HIGH,
                     text="Use of unsafe yaml load. Allows instantiation of"
                          " arbitrary objects. Consider yaml.safe_load().",
-                    lineno=context.node.lineno,
+                    lineno=context.node.lineno, bid='B506'
                 )

@@ -48,7 +48,7 @@ class TempFile(fixtures.Fixture):
 class ManagerTests(testtools.TestCase):
 
     def _get_issue_instance(self, sev=constants.MEDIUM, conf=constants.MEDIUM):
-        new_issue = issue.Issue(sev, conf, 'Test issue')
+        new_issue = issue.Issue('B999', sev, conf, 'Test issue')
         new_issue.fname = 'code.py'
         new_issue.test = 'bandit_plugin'
         new_issue.lineno = 1
@@ -131,7 +131,7 @@ class ManagerTests(testtools.TestCase):
         self.assertEqual(m.debug, False)
         self.assertEqual(m.verbose, False)
         self.assertEqual(m.agg_type, 'file')
-        self.assertFalse(m.has_tests)
+        # self.assertFalse(m.has_tests) we now have a blacklist test always
 
     def test_matches_globlist(self):
         self.assertTrue(manager._matches_glob_list('test', ['*tes*']))
@@ -175,7 +175,7 @@ class ManagerTests(testtools.TestCase):
     def test_results_count(self):
         levels = [constants.LOW, constants.MEDIUM, constants.HIGH]
         self.manager.results = (
-            [issue.Issue(severity=l, confidence=l) for l in levels])
+            [issue.Issue('B999', severity=l, confidence=l) for l in levels])
 
         r = [self.manager.results_count(sev_filter=l, conf_filter=l)
              for l in levels]

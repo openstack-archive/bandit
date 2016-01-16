@@ -50,7 +50,8 @@ def exec_issue():
     return bandit.Issue(
         severity=bandit.MEDIUM,
         confidence=bandit.HIGH,
-        text="Use of exec detected."
+        text="Use of exec detected.",
+        bid='B102'
     )
 
 

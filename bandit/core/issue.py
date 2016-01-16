@@ -24,15 +24,15 @@ import linecache
 
 
 class Issue(object):
-    def __init__(self, severity, confidence=constants.CONFIDENCE_DEFAULT,
-                 text="", ident=None, lineno=None):
+    def __init__(self, bid, severity, confidence=constants.CONFIDENCE_DEFAULT,
+                 text="", ident=None, lineno=None, ):
         self.severity = severity
         self.confidence = confidence
         self.text = text
         self.ident = ident
         self.fname = ""
         self.test = ""
-        self.test_id = ""
+        self.test_id = bid
         self.lineno = lineno
         self.linerange = []
 
@@ -127,6 +127,6 @@ class Issue(object):
 
 
 def issue_from_dict(data):
-    i = Issue(severity=data["issue_severity"])
+    i = Issue('B000', severity=data["issue_severity"])
     i.from_dict(data)
     return i

@@ -106,5 +106,6 @@ def try_except_pass(context, config):
             return bandit.Issue(
                 severity=bandit.LOW,
                 confidence=bandit.HIGH,
-                text=("Try, Except, Pass detected.")
+                text=("Try, Except, Pass detected."),
+                bid='B110'
             )
