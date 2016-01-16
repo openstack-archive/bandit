@@ -68,5 +68,6 @@ def request_with_no_cert_validation(context):
                 text="Requests call with verify=False disabling SSL "
                      "certificate checks, security issue.",
                 lineno=context.get_lineno_for_call_arg('verify'),
+                bid='B501'
             )
             return issue
