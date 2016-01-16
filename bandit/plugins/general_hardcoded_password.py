@@ -70,11 +70,12 @@ candidates = set(["password", "pass", "passwd", "pwd", "secret", "token",
                   "secrete"])
 
 
-def _report(value):
+def _report(value, bid):
     return bandit.Issue(
         severity=bandit.LOW,
         confidence=bandit.MEDIUM,
-        text=("Possible hardcoded password: '%s'" % value))
+        text=("Possible hardcoded password: '%s'" % value),
+        bid=bid)
 
 
 @test.checks('Str')
@@ -85,7 +86,7 @@ def hardcoded_password_string(context):
         # looks for "candidate='some_string'"
         for targ in node.parent.targets:
             if isinstance(targ, ast.Name) and targ.id in candidates:
-                return _report(node.s)
+                return _report(node.s, 'B105')
 
     elif isinstance(node.parent, ast.Index) and node.s in candidates:
         # looks for "dict[candidate]='some_string'"
@@ -93,14 +94,14 @@ def hardcoded_password_string(context):
         assign = node.parent.parent.parent
         if isinstance(assign, ast.Assign) and isinstance(assign.value,
                                                          ast.Str):
-            return _report(assign.value.s)
+            return _report(assign.value.s, 'B105')
 
     elif isinstance(node.parent, ast.Compare):
         # looks for "candidate == 'some_string'"
         comp = node.parent
         if isinstance(comp.left, ast.Name) and comp.left.id in candidates:
             if isinstance(comp.comparators[0], ast.Str):
-                return _report(comp.comparators[0].s)
+                return _report(comp.comparators[0].s, 'B105')
 
 
 @test.checks('Call')
@@ -109,7 +110,7 @@ def hardcoded_password_funcarg(context):
     # looks for "function(candidate='some_string')"
     for kw in context.node.keywords:
         if isinstance(kw.value, ast.Str) and kw.arg in candidates:
-            return _report(kw.value.s)
+            return _report(kw.value.s, 'B106')
 
 
 @test.checks('FunctionDef')
@@ -127,4 +128,4 @@ def hardcoded_password_default(context):
         if isinstance(key, ast.Name):
             check = key.arg if sys.version_info.major > 2 else key.id  # Py3
             if isinstance(val, ast.Str) and check in candidates:
-                return _report(val.s)
+                return _report(val.s, 'B107')

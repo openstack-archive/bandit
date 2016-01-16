@@ -71,4 +71,4 @@ def paramiko_calls(context):
             if context.call_function_name in ['exec_command', 'invoke_shell']:
                 return bandit.Issue(severity=bandit.MEDIUM,
                                     confidence=bandit.MEDIUM,
-                                    text=issue_text)
+                                    text=issue_text, bid='B601')

@@ -95,5 +95,5 @@ def hardcoded_sql_expressions(context):
             severity=bandit.MEDIUM,
             confidence=bandit.MEDIUM if val[0] else bandit.LOW,
             text="Possible SQL injection vector through string-based "
-                 "query construction."
+                 "query construction.", bid='B608'
         )

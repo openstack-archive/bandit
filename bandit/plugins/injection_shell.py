@@ -203,6 +203,7 @@ def subprocess_popen_with_shell_equals_true(context, config):
                              'may be changed in the future, consider '
                              'rewriting without shell',
                         lineno=context.get_lineno_for_call_arg('shell'),
+                        bid='B602'
                     )
                 elif sev == bandit.MEDIUM:
                     return bandit.Issue(
@@ -212,6 +213,7 @@ def subprocess_popen_with_shell_equals_true(context, config):
                              'characters, consider moving extra logic into '
                              'Python code',
                         lineno=context.get_lineno_for_call_arg('shell'),
+                        bid='B602'
                     )
                 else:
                     return bandit.Issue(
@@ -220,6 +222,7 @@ def subprocess_popen_with_shell_equals_true(context, config):
                         text='subprocess call with shell=True identified, '
                              'security issue.',
                         lineno=context.get_lineno_for_call_arg('shell'),
+                        bid='B602'
                     )
 
 
@@ -299,6 +302,7 @@ def subprocess_without_shell_equals_true(context, config):
                 text='subprocess call - check for execution of untrusted '
                      'input.',
                 lineno=context.get_lineno_for_call_arg('shell'),
+                bid='B603'
             )
 
 
@@ -377,6 +381,7 @@ def any_other_function_with_shell_equals_true(context, config):
                 text='Function call with shell=True parameter identifed, '
                      'possible security issue.',
                 lineno=context.get_lineno_for_call_arg('shell'),
+                bid='B604'
                 )
 
 
@@ -462,7 +467,8 @@ def start_process_with_a_shell(context, config):
                     confidence=bandit.HIGH,
                     text='Starting a process with a shell: '
                          'Seems safe, but may be changed in the future, '
-                         'consider rewriting without shell'
+                         'consider rewriting without shell',
+                    bid='B605'
                 )
             elif sev == bandit.MEDIUM:
                 return bandit.Issue(
@@ -470,14 +476,16 @@ def start_process_with_a_shell(context, config):
                     confidence=bandit.HIGH,
                     text='Starting a process with a shell and special shell '
                          'characters, consider moving extra logic into '
-                         'Python code'
+                         'Python code',
+                    bid='B605'
                 )
             else:
                 return bandit.Issue(
                     severity=bandit.HIGH,
                     confidence=bandit.HIGH,
                     text='Starting a process with a shell, possible injection'
-                         ' detected, security issue.'
+                         ' detected, security issue.',
+                    bid='B605'
                 )
 
 
@@ -564,7 +572,8 @@ def start_process_with_no_shell(context, config):
         return bandit.Issue(
             severity=bandit.LOW,
             confidence=bandit.MEDIUM,
-            text='Starting a process without a shell.'
+            text='Starting a process without a shell.',
+            bid='B606'
         )
 
 
@@ -660,5 +669,6 @@ def start_process_with_partial_path(context, config):
                 return bandit.Issue(
                     severity=bandit.LOW,
                     confidence=bandit.HIGH,
-                    text='Starting a process with a partial executable path'
+                    text='Starting a process with a partial executable path',
+                    bid='B607'
                 )

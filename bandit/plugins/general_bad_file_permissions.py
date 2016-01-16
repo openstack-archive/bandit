@@ -87,5 +87,6 @@ def set_bad_file_permissions(context):
                     severity=sev_level,
                     confidence=bandit.HIGH,
                     text="Chmod setting a permissive mask %s on file (%s)." %
-                         (oct(mode), filename)
+                         (oct(mode), filename),
+                    bid='B103'
                 )

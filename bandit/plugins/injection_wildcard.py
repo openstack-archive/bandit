@@ -146,4 +146,5 @@ def linux_commands_wildcard_injection(context, config):
                             text="Possible wildcard injection in call: %s" %
                                  context.call_function_name_qual,
                             lineno=context.get_lineno_for_call_arg('shell'),
+                            bid='B609'
                         )

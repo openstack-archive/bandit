@@ -82,5 +82,6 @@ def hardcoded_tmp_directory(context, config):
         return bandit.Issue(
             severity=bandit.MEDIUM,
             confidence=bandit.MEDIUM,
-            text="Probable insecure usage of temp file/directory."
+            text="Probable insecure usage of temp file/directory.",
+            bid='B108'
         )

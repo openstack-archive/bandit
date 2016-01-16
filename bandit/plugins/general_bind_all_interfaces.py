@@ -55,5 +55,6 @@ def hardcoded_bind_all_interfaces(context):
         return bandit.Issue(
             severity=bandit.MEDIUM,
             confidence=bandit.MEDIUM,
-            text="Possible binding to all interfaces."
+            text="Possible binding to all interfaces.",
+            bid='B104'
         )

@@ -66,4 +66,5 @@ def flask_debug_true(context):
                          "which exposes the Werkzeug debugger and allows "
                          "the execution of arbitrary code.",
                     lineno=context.get_lineno_for_call_arg('debug'),
+                    bid='B201'
                 )

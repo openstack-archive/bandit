@@ -116,9 +116,8 @@ class IssueTests(testtools.TestCase):
 
 
 def _get_issue_instance(severity=bandit.MEDIUM, confidence=bandit.MEDIUM):
-    new_issue = issue.Issue(severity, confidence, 'Test issue')
+    new_issue = issue.Issue('B999', severity, confidence, 'Test issue')
     new_issue.fname = 'code.py'
     new_issue.test = 'bandit_plugin'
-    new_issue.test_id = 'B999'
     new_issue.lineno = 1
     return new_issue

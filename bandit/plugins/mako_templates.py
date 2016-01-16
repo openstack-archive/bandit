@@ -72,5 +72,6 @@ def use_of_mako_templates(context):
                      "are inherently open to XSS attacks. Ensure variables "
                      "in all templates are properly sanitized via the 'n', "
                      "'h' or 'x' flags (depending on context). For example, "
-                     "to HTML escape the variable 'data' do ${ data |h }."
+                     "to HTML escape the variable 'data' do ${ data |h }.",
+                bid='B702'
             )

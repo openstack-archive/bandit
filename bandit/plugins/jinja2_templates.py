@@ -94,7 +94,7 @@ def jinja2_autoescape_false(context):
                             text="Using jinja2 templates with autoescape="
                                  "False is dangerous and can lead to XSS. "
                                  "Use autoescape=True to mitigate XSS "
-                                 "vulnerabilities."
+                                 "vulnerabilities.", bid='B701'
                         )
                     # found autoescape
                     if getattr(node, 'arg', None) == 'autoescape':
@@ -108,7 +108,7 @@ def jinja2_autoescape_false(context):
                                 text="Using jinja2 templates with autoescape="
                                      "False is dangerous and can lead to XSS. "
                                      "Ensure autoescape=True to mitigate XSS "
-                                     "vulnerabilities."
+                                     "vulnerabilities.", bid='B701'
                             )
             # We haven't found a keyword named autoescape, indicating default
             # behavior
@@ -116,5 +116,6 @@ def jinja2_autoescape_false(context):
                 severity=bandit.HIGH,
                 confidence=bandit.HIGH,
                 text="By default, jinja2 sets autoescape to False. Consider "
-                     "using autoescape=True to mitigate XSS vulnerabilities."
+                     "using autoescape=True to mitigate XSS vulnerabilities.",
+                bid='B701'
             )
