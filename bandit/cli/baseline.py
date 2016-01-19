@@ -49,14 +49,11 @@ def main():
     global current_commit
     global repo
 
-    parent_commit = None
-    output_format = None
     repo = None
-    report_fname = None
 
     init_logger()
 
-    output_format, repo, report_fname = initialize()
+    output_format, repo, report_fname, update_submodules = initialize()
 
     if not repo:
         sys.exit(2)
@@ -100,6 +97,12 @@ def main():
             repo.head.reset(commit=step['commit'], working_tree=True)
 
             logger.info(step['message'])
+
+            if update_submodules:
+                logger.info('Updating submodules...')
+                for submodule in repo.submodules:
+                    submodule.update(init=True)
+                logger.info('Submodules updated')
 
             bandit_command = ['bandit'] + step['args']
 
@@ -170,7 +173,18 @@ def initialize():
                         default='terminal', help='specify output format',
                         choices=valid_baseline_formats)
 
+    parser.add_argument('--update-submodules', dest='update_submodules',
+                        action='store_true',
+                        help='if specified will initialize submodules as part '
+                        'of checkout process')
+
     args, unknown = parser.parse_known_args()
+
+    # #################### Bandit-Baseline Args ###############################
+    if args.update_submodules:
+        # we must not supply this argument to Bandit - it doesn't understand
+        global bandit_args
+        bandit_args.remove('--update-submodules')
 
     # #################### Setup Output #######################################
     # set the output format, or use a default if not provided
@@ -218,7 +232,9 @@ def initialize():
         logger.error("Bandit baseline must not be called with the -o option")
         valid = False
 
-    return (output_format, repo, report_fname) if valid else (None, None, None)
+    return ((output_format, repo, report_fname, args.update_submodules)
+            if valid
+            else (None, None, None, False))
 
 
 if __name__ == '__main__':
