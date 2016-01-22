@@ -1,0 +1,10 @@
+Code-Review-1: Gábor Antal <antal@inf.u-szeged.hu>
+Code-Review+2: Travis McPeak <travis.mcpeak@hpe.com>
+Code-Review+2: Jamie Finnigan <jamie.finnigan@hp.com>
+Workflow+1: Jamie Finnigan <jamie.finnigan@hp.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 22 Jan 2016 23:05:21 +0000
+Reviewed-on: https://review.openstack.org/270852
+Project: openstack/bandit
+Branch: refs/heads/master
