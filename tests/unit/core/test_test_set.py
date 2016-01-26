@@ -58,6 +58,8 @@ class BanditTesSetTests(testtools.TestCase):
         self.mockExtMan.return_value = mngr
         self.old_ext_man = extension_loader.MANAGER
         extension_loader.MANAGER = extension_loader.Manager()
+        self.config = mock.MagicMock()
+        self.config.get_setting.return_value = None
 
     def tearDown(self):
         self.patchExtMan.stop()
@@ -65,54 +67,54 @@ class BanditTesSetTests(testtools.TestCase):
         extension_loader.MANAGER = self.old_ext_man
 
     def test_has_defaults(self):
-        ts = test_set.BanditTestSet(mock.MagicMock())
+        ts = test_set.BanditTestSet(self.config)
         self.assertEqual(len(ts.get_tests('Str')), 1)
 
     def test_profile_include_name(self):
         profile = {'include': ['test_plugin']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Str')), 1)
 
     def test_profile_exclude_name(self):
         profile = {'exclude': ['test_plugin']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Str')), 0)
 
     def test_profile_include_id(self):
         profile = {'include': ['B000']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Str')), 1)
 
     def test_profile_exclude_id(self):
         profile = {'exclude': ['B000']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Str')), 0)
 
     def test_profile_include_none(self):
         profile = {'include': []}  # same as no include
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Str')), 1)
 
     def test_profile_exclude_none(self):
         profile = {'exclude': []}  # same as no exclude
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Str')), 1)
 
     def test_profile_has_builtin_blacklist(self):
-        ts = test_set.BanditTestSet(mock.MagicMock())
+        ts = test_set.BanditTestSet(self.config)
         self.assertEqual(len(ts.get_tests('Import')), 1)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 1)
         self.assertEqual(len(ts.get_tests('Calls')), 1)
 
     def test_profile_exclude_builtin_blacklist(self):
         profile = {'exclude': ['B001']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Import')), 0)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 0)
         self.assertEqual(len(ts.get_tests('Calls')), 0)
 
     def test_profile_filter_blacklist_none(self):
-        ts = test_set.BanditTestSet(mock.MagicMock())
+        ts = test_set.BanditTestSet(self.config)
         blacklist = ts.get_tests('Import')[0]
 
         self.assertEqual(len(blacklist._config['Import']), 2)
@@ -121,7 +123,7 @@ class BanditTesSetTests(testtools.TestCase):
 
     def test_profile_filter_blacklist_one(self):
         profile = {'exclude': ['B401']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         blacklist = ts.get_tests('Import')[0]
 
         self.assertEqual(len(blacklist._config['Import']), 1)
@@ -130,7 +132,7 @@ class BanditTesSetTests(testtools.TestCase):
 
     def test_profile_filter_blacklist_include(self):
         profile = {'include': ['B001', 'B401']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
         blacklist = ts.get_tests('Import')[0]
 
         self.assertEqual(len(blacklist._config['Import']), 1)
@@ -139,10 +141,74 @@ class BanditTesSetTests(testtools.TestCase):
 
     def test_profile_filter_blacklist_all(self):
         profile = {'exclude': ['B401', 'B302']}
-        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        ts = test_set.BanditTestSet(self.config, profile)
 
         # if there is no blacklist data for a node type then we wont add a
         # blacklist test to it, as this would be pointless.
         self.assertEqual(len(ts.get_tests('Import')), 0)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 0)
         self.assertEqual(len(ts.get_tests('Calls')), 0)
+
+    def test_profile_blacklist_compat_calls(self):
+        def _dummy_setting(name):
+            if name == 'blacklist_calls':
+                return [utils.build_conf_dict(
+                        'marshal', 'B302', ['marshal.load', 'marshal.loads'],
+                        ('Deserialization with the marshal module is possibly '
+                         'dangerous.'))]
+            return None
+
+        config = mock.MagicMock()
+        config.get_setting = _dummy_setting
+
+        ts = test_set.BanditTestSet(config)
+        blacklist = ts.get_tests('Call')[0]
+
+        self.assertFalse('Import' in blacklist._config)
+        self.assertFalse('ImportFrom' in blacklist._config)
+        self.assertEqual(len(blacklist._config['Call']), 1)
+
+    def test_profile_blacklist_compat_imports(self):
+        def _dummy_setting(name):
+            if name == 'blacklist_imports':
+                return [utils.build_conf_dict(
+                        'telnet', 'B401', ['telnetlib'],
+                        ('A telnet-related module is being imported.  Telnet '
+                         'is considered insecure. Use SSH or some other '
+                         'encrypted protocol.'), 'HIGH')]
+            return None
+
+        config = mock.MagicMock()
+        config.get_setting = _dummy_setting
+
+        ts = test_set.BanditTestSet(config)
+        blacklist = ts.get_tests('Import')[0]
+
+        self.assertEqual(len(blacklist._config['Call']), 1)
+        self.assertEqual(len(blacklist._config['Import']), 1)
+        self.assertEqual(len(blacklist._config['ImportFrom']), 1)
+
+    def test_profile_blacklist_compat_both(self):
+        def _dummy_setting(name):
+            if name == 'blacklist_imports':
+                return [utils.build_conf_dict(
+                        'telnet', 'B401', ['telnetlib'],
+                        ('A telnet-related module is being imported.  Telnet '
+                         'is considered insecure. Use SSH or some other '
+                         'encrypted protocol.'), 'HIGH')]
+            if name == 'blacklist_calls':
+                return [utils.build_conf_dict(
+                        'marshal', 'B302', ['marshal.load', 'marshal.loads'],
+                        ('Deserialization with the marshal module is possibly '
+                         'dangerous.'))]
+            return None
+
+        config = mock.MagicMock()
+        config.get_setting = _dummy_setting
+
+        ts = test_set.BanditTestSet(config)
+        blacklist = ts.get_tests('Import')[0]
+
+        self.assertEqual(len(blacklist._config['Call']), 2)
+        self.assertEqual(len(blacklist._config['Import']), 1)
+        self.assertEqual(len(blacklist._config['ImportFrom']), 1)
