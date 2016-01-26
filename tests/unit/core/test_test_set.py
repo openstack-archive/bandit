@@ -26,7 +26,9 @@ from bandit.core import test_set
 @test.checks('Str')
 @test.test_id('B000')
 def test_plugin():
-    return {'Import': {}, 'ImportFrom': {}, 'Calls': {}}
+    return {'Import': [mock.MagicMock()],
+            'ImportFrom': [mock.MagicMock()],
+            'Calls': [mock.MagicMock()]}
 
 
 class BanditTesSetTests(testtools.TestCase):
@@ -52,13 +54,23 @@ class BanditTesSetTests(testtools.TestCase):
         ts = test_set.BanditTestSet(mock.MagicMock())
         self.assertEqual(len(ts.get_tests('Str')), 1)
 
-    def test_profile_include(self):
+    def test_profile_include_name(self):
         profile = {'include': ['test_plugin']}
         ts = test_set.BanditTestSet(mock.MagicMock(), profile)
         self.assertEqual(len(ts.get_tests('Str')), 1)
 
-    def test_profile_exclude(self):
+    def test_profile_exclude_name(self):
         profile = {'exclude': ['test_plugin']}
+        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        self.assertEqual(len(ts.get_tests('Str')), 0)
+
+    def test_profile_include_id(self):
+        profile = {'include': ['B000']}
+        ts = test_set.BanditTestSet(mock.MagicMock(), profile)
+        self.assertEqual(len(ts.get_tests('Str')), 1)
+
+    def test_profile_exclude_id(self):
+        profile = {'exclude': ['B000']}
         ts = test_set.BanditTestSet(mock.MagicMock(), profile)
         self.assertEqual(len(ts.get_tests('Str')), 0)
 
@@ -79,7 +91,7 @@ class BanditTesSetTests(testtools.TestCase):
         self.assertEqual(len(ts.get_tests('Calls')), 1)
 
     def test_profile_exclude_builtin_blacklist(self):
-        profile = {'exclude': ['blacklist']}
+        profile = {'exclude': ['B001']}
         ts = test_set.BanditTestSet(mock.MagicMock(), profile)
         self.assertEqual(len(ts.get_tests('Import')), 0)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 0)
