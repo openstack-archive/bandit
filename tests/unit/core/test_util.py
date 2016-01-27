@@ -103,6 +103,11 @@ class UtilTests(testtools.TestCase):
             self.tempdir, 'good', 'a', 'b', 'c', 'test_typical.py'))
         self.assertEqual('good.a.b.c.test_typical', name)
 
+        name = b_utils.get_module_qualname_from_path(os.path.join(
+            '.', '__init__.py'))
+
+        self.assertEqual('__init__', name)
+
     def test_get_module_qualname_from_path_abs_missingmid(self):
         # Test get_module_qualname_from_path with missing module
         # __init__.py
