@@ -1,6 +1,18 @@
 Bandit
 ======
 
+.. image:: https://img.shields.io/pypi/v/bandit.svg
+    :target: https://crate.io/packages/$REPO/
+    :alt: Latest Version
+
+.. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat
+    :target: https://wiki.openstack.org/wiki/Security/Projects/Bandit
+    :alt: Latest Docs
+
+.. image:: https://img.shields.io/pypi/dm/bandit.svg
+    :target: https://crate.io/packages/$REPO/
+    :alt: Number of Downloads
+
 A security linter from OpenStack Security
 
 * Free software: Apache license
