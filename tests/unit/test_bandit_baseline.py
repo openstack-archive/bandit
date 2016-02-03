@@ -144,8 +144,10 @@ class BanditBaselineToolTests(testtools.TestCase):
         with patch('git.Repo.commit') as mock_git_repo_commit:
             mock_git_repo_commit.side_effect = git.exc.GitCommandError('', '')
 
-            # assert the system exits with code 2
-            self.assertRaisesRegex(SystemExit, '2', baseline.main)
+            # assert the system exits with with proper error message
+            self.assertRaisesRegex(SystemExit,
+                                   'Unable to get current or parent commit',
+                                   baseline.main)
 
     def test_main_no_parent_commit(self):
         # Test that bandit exits when there is no parent commit detected when
@@ -156,8 +158,9 @@ class BanditBaselineToolTests(testtools.TestCase):
         git_repo.index.commit('Initial Commit')
         os.chdir(repo_directory)
 
-        # assert the system exits with code 2
-        self.assertRaisesRegex(SystemExit, '2', baseline.main)
+        # assert the system exits with with proper error message
+        self.assertRaisesRegex(SystemExit, 'Parent commit not available',
+                               baseline.main)
 
     def test_main_subprocess_error(self):
         # Test that bandit handles a CalledProcessError when attempting to run

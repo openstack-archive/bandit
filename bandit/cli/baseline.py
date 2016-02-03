@@ -72,11 +72,9 @@ def main():
         logger.info('Got parent commit: [%s]', commit.name_rev)
 
     except git.GitCommandError:
-        logger.error("Unable to get current or parent commit")
-        sys.exit(2)
+        sys.exit('Unable to get current or parent commit')
     except IndexError:
-        logger.error("Parent commit not available")
-        sys.exit(2)
+        sys.exit('Parent commit not available')
 
     # #################### Run Bandit against both commits ####################
     output_type = (['-f', 'txt'] if output_format == default_output_format

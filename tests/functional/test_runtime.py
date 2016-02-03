@@ -55,7 +55,7 @@ class RuntimeTests(testtools.TestCase):
         (retcode, output) = self._test_runtime([
             'bandit', '-c', 'nonexistent.yml', 'xx.py'
         ])
-        self.assertEqual(2, retcode)
+        self.assertEqual(1, retcode)
         self.assertIn("Could not open config file: nonexistent.yml", output)
 
     def test_help_arg(self):

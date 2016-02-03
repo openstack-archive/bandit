@@ -74,10 +74,8 @@ def _get_options_from_ini(ini_path, target):
                     bandit_files.append(os.path.join(root, filename))
 
         if len(bandit_files) > 1:
-            logger.error('Multiple .bandit files found - scan separately or '
-                         'choose one with --ini\n\t%s',
-                         ', '.join(bandit_files))
-            sys.exit(2)
+            sys.exit('Multiple .bandit files found - scan separately or '
+                     'choose one with --ini\n\t%s' % ', '.join(bandit_files))
 
         elif len(bandit_files) == 1:
             ini_file = bandit_files[0]
@@ -269,14 +267,12 @@ def main():
         try:
             config_file = _find_config()
         except utils.NoConfigFileFound as e:
-            logger.error(e)
-            sys.exit(2)
+            sys.exit(e)
 
     try:
         b_conf = b_config.BanditConfig(config_file)
     except (utils.ConfigFileUnopenable, utils.ConfigFileInvalidYaml) as e:
-        logger.error('%s', e)
-        sys.exit(2)
+        sys.exit(e)
 
     # Handle .bandit files in projects to pass cmdline args from file
     ini_options = _get_options_from_ini(args.ini_path, args.targets)
@@ -304,8 +300,7 @@ def main():
         all_set = set(extension_mgr.plugins_by_id)
         if not test_set.issubset(all_set):
             unknown_tests = ','.join(test_set - all_set)
-            logger.error("Unknown test ID(s) in test list: %s", unknown_tests)
-            sys.exit(2)
+            sys.exit('Unknown test ID(s) in test list: %s' % unknown_tests)
         profile_name = test_list
     elif args.skips:
         skip_list = args.skips.split(',')
@@ -313,8 +308,7 @@ def main():
         all_set = set(extension_mgr.plugins_by_id)
         if not skip_set.issubset(all_set):
             unknown_tests = ','.join(skip_set - all_set)
-            logger.error("Unknown test ID(s) in skip list: %s", unknown_tests)
-            sys.exit(2)
+            sys.exit('Unknown test ID(s) in skip list: %s' % unknown_tests)
         profile_name = list(all_set - skip_set)
     else:
         profile_name = args.profile
@@ -325,8 +319,7 @@ def main():
                                         verbose=args.verbose,
                                         ignore_nosec=args.ignore_nosec)
     except utils.ProfileNotFound as e:
-        logger.error(e)
-        sys.exit(2)
+        sys.exit(e)
 
     if args.baseline is not None:
         try:
@@ -334,13 +327,11 @@ def main():
                 data = bl.read()
                 b_mgr.populate_baseline(data)
         except IOError:
-            logger.warning("Could not open baseline report: %s", args.baseline)
-            sys.exit(2)
+            sys.exit('Could not open baseline report: %s' % args.baseline)
 
         if args.output_format not in baseline_formatters:
-            logger.warning('Baseline must be used with one of the following '
-                           'formats: ' + str(baseline_formatters))
-            sys.exit(2)
+            sys.exit('Baseline must be used with one of the following '
+                     'formats: ' + str(baseline_formatters))
 
     if args.output_format != "json":
         logger.info("using config: %s", config_file)
@@ -351,8 +342,7 @@ def main():
     b_mgr.discover_files(args.targets, args.recursive, args.excluded_paths)
 
     if not b_mgr.b_ts.tests:
-        logger.error('No tests would be run, please check the profile.')
-        sys.exit(2)
+        sys.exit('No tests would be run, please check the profile.')
 
     # initiate execution of tests within Bandit Manager
     b_mgr.run_tests()

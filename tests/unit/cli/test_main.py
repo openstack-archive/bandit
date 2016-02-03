@@ -125,7 +125,8 @@ class BanditCLIMainTests(testtools.TestCase):
         with patch('bandit.cli.main._find_config') as mock_find_config:
             mock_find_config.side_effect = utils.NoConfigFileFound('')
             # assert a SystemExit with code 2
-            self.assertRaisesRegex(SystemExit, '2', bandit.main)
+            self.assertRaisesRegex(SystemExit, 'no config found - tried: ',
+                                   bandit.main)
 
 
 class BanditCLIMainFindConfigTests(testtools.TestCase):
