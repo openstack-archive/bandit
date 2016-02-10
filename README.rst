@@ -98,8 +98,8 @@ Usage::
                             max number of code lines to display for each issue
                             identified
       -c CONFIG_FILE, --configfile CONFIG_FILE
-                            if omitted default locations are checked. Check
-                            documentation for searched paths
+                            optional config file to use for selecting plugins and
+                            overriding defaults
       -p PROFILE, --profile PROFILE
                             test set profile in config to use (defaults to all
                             tests)
