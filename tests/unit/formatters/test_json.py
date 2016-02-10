@@ -12,10 +12,12 @@
 #  License for the specific language governing permissions and limitations
 #  under the License.
 
+from collections import OrderedDict
 import json
 import os
 import tempfile
 
+import mock
 import testtools
 
 import bandit
@@ -41,6 +43,10 @@ class JsonFormatterTests(testtools.TestCase):
         self.check_name = 'hardcoded_bind_all_interfaces'
         self.issue = issue.Issue(bandit.MEDIUM, bandit.MEDIUM,
                                  'Possible binding to all interfaces.')
+
+        self.candidates = [issue.Issue(bandit.LOW, bandit.LOW, 'Candidate A', lineno=1),
+                           issue.Issue(bandit.HIGH, bandit.HIGH, 'Candiate B', lineno=2)]
+
         self.manager.out_file = self.tmp_fname
 
         self.issue.fname = self.context['filename']
@@ -49,6 +55,7 @@ class JsonFormatterTests(testtools.TestCase):
         self.issue.test = self.check_name
 
         self.manager.results.append(self.issue)
+
         self.manager.metrics = metrics.Metrics()
 
         # mock up the metrics
@@ -60,10 +67,13 @@ class JsonFormatterTests(testtools.TestCase):
                         criteria, rank
                     )] = 0
 
-    def test_report(self):
+    @mock.patch('bandit.core.manager.BanditManager.get_issue_list')
+    def test_report(self, get_issue_list):
         self.manager.files_list = ['binding.py']
         self.manager.scores = [{'SEVERITY': [0] * len(constants.RANKING),
                                 'CONFIDENCE': [0] * len(constants.RANKING)}]
+
+        get_issue_list.return_value = OrderedDict([(self.issue, self.candidates)])
 
         b_json.report(self.manager, self.tmp_fname, self.issue.severity,
                       self.issue.confidence)
@@ -85,3 +95,4 @@ class JsonFormatterTests(testtools.TestCase):
             self.assertEqual('binding.py', data['stats'][0]['filename'])
             self.assertEqual({'CONFIDENCE': 0, 'SEVERITY': 0},
                              data['stats'][0]['score'])
+            self.assertIn('candidates', data['results'][0])
