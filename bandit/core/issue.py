@@ -92,6 +92,8 @@ class Issue(object):
         tmplt = "%i\t%s" if tabbed else "%i %s"
         for line in xrange(lmin, lmax):
             text = linecache.getline(self.fname, line)
+            text = unicode(text, encoding='utf-8', errors='replace')
+
             if not len(text):
                 break
             lines.append(tmplt % (line, text))
