@@ -1,0 +1,9 @@
+Code-Review+2: Jamie Finnigan <jamie.finnigan@hp.com>
+Code-Review+2: Tim Kelsey <tim.kelsey@hpe.com>
+Workflow+1: Tim Kelsey <tim.kelsey@hpe.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 12 Feb 2016 10:15:50 +0000
+Reviewed-on: https://review.openstack.org/278918
+Project: openstack/bandit
+Branch: refs/heads/master
