@@ -1,0 +1,9 @@
+Code-Review+2: Travis McPeak <travis.mcpeak@hpe.com>
+Code-Review+2: Jamie Finnigan <jamie.finnigan@hp.com>
+Workflow+1: Jamie Finnigan <jamie.finnigan@hp.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 12 Feb 2016 16:16:47 +0000
+Reviewed-on: https://review.openstack.org/279443
+Project: openstack/bandit
+Branch: refs/heads/master
