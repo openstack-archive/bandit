@@ -482,6 +482,11 @@ class FunctionalTests(testtools.TestCase):
         }
         self.check_example('flask_debug.py', expect)
 
+    def test_os_path_join_vars(self):
+        '''Test for `os.path.join` with variables.'''
+        expect = {'SEVERITY': {'LOW': 1}, 'CONFIDENCE': {'LOW': 1}}
+        self.check_example('os_path_join.py', expect)
+
     def test_nosec(self):
         expect = {
             'SEVERITY': {},
