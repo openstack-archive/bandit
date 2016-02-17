@@ -19,6 +19,8 @@ import sys
 import six
 from stevedore import extension
 
+from bandit.core import utils
+
 
 class Manager(object):
     # These IDs are for bandit built in tests
@@ -77,7 +79,9 @@ class Manager(object):
         self.blacklist = {}
         blacklist = list(self.blacklists_mgr)
         for item in blacklist:
-            for key, val in six.iteritems(item.plugin()):
+            data = item.plugin()
+            for key, val in six.iteritems(data):
+                utils.check_ast_node(key)
                 self.blacklist.setdefault(key, []).extend(val)
 
         self.blacklist_by_id = {}
