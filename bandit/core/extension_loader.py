@@ -72,8 +72,15 @@ class Manager(object):
         self.blacklist = {}
         blacklist = list(self.blacklists_mgr)
         for item in blacklist:
-            for key, val in six.iteritems(item.plugin()):
+            data = item.plugin()
+            if 'Import' in data:
+                # if we want to blacklist imports, we also need these nodes
+                data.setdefault('ImportFrom', []).extend(data['Import'])
+                data.setdefault('Call', []).extend(data['Import'])
+
+            for key, val in six.iteritems(data):
                 self.blacklist.setdefault(key, []).extend(val)
+
 
 # Using entry-points and pkg_resources *can* be expensive. So let's load these
 # once, store them on the object, and have a module global object for

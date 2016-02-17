@@ -41,9 +41,7 @@ def test_plugin():
         'Deserialization with the marshal module is possibly dangerous.'
         ))
 
-    return {'Import': sets,
-            'ImportFrom': sets,
-            'Calls': sets}
+    return {'Import': sets}
 
 
 class BanditTesSetTests(testtools.TestCase):
@@ -96,14 +94,14 @@ class BanditTesSetTests(testtools.TestCase):
         ts = test_set.BanditTestSet(self.config)
         self.assertEqual(len(ts.get_tests('Import')), 1)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 1)
-        self.assertEqual(len(ts.get_tests('Calls')), 1)
+        self.assertEqual(len(ts.get_tests('Call')), 1)
 
     def test_profile_exclude_builtin_blacklist(self):
         profile = {'exclude': ['B001']}
         ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Import')), 0)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 0)
-        self.assertEqual(len(ts.get_tests('Calls')), 0)
+        self.assertEqual(len(ts.get_tests('Call')), 0)
 
     def test_profile_filter_blacklist_none(self):
         ts = test_set.BanditTestSet(self.config)
@@ -111,7 +109,7 @@ class BanditTesSetTests(testtools.TestCase):
 
         self.assertEqual(len(blacklist._config['Import']), 2)
         self.assertEqual(len(blacklist._config['ImportFrom']), 2)
-        self.assertEqual(len(blacklist._config['Calls']), 2)
+        self.assertEqual(len(blacklist._config['Call']), 2)
 
     def test_profile_filter_blacklist_one(self):
         profile = {'exclude': ['B401']}
@@ -120,7 +118,7 @@ class BanditTesSetTests(testtools.TestCase):
 
         self.assertEqual(len(blacklist._config['Import']), 1)
         self.assertEqual(len(blacklist._config['ImportFrom']), 1)
-        self.assertEqual(len(blacklist._config['Calls']), 1)
+        self.assertEqual(len(blacklist._config['Call']), 1)
 
     def test_profile_filter_blacklist_include(self):
         profile = {'include': ['B001', 'B401']}
@@ -129,7 +127,7 @@ class BanditTesSetTests(testtools.TestCase):
 
         self.assertEqual(len(blacklist._config['Import']), 1)
         self.assertEqual(len(blacklist._config['ImportFrom']), 1)
-        self.assertEqual(len(blacklist._config['Calls']), 1)
+        self.assertEqual(len(blacklist._config['Call']), 1)
 
     def test_profile_filter_blacklist_all(self):
         profile = {'exclude': ['B401', 'B302']}
@@ -139,7 +137,7 @@ class BanditTesSetTests(testtools.TestCase):
         # blacklist test to it, as this would be pointless.
         self.assertEqual(len(ts.get_tests('Import')), 0)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 0)
-        self.assertEqual(len(ts.get_tests('Calls')), 0)
+        self.assertEqual(len(ts.get_tests('Call')), 0)
 
     def test_profile_blacklist_compat(self):
         data = [utils.build_conf_dict(

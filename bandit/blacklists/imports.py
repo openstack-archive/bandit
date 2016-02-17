@@ -78,4 +78,4 @@ def gen_blacklist():
         'vulnerabilities.', 'HIGH'
         ))
 
-    return {'Import': sets, 'ImportFrom': sets, 'Call': sets}
+    return {'Import': sets}
