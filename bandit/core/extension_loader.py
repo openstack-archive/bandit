@@ -19,6 +19,8 @@ import sys
 import six
 from stevedore import extension
 
+from bandit.core import utils
+
 
 class Manager(object):
     def __init__(self, formatters_namespace='bandit.formatters',
@@ -79,6 +81,7 @@ class Manager(object):
                 data.setdefault('Call', []).extend(data['Import'])
 
             for key, val in six.iteritems(data):
+                utils.check_ast_node(key)
                 self.blacklist.setdefault(key, []).extend(val)
 
 
