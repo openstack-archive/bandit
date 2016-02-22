@@ -35,18 +35,7 @@ SSH or some other encrypted protocol.
 | B401 | telnet              | - telnetlib                        | high      |
 +------+---------------------+------------------------------------+-----------+
 
-B402: ftplib
-------------
-A FTP-related module is being imported.  FTP is considered insecure. Use
-SSH/SFTP/SCP or some other encrypted protocol.
-
-+------+---------------------+------------------------------------+-----------+
-| ID   |  Name               |  Imports                           |  Severity |
-+======+=====================+====================================+===========+
-| B402 | ftp                 | - ftplib                           | high      |
-+------+---------------------+------------------------------------+-----------+
-
-B403: info_libs
+B402: info_libs
 ---------------
 
 Consider possible security implications associated with these modules.
@@ -54,13 +43,13 @@ Consider possible security implications associated with these modules.
 +------+---------------------+------------------------------------+-----------+
 | ID   |  Name               |  Imports                           |  Severity |
 +======+=====================+====================================+===========+
-| B403 | info_libs           | - pickle                           | low       |
+| B402 | info_libs           | - pickle                           | low       |
 |      |                     | - cPickle                          |           |
 |      |                     | - subprocess                       |           |
 |      |                     | - Crypto                           |           |
 +------+---------------------+------------------------------------+-----------+
 
-B404 - B405: XML
+B403 - B404: XML
 ----------------
 
 Most of this is based off of Christian Heimes' work on defusedxml:
@@ -76,7 +65,7 @@ xmlrpclib and mitigate remote XML attacks.
 +------+---------------------+------------------------------------+-----------+
 | ID   |  Name               |  Imports                           |  Severity |
 +======+=====================+====================================+===========+
-| B404 | xml_libs            | - xml.etree.cElementTree           | low       |
+| B403 | xml_libs            | - xml.etree.cElementTree           | low       |
 |      |                     | - xml.etree.ElementTree            |           |
 |      |                     | - xml.sax                          |           |
 |      |                     | - xml.dom.expatbuilder             |           |
@@ -85,7 +74,7 @@ xmlrpclib and mitigate remote XML attacks.
 |      |                     | - xml.dom.expatbuilder             |           |
 |      |                     | - lxml                             |           |
 +------+---------------------+------------------------------------+-----------+
-| B405 | xml_libs_high       | - xmlrpclib                        | high      |
+| B404 | xml_libs_high       | - xmlrpclib                        | high      |
 +------+---------------------+------------------------------------+-----------+
 
 """
@@ -114,14 +103,7 @@ def gen_blacklist():
         ))
 
     sets.append(utils.build_conf_dict(
-        'ftp', 'B402', ['ftplib'],
-        'A FTP-related module is being imported.  FTP is considered '
-        'insecure. Use SSH/SFTP/SCP or some other encrypted protocol.',
-        'HIGH'
-        ))
-
-    sets.append(utils.build_conf_dict(
-        'info_libs', 'B403', ['pickle', 'cPickle', 'subprocess', 'Crypto'],
+        'info_libs', 'B402', ['pickle', 'cPickle', 'subprocess', 'Crypto'],
         'Consider possible security implications associated with '
         '{name} module.', 'LOW'
         ))
@@ -130,7 +112,7 @@ def gen_blacklist():
     #   https://pypi.python.org/pypi/defusedxml/#defusedxml-sax
 
     sets.append(utils.build_conf_dict(
-        'xml_libs', 'B404',
+        'xml_libs', 'B403',
         ['xml.etree.cElementTree',
          'xml.etree.ElementTree',
          'xml.sax',
@@ -144,7 +126,7 @@ def gen_blacklist():
         ))
 
     sets.append(utils.build_conf_dict(
-        'xml_libs_high', 'B405', ['xmlrpclib'],
+        'xml_libs_high', 'B404', ['xmlrpclib'],
         'Using {name} to parse untrusted XML data is known to be '
         'vulnerable to XML attacks. Use defused.xmlrpc.monkey_patch() '
         'function to monkey-patch xmlrpclib and mitigate XML '
