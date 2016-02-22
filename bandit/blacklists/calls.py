@@ -251,13 +251,13 @@ to XML attacks. Methods should be replaced with their defusedxml equivalents.
 B321: ftplib
 ------------
 
-FTP-related funtions are being called. FTP is considered insecure. Use
-SSH/SFTP/SCP or some other encrypted protocol.
+Insecure FTP funtion is being called. Use ftplib.FTP_TLS rather than ftplib.FTP
+in order to secure the connection.
 
 +------+---------------------+------------------------------------+-----------+
 | ID   |  Name               |  Calls                             |  Severity |
 +======+=====================+====================================+===========+
-| B321 | ftplib              | - ftplib.\*                        | High      |
+| B321 | ftplib              | - ftplib.FTP                       | High      |
 +------+---------------------+------------------------------------+-----------+
 
 """
@@ -464,9 +464,9 @@ def gen_blacklist():
     # end of XML tests
 
     sets.append(utils.build_conf_dict(
-        'ftplib', 'B321', ['ftplib.*'],
-        'FTP-related funtions are being called. FTP is considered '
-        'insecure. Use SSH/SFTP/SCP or some other encrypted protocol.',
+        'ftplib', 'B321', ['ftplib.FTP'],
+        'Insecure FTP funtion is being called. Use ftplib.FTP_TLS rather than '
+        'ftplib.FTP in order to secure the connection.',
         'HIGH'
         ))
 

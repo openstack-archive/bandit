@@ -168,7 +168,6 @@ Usage::
       B320  xml_bad_etree
       B321  ftplib
       B401  telnet
-      B402  ftp
       B403  info_libs
       B404  xml_libs
       B405  xml_libs_high

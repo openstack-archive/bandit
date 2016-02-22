@@ -190,6 +190,11 @@ class FunctionalTests(testtools.TestCase):
         expect = {'SEVERITY': {'HIGH': 2}, 'CONFIDENCE': {'HIGH': 2}}
         self.check_example('telnetlib.py', expect)
 
+    def test_ftp_usage(self):
+        '''Test for ftplib.FTP calls.'''
+        expect = {'SEVERITY': {'HIGH': 1}, 'CONFIDENCE': {'HIGH': 1}}
+        self.check_example('ftplib.py', expect)
+
     def test_imports(self):
         '''Test for dangerous imports.'''
         expect = {'SEVERITY': {'LOW': 2}, 'CONFIDENCE': {'HIGH': 2}}
