@@ -35,17 +35,6 @@ SSH or some other encrypted protocol.
 | B401 | telnet              | - telnetlib                        | high      |
 +------+---------------------+------------------------------------+-----------+
 
-B402: ftplib
-------------
-A FTP-related module is being imported.  FTP is considered insecure. Use
-SSH/SFTP/SCP or some other encrypted protocol.
-
-+------+---------------------+------------------------------------+-----------+
-| ID   |  Name               |  Imports                           |  Severity |
-+======+=====================+====================================+===========+
-| B402 | ftp                 | - ftplib                           | high      |
-+------+---------------------+------------------------------------+-----------+
-
 B403: info_libs
 ---------------
 
@@ -110,13 +99,6 @@ def gen_blacklist():
         'telnet', 'B401', ['telnetlib'],
         'A telnet-related module is being imported.  Telnet is '
         'considered insecure. Use SSH or some other encrypted protocol.',
-        'HIGH'
-        ))
-
-    sets.append(utils.build_conf_dict(
-        'ftp', 'B402', ['ftplib'],
-        'A FTP-related module is being imported.  FTP is considered '
-        'insecure. Use SSH/SFTP/SCP or some other encrypted protocol.',
         'HIGH'
         ))
 
