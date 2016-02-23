@@ -153,6 +153,9 @@ from bandit.core import utils
 
 logger = logging.getLogger(__name__)
 
+# where our docs are hosted
+base_url = 'http://docs.openstack.org/developer/bandit/'
+
 
 @accepts_baseline
 def report(manager, filename, sev_level, conf_level, lines=-1):
@@ -262,6 +265,7 @@ pre {
     <b>Severity: </b>{severity}<br />
     <b>Confidence: </b>{confidence}</br />
     <b>File: </b><a href='{path}' target='_blank'>{path}</a> <br />
+    <b>More info: </b><a href='{url}' target='_blank'>here</a><br />
 {code}
 {candidates}
 </div>
@@ -344,6 +348,11 @@ pre {
 
             candidates = candidate_block.format(candidate_list=candidates_str)
 
+        if issue.test == 'blacklist':
+            url = base_url + 'blacklists/index.html'
+        else:
+            url = base_url + ('plugins/%s.html' % issue.test)
+
         results_str += issue_block.format(issue_no=index,
                                           issue_class='issue-sev-{}'.
                                           format(issue.severity.lower()),
@@ -353,7 +362,8 @@ pre {
                                           severity=issue.severity,
                                           confidence=issue.confidence,
                                           path=issue.fname, code=code,
-                                          candidates=candidates)
+                                          candidates=candidates,
+                                          url=url)
 
     # build the metrics string to insert in the report
     metrics_summary = metrics_block.format(
