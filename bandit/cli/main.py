@@ -262,8 +262,28 @@ def main():
     # setup work - parse arguments, and initialize BanditManager
     args = parser.parse_args()
 
+    # legacy profiles are supported for now, these are a specifically named
+    # section in the legacy config file that selects tests
+    # TODO(tmcpeak) remove when legacy report no longer required
+    if args.profile and not os.path.exists(os.path.abspath(args.profile)):
+        legacy_profile = True
+    else:
+        legacy_profile = False
+
     try:
-        b_conf = b_config.BanditConfig(config_file=args.config_file)
+        b_conf = b_config.BanditConfig(
+            config_file=args.config_file,
+            profile_file=args.profile if not legacy_profile else None)
+
+        # paste selected tests and skips from profile onto the args if CLI args
+        # weren't given
+        if not args.tests and args.profile and b_conf.tests:
+            args.tests = b_conf.tests
+            logger.info('Using selected tests from profile: %s', args.profile)
+        if not args.skips and args.profile and b_conf.skips:
+            args.skips = b_conf.skips
+            logger.info('Using skipped tests from profile: %s', args.profile)
+
     except (utils.ConfigFileUnopenable, utils.ConfigFileInvalidYaml) as e:
         _report_error('%s', e)
         sys.exit(2)
@@ -289,7 +309,11 @@ def main():
         _init_logger(debug, log_format=log_format)
 
     try:
-        profile = _get_profile(b_conf, args.profile, args.config_file)
+        # if we're using a legacy profile, try to get it
+        # TODO(tmcpeak): get rid of this when we don't need legacy profiles
+        profile = _get_profile(b_conf,
+                               args.profile if legacy_profile else None,
+                               args.config_file)
         if not profile:
             profile = {'include': args.tests.split(',') if args.tests else [],
                        'exclude': args.skips.split(',') if args.skips else []}

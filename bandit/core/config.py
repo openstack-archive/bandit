@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 
 class BanditConfig():
-    def __init__(self, config_file=None):
+    def __init__(self, config_file=None, profile_file=None):
         '''Attempt to initialize a config dictionary from a yaml file.
 
         Error out if loading the yaml file fails for any reason.
@@ -41,6 +41,9 @@ class BanditConfig():
 
         '''
         self.config_file = config_file
+        self.plugin_settings = []
+        self.skips = []
+        self.tests = []
         self._config = {}
 
         if config_file:
@@ -59,6 +62,20 @@ class BanditConfig():
                 raise utils.ConfigFileInvalidYaml(config_file)
 
             self.convert_legacy_config()
+
+        elif profile_file:
+            try:
+                with open(profile_file, 'r') as f:
+                    try:
+                        profile_settings = yaml.safe_load(f)
+                        # pull out tests and skip if present, rest are settings
+                        self.tests = profile_settings.pop("tests", None)
+                        self.skips = profile_settings.pop("skip", None)
+                        self.plugin_settings = profile_settings
+                    except yaml.YAMLError:
+                        raise utils.ConfigFileInvalidYaml(profile_file)
+            except IOError:
+                raise utils.ConfigFileUnopenable(profile_file)
 
         else:
             # use sane defaults

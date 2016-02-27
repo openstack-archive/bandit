@@ -41,7 +41,7 @@ class TempFile(fixtures.Fixture):
         self.name = f.name
 
 
-class TestInit(testtools.TestCase):
+class TestInitWithConfig(testtools.TestCase):
     def test_settings(self):
         # Can initialize a BanditConfig.
 
@@ -49,13 +49,51 @@ class TestInit(testtools.TestCase):
         example_value = self.getUniqueString()
         contents = '%s: %s' % (example_key, example_value)
         f = self.useFixture(TempFile(contents))
-        b_config = config.BanditConfig(f.name)
+        b_config = config.BanditConfig(config_file=f.name)
 
         # After initialization, can get settings.
         self.assertEqual('*.py', b_config.get_setting('plugin_name_pattern'))
 
         self.assertEqual({example_key: example_value}, b_config.config)
         self.assertEqual(example_value, b_config.get_option(example_key))
+
+    def test_file_does_not_exist(self):
+        # When the config file doesn't exist, ConfigFileUnopenable is raised.
+
+        cfg_file = os.path.join(os.getcwd(), 'notafile')
+        self.assertRaisesRegex(utils.ConfigFileUnopenable, cfg_file,
+                               config.BanditConfig, cfg_file)
+
+    def test_yaml_invalid(self):
+        # When the config yaml file isn't valid, sys.exit(2) is called.
+
+        # The following is invalid because it starts a sequence and doesn't
+        # end it.
+        invalid_yaml = '- [ something'
+        f = self.useFixture(TempFile(invalid_yaml))
+        self.assertRaisesRegex(
+            utils.ConfigFileInvalidYaml, f.name, config.BanditConfig, f.name)
+
+
+class TestInitWithProfile(testtools.TestCase):
+    def test_settings(self):
+        # Can initialize a Bandit Profile
+        profile_contents = """
+        tests: TEST_A
+        skip: SKIP_A
+        plugin:
+            setting:
+                something
+        """
+
+        f = self.useFixture(TempFile(profile_contents))
+        b_config = config.BanditConfig(profile_file=f.name)
+
+        # Profile is initialized correctly
+        self.assertEqual('TEST_A', b_config.tests)
+        self.assertEqual('SKIP_A', b_config.skips)
+        self.assertEqual('something',
+                         b_config.plugin_settings['plugin']['setting'])
 
     def test_file_does_not_exist(self):
         # When the config file doesn't exist, ConfigFileUnopenable is raised.

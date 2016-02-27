@@ -86,12 +86,20 @@ class BanditTestSet():
         self.tests = {}
         for plugin in plugins:
             if hasattr(plugin.plugin, '_takes_config'):
-                # TODO(??): config could come from profile ...
-                cfg = config.get_option(plugin.plugin._takes_config)
-                if cfg is None:
-                    genner = importlib.import_module(plugin.plugin.__module__)
-                    cfg = genner.gen_config(plugin.plugin._takes_config)
-                plugin.plugin._config = cfg
+                # if profile defines settings for this plugin use that
+                if plugin.name in config.plugin_settings:
+                    plugin.plugin._config = config.plugin_settings[plugin.name]
+                    logger.info('Using profile settings for plugin: %s',
+                                plugin.name)
+                # otherwise we'll get defaults from the plugin
+                else:
+                    cfg = config.get_option(plugin.plugin._takes_config)
+                    if cfg is None:
+                        genner = importlib.import_module(
+                            plugin.plugin.__module__)
+                        cfg = genner.gen_config(plugin.plugin._takes_config)
+                    plugin.plugin._config = cfg
+
             for check in plugin.plugin._checks:
                 self.tests.setdefault(check, []).append(plugin.plugin)
                 logger.debug('added function %s (%s) targetting %s',
