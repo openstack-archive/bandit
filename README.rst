@@ -1,17 +1,37 @@
 Bandit
 ======
 
-.. image:: https://img.shields.io/pypi/v/bandit.svg
-    :target: https://pypi.python.org/pypi/bandit/
-    :alt: Latest Version
+.. image:: http://badge.kloud51.com/pypi/v/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Version
 
-.. image:: https://img.shields.io/pypi/pyversions/bandit.svg
-    :target: https://pypi.python.org/pypi/bandit/
-    :alt: Python Versions
+.. image:: http://badge.kloud51.com/pypi/w/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Wheel
 
-.. image:: https://img.shields.io/pypi/format/bandit.svg
-    :target: https://pypi.python.org/pypi/bandit/
-    :alt: Format
+.. image:: http://badge.kloud51.com/pypi/s/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Status
+
+.. image:: http://badge.kloud51.com/pypi/f/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Format
+
+.. image:: http://badge.kloud51.com/pypi/p/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Python Versions
+
+.. image:: http://badge.kloud51.com/pypi/d/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Downloads
+
+.. image:: http://badge.kloud51.com/pypi/i/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Implementation
+
+.. image:: http://badge.kloud51.com/pypi/e/bandit.svg
+    :target: https://pypi.python.org/pypi/bandit
+    :alt: PyPI Egg
 
 .. image:: https://img.shields.io/badge/license-Apache%202-blue.svg
     :target: https://git.openstack.org/cgit/openstack/bandit/plain/LICENSE
