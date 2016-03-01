@@ -77,7 +77,7 @@ Usage::
 
     $ bandit -h
     usage: bandit [-h] [-r] [-a {file,vuln}] [-n CONTEXT_LINES] [-c CONFIG_FILE]
-                  [-p PROFILE | -t TESTS | -s SKIPS] [-l] [-i]
+                  [-p PROFILE] [-t TESTS] [-s SKIPS] [-l] [-i]
                   [-f {csv,html,json,screen,txt,xml}] [-o OUTPUT_FILE] [-v] [-d]
                   [--ignore-nosec] [-x EXCLUDED_PATHS] [-b BASELINE]
                   [--ini INI_PATH] [--version]
