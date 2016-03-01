@@ -120,10 +120,10 @@ def _get_profile(config, profile_name, config_path):
         profile = profiles.get(profile_name)
         if profile is None:
             raise utils.ProfileNotFound(config_path, profile_name)
-
-    if profile:
-        logger.debug("read in profile '%s': %s", profile_name, profile)
-
+        logger.debug("read in legacy profile '%s': %s", profile_name, profile)
+    else:
+        profile['include'] = set(config.get_option('include_tests') or [])
+        profile['exclude'] = set(config.get_option('exclude_tests') or [])
     return profile
 
 
@@ -168,18 +168,17 @@ def main():
         help=('optional config file to use for selecting plugins and '
               'overriding defaults')
     )
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument(
+    parser.add_argument(
         '-p', '--profile', dest='profile',
         action='store', default=None, type=str,
         help='test set profile in config to use (defaults to all tests)'
     )
-    group.add_argument(
+    parser.add_argument(
         '-t', '--tests', dest='tests',
         action='store', default=None, type=str,
         help='list of test names to run'
     )
-    group.add_argument(
+    parser.add_argument(
         '-s', '--skip', dest='skips',
         action='store', default=None, type=str,
         help='list of test names to skip'
@@ -285,10 +284,10 @@ def main():
 
     try:
         profile = _get_profile(b_conf, args.profile, args.config_file)
-        if not profile:
-            profile = {'include': args.tests.split(',') if args.tests else [],
-                       'exclude': args.skips.split(',') if args.skips else []}
+        profile['include'].update(args.tests.split(',') if args.tests else [])
+        profile['exclude'].update(args.skips.split(',') if args.skips else [])
         extension_mgr.validate_profile(profile)
+        import pprint; pprint.PrettyPrinter(depth=6).pprint(profile)
 
     except (utils.ProfileNotFound, ValueError) as e:
         logger.error(e)
