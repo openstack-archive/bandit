@@ -29,7 +29,7 @@ class BlacklistingTests(testtools.TestCase):
         self.assertEqual('B000', issue_dict['test_id'])
         self.assertEqual('HIGH', issue_dict['issue_severity'])
         self.assertEqual('HIGH', issue_dict['issue_confidence'])
-        self.assertEqual('test name', issue_dict['issue_text'])
+        self.assertEqual(b'test name', issue_dict['issue_text'])
 
     def test_report_issue_defaults(self):
         data = {'message': 'test {name}'}
@@ -40,4 +40,4 @@ class BlacklistingTests(testtools.TestCase):
         self.assertEqual('LEGACY', issue_dict['test_id'])
         self.assertEqual('MEDIUM', issue_dict['issue_severity'])
         self.assertEqual('HIGH', issue_dict['issue_confidence'])
-        self.assertEqual('test name', issue_dict['issue_text'])
+        self.assertEqual(b'test name', issue_dict['issue_text'])
