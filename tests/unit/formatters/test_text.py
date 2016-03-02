@@ -135,7 +135,8 @@ class TextFormatterTests(testtools.TestCase):
             expected = 'Run started'
             self.assertIn(expected, data)
 
-            expected_items = ['Files in scope (1):\n\tbinding.py (score: ',
+            expected_items = ['Files in scope (1)'
+                              'binding.py (score: ',
                               "CONFIDENCE: 1",
                               "SEVERITY: 1"]
             for item in expected_items:
