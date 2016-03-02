@@ -45,7 +45,7 @@ class IssueTests(testtools.TestCase):
         self.assertEqual(test_issue_dict['test_id'], 'B999')
         self.assertEqual(test_issue_dict['issue_severity'], 'MEDIUM')
         self.assertEqual(test_issue_dict['issue_confidence'], 'MEDIUM')
-        self.assertEqual(test_issue_dict['issue_text'], 'Test issue')
+        self.assertEqual(test_issue_dict['issue_text'], b'Test issue')
         self.assertEqual(test_issue_dict['line_number'], 1)
         self.assertEqual(test_issue_dict['line_range'], [])
 
