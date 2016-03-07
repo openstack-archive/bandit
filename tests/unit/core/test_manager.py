@@ -155,11 +155,9 @@ class ManagerTests(testtools.TestCase):
         lines = 5
         sev_level = constants.LOW
         conf_level = constants.LOW
-        output_filename = os.path.join(temp_directory, "_temp_output")
         output_format = "invalid"
-
-        self.manager.output_results(lines, sev_level, conf_level,
-                                    output_filename, output_format)
+        self.manager.output_results(lines, sev_level, conf_level, None,
+                                    output_format)
         self.assertFalse(os.path.isfile(output_filename))
 
     def test_output_results_valid_format(self):
