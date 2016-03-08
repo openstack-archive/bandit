@@ -123,8 +123,9 @@ Usage::
       --ignore-nosec        do not skip lines with # nosec comments
       -x EXCLUDED_PATHS, --exclude EXCLUDED_PATHS
                             Comma separated list of paths to exclude from scan.
-                            Note that these are in addition to the excluded paths
-                            provided in the config file.
+                            The path of "tests" is excluded by default. Note that
+                            these are in addition to the excluded paths provided
+                            in the config file.
       -b BASELINE, --baseline BASELINE
                             Path to a baseline report, in JSON format. Note:
                             baseline reports must be output in one of the
