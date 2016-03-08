@@ -219,9 +219,10 @@ def main():
     )
     parser.add_argument(
         '-x', '--exclude', dest='excluded_paths', action='store',
-        default='', help='Comma separated list of paths to exclude from scan. '
-                         'Note that these are in addition to the excluded '
-                         'paths provided in the config file.'
+        default='tests', help='Comma separated list of paths to exclude from '
+                              'scan. The path of "tests" is excluded by '
+                              'default. Note that these are in addition to '
+                              'the excluded paths provided in the config file.'
     )
     parser.add_argument(
         '-b', '--baseline', dest='baseline', action='store',
