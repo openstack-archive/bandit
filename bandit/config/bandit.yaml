@@ -52,6 +52,7 @@ profiles:
             - ssl_with_bad_defaults
             - ssl_with_bad_version
             - ssl_with_no_version
+            - try_except_continue
             - try_except_pass
             - use_of_mako_templates
             - weak_cryptographic_key
