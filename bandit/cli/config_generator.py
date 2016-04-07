@@ -43,10 +43,10 @@ template = """
 # Available tests:
 {test_list}
 
-# (optional) list included test IDs here, eg '[B101, B406]':
+# (optional) list included test IDs here, eg ['B101', 'B406']:
 {test}
 
-# (optional) list skipped test IDs here, eg '[B101, B406]':
+# (optional) list skipped test IDs here, eg ['B101', 'B406']:
 {skip}
 
 ### (optional) plugin settings - some test plugins require configuration data
