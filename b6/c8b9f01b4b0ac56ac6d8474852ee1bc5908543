@@ -1,0 +1,9 @@
+Code-Review+2: Tim Kelsey <tim.kelsey@hpe.com>
+Code-Review+2: Ian Cordasco <ian.cordasco@rackspace.com>
+Workflow+1: Ian Cordasco <ian.cordasco@rackspace.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 13 Apr 2016 18:30:44 +0000
+Reviewed-on: https://review.openstack.org/304279
+Project: openstack/bandit
+Branch: refs/heads/master
