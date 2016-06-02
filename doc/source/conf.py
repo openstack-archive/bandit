@@ -52,6 +52,16 @@ pygments_style = 'sphinx'
 
 modindex_common_prefix = ['bandit.']
 
+ #-- Options for man page output --------------------------------------------
+
+# Grouping the document tree for man pages.
+# List of tuples 'sourcefile', 'target', u'title', u'Authors name', 'manual'
+
+man_pages = [
+    ('man/bandit', 'bandit', u'Python source code security analyzer',
+     [u'OpenStack'], 1)
+]
+
 # -- Options for HTML output --------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  Major themes that come with
