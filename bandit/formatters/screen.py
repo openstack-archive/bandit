@@ -41,6 +41,7 @@ from __future__ import print_function
 
 import datetime
 import logging
+import sys
 
 from bandit.core import constants
 from bandit.core.test_properties import accepts_baseline
@@ -175,6 +176,6 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
     bits.extend(["\t%s (%s)" % skip for skip in manager.skipped])
     do_print(bits)
 
-    if filename is not None:
+    if filename.name != sys.stdout.name:
         logger.info(("Screen formatter output was not written to file: %s"
                      ", consider '-f txt'") % filename)

@@ -97,12 +97,12 @@ import datetime
 import json
 import logging
 from operator import itemgetter
+import sys
 
 import six
 
 from bandit.core import constants
 from bandit.core.test_properties import accepts_baseline
-from bandit.core import utils
 
 logger = logging.getLogger(__name__)
 
@@ -177,8 +177,8 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
     result = json.dumps(machine_output, sort_keys=True,
                         indent=2, separators=(',', ': '))
 
-    with utils.output_file(filename, 'w') as fout:
-        fout.write(result)
+    with filename:
+        filename.write(result)
 
-    if filename is not None:
+    if filename.name != sys.stdout.name:
         logger.info("JSON output written to file: %s" % filename)
