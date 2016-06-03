@@ -39,7 +39,6 @@ from __future__ import absolute_import
 import csv
 import logging
 
-from bandit.core import utils
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +56,7 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
     results = manager.get_issue_list(sev_level=sev_level,
                                      conf_level=conf_level)
 
-    with utils.output_file(filename, 'w') as fout:
+    with filename:
         fieldnames = ['filename',
                       'test_name',
                       'test_id',
@@ -67,11 +66,8 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
                       'line_number',
                       'line_range']
 
-        writer = csv.DictWriter(fout, fieldnames=fieldnames,
+        writer = csv.DictWriter(filename, fieldnames=fieldnames,
                                 extrasaction='ignore')
         writer.writeheader()
         for result in results:
             writer.writerow(result.as_dict(with_code=False))
-
-    if filename is not None:
-        logger.info("CSV output written to file: %s" % filename)
