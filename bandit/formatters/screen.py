@@ -174,7 +174,3 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
     bits.append(header("Files skipped (%i):", len(manager.skipped)))
     bits.extend(["\t%s (%s)" % skip for skip in manager.skipped])
     do_print(bits)
-
-    if filename is not None:
-        logger.info(("Screen formatter output was not written to file: %s"
-                     ", consider '-f txt'") % filename)

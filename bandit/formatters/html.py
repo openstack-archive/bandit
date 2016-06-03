@@ -150,7 +150,6 @@ import logging
 
 from bandit.core import docs_utils
 from bandit.core.test_properties import accepts_baseline
-from bandit.core import utils
 
 logger = logging.getLogger(__name__)
 
@@ -369,9 +368,6 @@ pre {
                                           skipped=skipped_text,
                                           results=results_str)
 
-    with utils.output_file(filename, 'w') as fout:
-        fout.write(str(header_block.encode('utf-8')))
-        fout.write(str(report_contents.encode('utf-8')))
-
-    if filename is not None:
-        logger.info("HTML output written to file: %s" % filename)
+    with filename:
+        filename.write(str(header_block.encode('utf-8')))
+        filename.write(str(report_contents.encode('utf-8')))

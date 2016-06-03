@@ -75,14 +75,14 @@ def report(manager, filename, sev_level, conf_level, lines=-1):
 
     tree = ET.ElementTree(root)
 
-    if six.PY2:
-        outfile = sys.stdout
-    else:
-        outfile = sys.stdout.buffer
-    if filename is not None:
-        outfile = open(filename, "wb")
+    if filename.name == sys.stdout.name:
+        if six.PY2:
+            filename = sys.stdout
+        else:
+            filename = sys.stdout.buffer
+    elif filename.mode == 'w':
+        filename.close()
+        filename = open(filename.name, "wb")
 
-    tree.write(outfile, encoding='utf-8', xml_declaration=True)
-
-    if filename is not None:
-        logger.info("XML output written to file: %s" % filename)
+    with filename:
+        tree.write(filename, encoding='utf-8', xml_declaration=True)
