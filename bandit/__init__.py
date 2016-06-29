@@ -28,4 +28,5 @@ from bandit.core.constants import *  # noqa
 from bandit.core.issue import *  # noqa
 from bandit.core.test_properties import *  # noqa
 
-__version__ = pbr.version.VersionInfo('bandit').version_string()
+version_info = pbr.version.VersionInfo('bandit')
+__version__ = version_info.version_string()
