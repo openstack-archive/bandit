@@ -1,0 +1,10 @@
+Code-Review+1: Jiong Liu <liujiong@gohighsec.com>
+Code-Review+2: Ian Cordasco <ian.cordasco@rackspace.com>
+Code-Review+2: Jamie Finnigan <jamiefinnigan@gmail.com>
+Workflow+1: Jamie Finnigan <jamiefinnigan@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Tue, 05 Jul 2016 16:44:00 +0000
+Reviewed-on: https://review.openstack.org/337452
+Project: openstack/bandit
+Branch: refs/heads/master
