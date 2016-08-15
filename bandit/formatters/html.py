@@ -13,6 +13,7 @@
 #  License for the specific language governing permissions and limitations
 #  under the License.
 
+import cgi
 import logging
 
 from bandit.core.test_properties import accepts_baseline
@@ -199,14 +200,15 @@ pre {
     for index, issue in enumerate(issues):
         if not baseline or len(issues[issue]) == 1:
             candidates = ''
-            code = code_block.format(code=issue.get_code(lines, True).
-                                     strip('\n').lstrip(' '))
+            safe_code = cgi.escape(issue.get_code(lines, True).
+                                   strip('\n').lstrip(' '))
+            code = code_block.format(code=safe_code)
         else:
             candidates_str = ''
             code = ''
             for candidate in issues[issue]:
-                candidate_code = (candidate.get_code(lines, True).strip('\n').
-                                  lstrip(' '))
+                candidate_code = cgi.escape(candidate.get_code(lines, True).
+                                            strip('\n').lstrip(' '))
                 candidates_str += candidate_issue.format(code=candidate_code)
 
             candidates = candidate_block.format(candidate_list=candidates_str)
