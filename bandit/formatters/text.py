@@ -40,6 +40,7 @@ This formatter outputs the issues as plain text.
 from __future__ import print_function
 
 import datetime
+import io
 import logging
 import sys
 
@@ -155,7 +156,17 @@ def report(manager, fileobj, sev_level, conf_level, lines=-1):
     result = '\n'.join([bit for bit in bits]) + '\n'
 
     with fileobj:
-        fileobj.write(str(result.encode('utf-8')))
+        if isinstance(fileobj, io.IOBase):
+            if isinstance(fileobj, io.TextIOBase):
+                # py3 text file
+                out_wrapper = fileobj
+            else:
+                # py3 other file
+                out_wrapper = io.TextIOWrapper(fileobj)
+            out_wrapper.write(result)
+        else:
+            # py2 doesn't care
+            fileobj.write(str(result.encode('utf-8')))
 
     if fileobj.name != sys.stdout.name:
         logger.info("Text output written to file: %s", fileobj.name)
