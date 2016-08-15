@@ -147,6 +147,7 @@ This formatter outputs the issues as HTML.
 """
 
 import cgi
+import io
 import logging
 import sys
 
@@ -372,8 +373,19 @@ pre {
                                           results=results_str)
 
     with fileobj:
-        fileobj.write(str(header_block.encode('utf-8')))
-        fileobj.write(str(report_contents.encode('utf-8')))
+        if isinstance(fileobj, io.IOBase):
+            if isinstance(fileobj, io.TextIOBase):
+                # py3 text file
+                out_wrapper = fileobj
+            else:
+                # py3 other file
+                out_wrapper = io.TextIOWrapper(fileobj)
+            out_wrapper.write(header_block)
+            out_wrapper.write(report_contents)
+        else:
+            # py2 doesn't care
+            fileobj.write(str(header_block.encode('utf-8')))
+            fileobj.write(str(report_contents.encode('utf-8')))
 
     if fileobj.name != sys.stdout.name:
         logger.info("HTML output written to file: %s" % fileobj.name)
