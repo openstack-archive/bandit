@@ -61,7 +61,7 @@ class BanditTestSet():
 
         results = []
 
-        if 'B001' in filtering:
+        if filtering:
             extman = extension_loader.MANAGER
             blacklist = profile.get('blacklist')
             if not blacklist:  # not overriden by legacy data

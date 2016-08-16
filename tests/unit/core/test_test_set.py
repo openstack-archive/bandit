@@ -95,7 +95,7 @@ class BanditTestSetTests(testtools.TestCase):
         self.assertEqual(len(ts.get_tests('Call')), 1)
 
     def test_profile_exclude_builtin_blacklist(self):
-        profile = {'exclude': ['B001']}
+        profile = {'exclude': ['B302', 'B401']}
         ts = test_set.BanditTestSet(self.config, profile)
         self.assertEqual(len(ts.get_tests('Import')), 0)
         self.assertEqual(len(ts.get_tests('ImportFrom')), 0)
