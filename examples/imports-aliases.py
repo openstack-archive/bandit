@@ -1,4 +1,4 @@
-from subprocess import Popen as pop
+import subprocess
 import hashlib as h
 import hashlib as hh
 import hashlib as hhh
@@ -6,7 +6,7 @@ import hashlib as hhhh
 from pickle import loads as lp
 import pickle as p
 
-pop('/bin/gcc --version', shell=True)
+subprocess.Popen('/bin/gcc --version', shell=True)
 
 h.md5('1')
 hh.md5('2')

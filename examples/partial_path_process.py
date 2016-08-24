@@ -1,10 +1,10 @@
-from subprocess import Popen as pop
+import subprocess
 
-pop('gcc --version', shell=False)
-pop('/bin/gcc --version', shell=False)
-pop(var, shell=False)
+subprocess.Popen('gcc --version', shell=False)
+subprocess.Popen('/bin/gcc --version', shell=False)
+subprocess.Popen(var, shell=False)
 
-pop(['ls', '-l'], shell=False)
-pop(['/bin/ls', '-l'], shell=False)
+subprocess.Popen(['ls', '-l'], shell=False)
+subprocess.Popen(['/bin/ls', '-l'], shell=False)
 
-pop('../ls -l', shell=False)
+subprocess.Popen('../ls -l', shell=False)

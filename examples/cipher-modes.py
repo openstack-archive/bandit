@@ -1,12 +1,11 @@
-from cryptography.hazmat.primitives.ciphers.modes import CBC
-from cryptography.hazmat.primitives.ciphers.modes import ECB
+from cryptography.hazmat.primitives.ciphers import modes
 
 
 # Insecure mode
-mode = ECB(iv)
+mode = modes.ECB(iv)
 
 # Secure cipher and mode
 cipher = AES.new(key, blockalgo.MODE_CTR, iv)
 
 # Secure mode
-mode = CBC(iv)
+mode = modes.CBC(iv)
