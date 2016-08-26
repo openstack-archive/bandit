@@ -1,0 +1,9 @@
+Code-Review+2: Eric Brown <browne@vmware.com>
+Code-Review+2: Tim Kelsey <tim.kelsey@hpe.com>
+Workflow+1: Tim Kelsey <tim.kelsey@hpe.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 26 Aug 2016 14:33:44 +0000
+Reviewed-on: https://review.openstack.org/360243
+Project: openstack/bandit
+Branch: refs/heads/master
