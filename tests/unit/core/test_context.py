@@ -91,7 +91,7 @@ class ContextTests(testtools.TestCase):
         ref_context = dict(call=ref_call)
         new_context = context.Context(context_object=ref_context)
         expected_dict = dict(arg1='spam', arg2='eggs')
-        self.assertDictEqual(expected_dict, new_context.call_keywords)
+        self.assertEqual(expected_dict, new_context.call_keywords)
 
         ref_context = dict(call=None)
         new_context = context.Context(context_object=ref_context)
@@ -168,7 +168,7 @@ class ContextTests(testtools.TestCase):
 
         value = ast.Dict(['spam', 'eggs'], [42, 'foo'])
         expected = dict(spam=42, eggs='foo')
-        self.assertDictEqual(expected, new_context._get_literal_value(value))
+        self.assertEqual(expected, new_context._get_literal_value(value))
 
         value = ast.Ellipsis()
         self.assertIsNone(new_context._get_literal_value(value))
