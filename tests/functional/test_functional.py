@@ -539,3 +539,10 @@ class FunctionalTests(testtools.TestCase):
             'CONFIDENCE': {'HIGH': 1}
         }
         self.check_example('input.py', expect)
+
+    def test_assign_builtin(self):
+        expect = {
+            'SEVERITY': {'MEDIUM': 2},
+            'CONFIDENCE': {'HIGH': 2}
+        }
+        self.check_example('assign-builtins.py', expect)
