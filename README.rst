@@ -141,6 +141,7 @@ Usage::
       B110  try_except_pass
       B111  execute_with_run_as_root_equals_true
       B112  try_except_continue
+      B113  assign_builtin
       B201  flask_debug_true
       B301  pickle
       B302  marshal
