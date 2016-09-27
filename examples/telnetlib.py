@@ -1,9 +1,11 @@
 import telnetlib
 import getpass
 
+import six
+
 host = sys.argv[1]
 
-username = raw_input('Username:')
+username = six.moves.input('Username:')
 password = getpass.getpass()
 tn = telnetlib.Telnet(host)
 
