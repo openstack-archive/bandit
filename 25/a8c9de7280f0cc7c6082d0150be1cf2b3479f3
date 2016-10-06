@@ -1,0 +1,8 @@
+Code-Review+2: Travis McPeak <tmcpeak@us.ibm.com>
+Workflow+1: Travis McPeak <tmcpeak@us.ibm.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Thu, 06 Oct 2016 17:39:30 +0000
+Reviewed-on: https://review.openstack.org/383105
+Project: openstack/bandit
+Branch: refs/heads/master
