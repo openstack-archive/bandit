@@ -157,7 +157,8 @@ def report(manager, fileobj, sev_level, conf_level, lines=-1):
     """
 
     bits = []
-    bits.append(header("Run started:%s", datetime.datetime.utcnow()))
+    bits.append(header("Run started: %s", datetime.datetime.utcnow()))
+    bits.append(header("Python version: %s" % '.'.join(map(str, sys.version_info[:3]))))
 
     if manager.verbose:
         bits.append(get_verbose_details(manager))

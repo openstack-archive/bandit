@@ -174,6 +174,7 @@ def report(manager, fileobj, sev_level, conf_level, lines=-1):
 
     time_string = datetime.datetime.utcnow().strftime(TS_FORMAT)
     machine_output['generated_at'] = time_string
+    machine_output['python_version'] = '.'.join(map(str, sys.version_info[:3]))
 
     result = json.dumps(machine_output, sort_keys=True,
                         indent=2, separators=(',', ': '))
