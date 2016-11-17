@@ -15,7 +15,6 @@
 import os
 import tempfile
 import textwrap
-import uuid
 
 import fixtures
 import mock
@@ -23,6 +22,8 @@ import testtools
 
 from bandit.core import config
 from bandit.core import utils
+
+from oslo_utils import uuidutils
 
 
 class TempFile(fixtures.Fixture):
@@ -46,7 +47,7 @@ class TestInit(testtools.TestCase):
     def test_settings(self):
         # Can initialize a BanditConfig.
 
-        example_key = uuid.uuid4().hex
+        example_key = uuidutils.generate_uuid()
         example_value = self.getUniqueString()
         contents = '%s: %s' % (example_key, example_value)
         f = self.useFixture(TempFile(contents))
@@ -80,9 +81,9 @@ class TestGetOption(testtools.TestCase):
     def setUp(self):
         super(TestGetOption, self).setUp()
 
-        self.example_key = uuid.uuid4().hex
-        self.example_subkey = uuid.uuid4().hex
-        self.example_subvalue = uuid.uuid4().hex
+        self.example_key = uuidutils.generate_uuid()
+        self.example_subkey = uuidutils.generate_uuid()
+        self.example_subvalue = uuidutils.generate_uuid()
         sample_yaml = textwrap.dedent("""
             %s:
                 %s: %s
@@ -103,7 +104,8 @@ class TestGetOption(testtools.TestCase):
     def test_levels_not_exist(self):
         # get_option when option name doesn't exist returns None.
 
-        sample_option_name = '%s.%s' % (uuid.uuid4().hex, uuid.uuid4().hex)
+        sample_option_name = '%s.%s' % (uuidutils.generate_uuid(),
+                                        uuidutils.generate_uuid())
         self.assertIsNone(self.b_config.get_option(sample_option_name))
 
 
@@ -117,7 +119,7 @@ class TestGetSetting(testtools.TestCase):
     def test_not_exist(self):
         # get_setting() when the name doesn't exist returns None
 
-        sample_setting_name = uuid.uuid4().hex
+        sample_setting_name = uuidutils.generate_uuid()
         self.assertIsNone(self.b_config.get_setting(sample_setting_name))
 
 
