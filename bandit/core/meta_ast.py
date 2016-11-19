@@ -19,7 +19,7 @@ import collections
 import logging
 
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class BanditMetaAst():
@@ -35,7 +35,7 @@ class BanditMetaAst():
         :return: -
         '''
         node_id = hex(id(node))
-        logger.debug('adding node : %s [%s]', node_id, depth)
+        LOG.debug('adding node : %s [%s]', node_id, depth)
         self.nodes[node_id] = {
             'raw': node, 'parent_id': parent_id, 'depth': depth
         }

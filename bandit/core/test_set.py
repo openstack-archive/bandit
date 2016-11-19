@@ -24,7 +24,7 @@ from bandit.core import blacklisting
 from bandit.core import extension_loader
 
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class BanditTestSet():
@@ -109,8 +109,8 @@ class BanditTestSet():
                 plugin.plugin._config = cfg
             for check in plugin.plugin._checks:
                 self.tests.setdefault(check, []).append(plugin.plugin)
-                logger.debug('added function %s (%s) targetting %s',
-                             plugin.name, plugin.plugin._test_id, check)
+                LOG.debug('added function %s (%s) targetting %s',
+                          plugin.name, plugin.plugin._test_id, check)
 
     def get_tests(self, checktype):
         '''Returns all tests that are of type checktype

@@ -31,7 +31,7 @@ from bandit.core import node_visitor as b_node_visitor
 from bandit.core import test_set as b_test_set
 
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class BanditManager():
@@ -86,7 +86,7 @@ class BanditManager():
             jdata = json.loads(data)
             items = [issue.issue_from_dict(j) for j in jdata["results"]]
         except Exception as e:
-            logger.warning("Failed to load baseline data: %s", e)
+            LOG.warning("Failed to load baseline data: %s", e)
         self.baseline = items
 
     def filter_results(self, sev_filter, conf_filter):
@@ -181,8 +181,8 @@ class BanditManager():
                     files_list.update(new_files)
                     excluded_files.update(newly_excluded)
                 else:
-                    logger.warning("Skipping directory (%s), use -r flag to "
-                                   "scan contents", fname)
+                    LOG.warning("Skipping directory (%s), use -r flag to "
+                                "scan contents", fname)
 
             else:
                 # if the user explicitly mentions a file on command line,
@@ -212,7 +212,7 @@ class BanditManager():
         new_files_list = list(self.files_list)
 
         for count, fname in enumerate(self.files_list):
-            logger.debug("working on file : %s", fname)
+            LOG.debug("working on file : %s", fname)
 
             if len(self.files_list) > self.progress:
                 # is it time to update the progress indicator?
@@ -247,7 +247,7 @@ class BanditManager():
                         ))
                         new_files_list.remove(fname)
                     except Exception as e:
-                        logger.error(
+                        LOG.error(
                             "Exception occurred when executing tests against "
                             "{0}. Run \"bandit --debug {0}\" to see the full "
                             "traceback.".format(fname)
@@ -256,8 +256,8 @@ class BanditManager():
                             (fname, 'exception while scanning file')
                         )
                         new_files_list.remove(fname)
-                        logger.debug("  Exception string: %s", e)
-                        logger.debug(
+                        LOG.debug("  Exception string: %s", e)
+                        LOG.debug(
                             "  Exception traceback: %s",
                             traceback.format_exc()
                         )
