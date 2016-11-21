@@ -153,7 +153,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
-        'targets', metavar='targets', type=str, nargs='+',
+        'targets', metavar='targets', type=str, nargs='*',
         help='source file(s) or directory(s) to be tested'
     )
     parser.add_argument(
@@ -261,6 +261,13 @@ def main():
 
     # setup work - parse arguments, and initialize BanditManager
     args = parser.parse_args()
+
+    # Use stdin if available or error out with usage info if no input
+    if not args.targets:
+        if not sys.stdin.isatty():
+            args.targets.append('<stdin>')
+        else:
+            parser.error('the following arguments are required: targets')
 
     try:
         b_conf = b_config.BanditConfig(config_file=args.config_file)
