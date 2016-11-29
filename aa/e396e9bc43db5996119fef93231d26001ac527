@@ -1,0 +1,9 @@
+Code-Review+2: Ian Cordasco <sigmavirus24@gmail.com>
+Code-Review+1: Khanak Nangia <khanak.nangia@intel.com>
+Workflow+1: Stanislaw Pitucha <viraptor@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Tue, 29 Nov 2016 23:58:58 +0000
+Reviewed-on: https://review.openstack.org/400468
+Project: openstack/bandit
+Branch: refs/heads/master
