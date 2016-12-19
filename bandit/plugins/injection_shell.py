@@ -649,14 +649,17 @@ def start_process_with_partial_path(context, config):
            context.call_function_name_qual in config['shell'] or
            context.call_function_name_qual in config['no_shell']):
 
-            delims = ['/', '\\', '.']
+            # yuck, regex: starts with a windows drive letter (eg C:)
+            # or one of our path delimeter characters (/, \, .)
+            delims_re = r'^(?:[A-Za-z](?=\:)|[\\\/\.])'
             node = context.node.args[0]
             # some calls take an arg list, check the first part
             if isinstance(node, ast.List):
                 node = node.elts[0]
 
             # make sure the param is a string literal and not a var name
-            if isinstance(node, ast.Str) and node.s[0] not in delims:
+            if isinstance(node, ast.Str) and not re.match(delims_re,
+                                                          node.s):
                 return bandit.Issue(
                     severity=bandit.LOW,
                     confidence=bandit.HIGH,
