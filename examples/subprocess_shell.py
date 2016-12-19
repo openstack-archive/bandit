@@ -12,10 +12,10 @@ subprocess.Popen('/bin/gcc --version', shell=True)
 subprocess.Popen(['/bin/gcc', '--version'], shell=False)
 subprocess.Popen(['/bin/gcc', '--version'])
 
-subprocess.call(["/bin/ls",
-                 "-l"
-                 ])
+subprocess.call(["/bin/ls", "-l"])
 subprocess.call('/bin/ls -l', shell=True)
+subprocess.call('/bin/ls -l', shell='True')
+subprocess.call('/bin/ls -l', shell=1)
 
 subprocess.check_call(['/bin/ls', '-l'], shell=False)
 subprocess.check_call('/bin/ls -l', shell=True)

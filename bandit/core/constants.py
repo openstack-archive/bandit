@@ -30,12 +30,13 @@ for rank in RANKING:
 
 CONFIDENCE_DEFAULT = 'UNDEFINED'
 
-# A list of values Python considers to be False.
+# A list of values Python considers to be True or False.
 # These can be useful in tests to check if a value is True or False.
 # We don't handle the case of user-defined classes being false.
 # These are only useful when we have a constant in code. If we
 # have a variable we cannot determine if False.
 # See https://docs.python.org/2/library/stdtypes.html#truth-value-testing
+TRUE_VALUES = [True, 'True', 1, 1.0, 1j]
 FALSE_VALUES = [None, False, 'False', 0, 0.0, 0j, '', (), [], {}]
 
 # override with "log_format" option in config file

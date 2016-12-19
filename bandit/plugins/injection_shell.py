@@ -18,6 +18,7 @@ import ast
 import re
 
 import bandit
+from bandit.core import constants
 from bandit.core import test_properties as test
 
 
@@ -192,7 +193,7 @@ def subprocess_popen_with_shell_equals_true(context, config):
     .. versionadded:: 0.9.0
     """
     if config and context.call_function_name_qual in config['subprocess']:
-        if context.check_call_arg_value('shell', 'True'):
+        if context.check_call_arg_value('shell', constants.TRUE_VALUES):
             if len(context.call_args) > 0:
                 sev = _evaluate_shell_call(context)
                 if sev == bandit.LOW:
@@ -292,7 +293,7 @@ def subprocess_without_shell_equals_true(context, config):
     .. versionadded:: 0.9.0
     """
     if config and context.call_function_name_qual in config['subprocess']:
-        if not context.check_call_arg_value('shell', 'True'):
+        if not context.check_call_arg_value('shell', constants.TRUE_VALUES):
             return bandit.Issue(
                 severity=bandit.LOW,
                 confidence=bandit.HIGH,
@@ -370,7 +371,7 @@ def any_other_function_with_shell_equals_true(context, config):
     .. versionadded:: 0.9.0
     """
     if config and context.call_function_name_qual not in config['subprocess']:
-        if context.check_call_arg_value('shell', 'True'):
+        if context.check_call_arg_value('shell', constants.TRUE_VALUES):
             return bandit.Issue(
                 severity=bandit.MEDIUM,
                 confidence=bandit.LOW,
