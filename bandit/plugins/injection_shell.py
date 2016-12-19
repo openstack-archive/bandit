@@ -22,12 +22,9 @@ from bandit.core import test_properties as test
 
 
 def _has_special_characters(command):
-    # check if it contains any of the characters that may cause globing,
-    # multiple commands, subshell, or variable resolution
-    # glob: [ { * ?
-    # variable: $
-    # subshell: ` $
-    return bool(re.search(r'[{|\[;$\*\?`]', command))
+    # check if it contains any of the characters outside of whitelist:
+    # (from pipes 'safechars'): @%_-+=:,./ spaces and alphanumerics
+    return bool(re.search(r'[^\@\%\_\-\+\=\:\,\.\/\d\s\w]', command))
 
 
 def _evaluate_shell_call(context):
