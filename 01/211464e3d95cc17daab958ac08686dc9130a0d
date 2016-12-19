@@ -1,0 +1,9 @@
+Code-Review+1: Rahul U Nair <rahulunair@gmail.com>
+Code-Review+2: Eric Brown <browne@vmware.com>
+Workflow+1: Travis McPeak <tmcpeak@us.ibm.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Mon, 19 Dec 2016 17:24:45 +0000
+Reviewed-on: https://review.openstack.org/355305
+Project: openstack/bandit
+Branch: refs/heads/master
