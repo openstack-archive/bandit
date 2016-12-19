@@ -20,6 +20,10 @@ import re
 import bandit
 from bandit.core import test_properties as test
 
+# yuck, regex: starts with a windows drive letter (eg C:)
+# or one of our path delimeter characters (/, \, .)
+full_path_match = re.compile(r'^(?:[A-Za-z](?=\:)|[\\\/\.])')
+
 
 def _has_special_characters(command):
     # check if it contains any of the characters that may cause globing,
@@ -649,14 +653,13 @@ def start_process_with_partial_path(context, config):
            context.call_function_name_qual in config['shell'] or
            context.call_function_name_qual in config['no_shell']):
 
-            delims = ['/', '\\', '.']
             node = context.node.args[0]
             # some calls take an arg list, check the first part
             if isinstance(node, ast.List):
                 node = node.elts[0]
 
             # make sure the param is a string literal and not a var name
-            if isinstance(node, ast.Str) and node.s[0] not in delims:
+            if isinstance(node, ast.Str) and not full_path_match.match(node.s):
                 return bandit.Issue(
                     severity=bandit.LOW,
                     confidence=bandit.HIGH,
