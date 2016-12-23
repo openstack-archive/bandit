@@ -1,0 +1,11 @@
+Code-Review+2: Eric Brown <browne@vmware.com>
+Workflow+1: Travis McPeak <tmcpeak@us.ibm.com>
+Workflow+1: Eric Brown <browne@vmware.com>
+Code-Review+2: Ian Cordasco <sigmavirus24@gmail.com>
+Workflow+1: Ian Cordasco <sigmavirus24@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 23 Dec 2016 04:05:39 +0000
+Reviewed-on: https://review.openstack.org/413396
+Project: openstack/bandit
+Branch: refs/heads/master
