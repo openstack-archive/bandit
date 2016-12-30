@@ -80,15 +80,27 @@ def _check_string(data):
 
 
 def _evaluate_ast(node):
-    if not isinstance(node.parent, ast.BinOp):
-        return (False, "")
+    wrapper = None
+    statement = ''
 
-    out = utils.concat_string(node, node.parent)
-    if isinstance(out[0].parent, ast.Call):  # wrapped in "execute" call?
+    if isinstance(node.parent, ast.BinOp):
+        out = utils.concat_string(node, node.parent)
+        wrapper = out[0].parent
+        statement = out[1]
+    elif (
+            isinstance(node.parent, ast.Attribute)
+            and node.parent.attr == 'format'
+    ):
+        statement = node.s
+        # Hierarchy for "".format() is Wrapper -> Call -> Attribute -> Str
+        wrapper = node.parent.parent.parent
+
+    if isinstance(wrapper, ast.Call):  # wrapped in "execute" call?
         names = ['execute', 'executemany']
-        name = utils.get_called_name(out[0].parent)
-        return (name in names, out[1])
-    return (False, out[1])
+        name = utils.get_called_name(wrapper)
+        return (name in names, statement)
+    else:
+        return (False, statement)
 
 
 @test.checks('Str')
