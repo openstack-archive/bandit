@@ -80,7 +80,10 @@ def _check_string(data):
 
 
 def _evaluate_ast(node):
-    if not isinstance(node.parent, ast.BinOp):
+    mod_format = isinstance(node.parent, ast.BinOp)
+    str_format = isinstance(node.parent, ast.Attribute) and \
+                 node.parent.attr == 'format'
+    if not mod_format and not str_format:
         return (False, "")
 
     out = utils.concat_string(node, node.parent)
