@@ -71,6 +71,15 @@ class BanditManager(object):
         self.progress = b_constants.progress_increment
         self.scores = []
 
+    def get_skipped(self):
+        ret = []
+        for skip in self.skipped:
+            if isinstance(skip[0], bytes):
+                ret.append((skip[0].decode('utf-8'), skip[1]))
+            else:
+                ret.append(skip)
+        return ret
+
     def get_issue_list(self,
                        sev_level=b_constants.LOW,
                        conf_level=b_constants.LOW):
