@@ -60,22 +60,30 @@ If so, a MEDIUM issue is reported. For example:
 """
 
 import ast
+import re
 
 import bandit
 from bandit.core import test_properties as test
 from bandit.core import utils
 
+SIMPLE_SQL_RE = re.compile(
+    r'(select\s.*from\s|' \
+    r'delete\s+from\s|' \
+    r'insert\s+into\s.*values\s|' \
+    r'update\s.*set\s)',
+    re.IGNORECASE | re.DOTALL,
+)
+
 
 def _check_string(data):
-    val = data.lower()
-    return ((val.startswith('select ') and ' from ' in val) or
-            val.startswith('insert into') or
-            (val.startswith('update ') and ' set ' in val) or
-            val.startswith('delete from '))
+    return SIMPLE_SQL_RE.search(data) is not None
 
 
 def _evaluate_ast(node):
-    if not isinstance(node.parent, ast.BinOp):
+    mod_format = isinstance(node.parent, ast.BinOp)
+    str_format = isinstance(node.parent, ast.Attribute) and \
+                 node.parent.attr == 'format'
+    if not mod_format and not str_format:
         return (False, "")
 
     out = utils.concat_string(node, node.parent)
