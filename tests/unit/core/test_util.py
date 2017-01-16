@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-#
 # Copyright 2014 Hewlett-Packard Development Company, L.P.
 # Copyright 2015 Nebula, Inc.
 #
