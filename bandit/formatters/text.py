@@ -108,7 +108,7 @@ def get_results(manager, sev_level, conf_level, lines):
         if not baseline or len(issues[issue]) == 1:
             bits.append(_output_issue_str(issue, "", lines=lines))
 
-        # otherwise show the finding and the candidates
+        # Otherwise, show the finding and the candidates
         else:
             bits.append(_output_issue_str(issue, "",
                                           show_lineno=False,
