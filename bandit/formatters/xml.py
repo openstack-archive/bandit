@@ -40,9 +40,9 @@ This formatter outputs the issues as XML.
 # 2.7
 from __future__ import absolute_import
 
-import logging
 import sys
 from xml.etree import cElementTree as ET
+from oslo_log import log as logging
 
 import six
 

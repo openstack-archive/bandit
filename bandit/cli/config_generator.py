@@ -15,13 +15,14 @@ from __future__ import print_function
 
 import argparse
 import importlib
-import logging
 import os
 import sys
+
 
 import six
 import yaml
 
+from oslo_log import log as logging
 from bandit.core import extension_loader
 
 PROG_NAME = 'bandit_conf_generator'

@@ -152,9 +152,9 @@ This formatter outputs the issues as HTML.
 """
 
 import cgi
-import logging
 import sys
 
+from oslo_log import log as logging
 from bandit.core import docs_utils
 from bandit.core import test_properties
 from bandit.formatters import utils

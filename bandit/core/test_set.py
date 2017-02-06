@@ -16,10 +16,10 @@
 
 
 import importlib
-import logging
 
 import six
 
+from oslo_log import log as logging
 from bandit.core import blacklisting
 from bandit.core import extension_loader
 

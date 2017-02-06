@@ -17,11 +17,11 @@
 import collections
 import fnmatch
 import json
-import logging
 import os
 import sys
 import traceback
 
+from oslo_log import log as logging
 from bandit.core import constants as b_constants
 from bandit.core import extension_loader
 from bandit.core import issue

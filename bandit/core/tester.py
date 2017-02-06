@@ -15,9 +15,9 @@
 # under the License.
 
 import copy
-import logging
 import warnings
 
+from oslo_log import log as logging
 from bandit.core import constants
 from bandit.core import context as b_context
 from bandit.core import utils

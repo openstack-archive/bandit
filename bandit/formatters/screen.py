@@ -40,9 +40,9 @@ This formatter outputs the issues as color coded text.
 from __future__ import print_function
 
 import datetime
-import logging
 import sys
 
+from oslo_log import log as logging
 from bandit.core import constants
 from bandit.core import test_properties
 

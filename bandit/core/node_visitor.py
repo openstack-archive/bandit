@@ -15,9 +15,9 @@
 # under the License.
 
 import ast
-import logging
 import operator
 
+from oslo_log import log as logging
 from bandit.core import constants
 from bandit.core import tester as b_tester
 from bandit.core import utils as b_utils

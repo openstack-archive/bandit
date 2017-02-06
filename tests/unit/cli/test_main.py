@@ -12,13 +12,13 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import logging
 import os
 
 import fixtures
 import mock
 import testtools
 
+from oslo_log import log as logging
 from bandit.cli import main as bandit
 from bandit.core import extension_loader as ext_loader
 from bandit.core import utils

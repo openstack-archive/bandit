@@ -80,10 +80,10 @@ from __future__ import absolute_import
 
 import datetime
 import json
-import logging
 import operator
 import sys
 
+from oslo_log import log as logging
 from bandit.core import test_properties
 
 LOG = logging.getLogger(__name__)

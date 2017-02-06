@@ -37,9 +37,9 @@ This formatter outputs the issues in a comma separated values format.
 from __future__ import absolute_import
 
 import csv
-import logging
 import sys
 
+from oslo_log import log as logging
 LOG = logging.getLogger(__name__)
 
 

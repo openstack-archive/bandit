@@ -16,10 +16,10 @@
 
 import _ast
 import ast
-import logging
 import os.path
 import sys
 
+from oslo_log import log as logging
 try:
     import configparser
 except ImportError:

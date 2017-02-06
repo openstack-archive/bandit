@@ -14,11 +14,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import logging
 
 import six
 import yaml
 
+from oslo_log import log as logging
 from bandit.core import constants
 from bandit.core import extension_loader
 from bandit.core import utils

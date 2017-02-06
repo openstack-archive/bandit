@@ -25,7 +25,6 @@
 
 import argparse
 import contextlib
-import logging
 import os
 import shutil
 import subprocess
@@ -33,6 +32,8 @@ import sys
 import tempfile
 
 import git
+
+from oslo_log import log as logging
 
 bandit_args = sys.argv[1:]
 baseline_tmp_file = '_bandit_baseline_run.json_'

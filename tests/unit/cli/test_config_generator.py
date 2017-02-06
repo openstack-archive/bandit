@@ -15,12 +15,12 @@
 # under the License.
 
 import importlib
-import logging
 
 import mock
 import testtools
 import yaml
 
+from oslo_log import log as logging
 from bandit.cli import config_generator
 from bandit.core import extension_loader
 from bandit.core import test_properties as test

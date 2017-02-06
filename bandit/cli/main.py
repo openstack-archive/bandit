@@ -15,7 +15,6 @@
 # under the License.
 import argparse
 import fnmatch
-import logging
 import os
 import sys
 
@@ -26,7 +25,7 @@ from bandit.core import config as b_config
 from bandit.core import constants
 from bandit.core import manager as b_manager
 from bandit.core import utils
-
+from oslo_log import log as logging
 
 BASE_CONFIG = 'bandit.yaml'
 LOG = logging.getLogger()
