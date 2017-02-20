@@ -2,11 +2,13 @@ from Crypto.Cipher import ARC2 as pycrypto_arc2
 from Crypto.Cipher import ARC4 as pycrypto_arc4
 from Crypto.Cipher import Blowfish as pycrypto_blowfish
 from Crypto.Cipher import DES as pycrypto_des
+from Crypto.Cipher import DES3 as pycrypto_des3
 from Crypto.Cipher import XOR as pycrypto_xor
 from Cryptodome.Cipher import ARC2 as pycryptodomex_arc2
 from Cryptodome.Cipher import ARC4 as pycryptodomex_arc4
 from Cryptodome.Cipher import Blowfish as pycryptodomex_blowfish
 from Cryptodome.Cipher import DES as pycryptodomex_des
+from Cryptodome.Cipher import DES3 as pycryptodomex_des3
 from Cryptodome.Cipher import XOR as pycryptodomex_xor
 from Crypto.Hash import SHA
 from Crypto import Random
@@ -63,6 +65,13 @@ msg = cipher.encrypt(plaintext)
 cipher = pycryptodomex_xor.new(key)
 msg = cipher.encrypt(plaintext)
 
+key = b'Super secret key'
+plaintext = b'Encrypt me'
+cipher = pycrypto_des3.new(key)
+msg = cipher.encrypt(plaintext)
+cipher = pycryptodomex_des3.new(key)
+msg = cipher.encrypt(plaintext)
+
 cipher = Cipher(algorithms.ARC4(key), mode=None, backend=default_backend())
 encryptor = cipher.encryptor()
 ct = encryptor.update(b"a secret message")
@@ -72,5 +81,10 @@ encryptor = cipher.encryptor()
 ct = encryptor.update(b"a secret message")
 
 cipher = Cipher(algorithms.IDEA(key), mode=None, backend=default_backend())
+encryptor = cipher.encryptor()
+ct = encryptor.update(b"a secret message")
+
+cipher = Cipher(algorithms.TripleDES(key), mode=None,
+                backend=default_backend())
 encryptor = cipher.encryptor()
 ct = encryptor.update(b"a secret message")

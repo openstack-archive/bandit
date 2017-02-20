@@ -119,8 +119,7 @@ class FunctionalTests(testtools.TestCase):
 
     def test_ciphers(self):
         '''Test the `Crypto.Cipher` example.'''
-        expect = {'SEVERITY': {'HIGH': 13},
-                  'CONFIDENCE': {'HIGH': 13}}
+        expect = {'SEVERITY': {'HIGH': 16}, 'CONFIDENCE': {'HIGH': 16}}
         self.check_example('ciphers.py', expect)
 
     def test_cipher_modes(self):
