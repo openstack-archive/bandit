@@ -85,17 +85,21 @@ as AES.
 |      |                     | - Crypto.Cipher.Blowfish.new       |           |
 |      |                     | - Crypto.Cipher.DES.new            |           |
 |      |                     | - Crypto.Cipher.XOR.new            |           |
+|      |                     | - Crypto.Cipher.DES3.new           |           |
 |      |                     | - Cryptodome.Cipher.ARC2.new       |           |
 |      |                     | - Cryptodome.Cipher.ARC4.new       |           |
 |      |                     | - Cryptodome.Cipher.Blowfish.new   |           |
 |      |                     | - Cryptodome.Cipher.DES.new        |           |
 |      |                     | - Cryptodome.Cipher.XOR.new        |           |
+|      |                     | - Cryptodome.Cipher.DES3.new       |           |
 |      |                     | - cryptography.hazmat.primitives   |           |
 |      |                     |   .ciphers.algorithms.ARC4         |           |
 |      |                     | - cryptography.hazmat.primitives   |           |
 |      |                     |   .ciphers.algorithms.Blowfish     |           |
 |      |                     | - cryptography.hazmat.primitives   |           |
 |      |                     |   .ciphers.algorithms.IDEA         |           |
+|      |                     | - cryptography.hazmat.primitives   |           |
+|      |                     |   .ciphers.algorithms.TripleDES    |           |
 +------+---------------------+------------------------------------+-----------+
 | B305 | cipher_modes        | - cryptography.hazmat.primitives   | Medium    |
 |      |                     |   .ciphers.modes.ECB               |           |
@@ -335,14 +339,17 @@ def gen_blacklist():
          'Crypto.Cipher.Blowfish.new',
          'Crypto.Cipher.DES.new',
          'Crypto.Cipher.XOR.new',
+         'Crypto.Cipher.DES3.new',
          'Cryptodome.Cipher.ARC2.new',
          'Cryptodome.Cipher.ARC4.new',
          'Cryptodome.Cipher.Blowfish.new',
          'Cryptodome.Cipher.DES.new',
          'Cryptodome.Cipher.XOR.new',
+         'Cryptodome.Cipher.DES3.new',
          'cryptography.hazmat.primitives.ciphers.algorithms.ARC4',
          'cryptography.hazmat.primitives.ciphers.algorithms.Blowfish',
-         'cryptography.hazmat.primitives.ciphers.algorithms.IDEA'],
+         'cryptography.hazmat.primitives.ciphers.algorithms.IDEA',
+         'cryptography.hazmat.primitives.ciphers.algorithms.TripleDES'],
         'Use of insecure cipher {name}. Replace with a known secure'
         ' cipher such as AES.',
         'HIGH'
