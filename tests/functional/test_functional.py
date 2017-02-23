@@ -113,8 +113,8 @@ class FunctionalTests(testtools.TestCase):
 
     def test_crypto_md5(self):
         '''Test the `hashlib.md5` example.'''
-        expect = {'SEVERITY': {'MEDIUM': 11},
-                  'CONFIDENCE': {'HIGH': 11}}
+        expect = {'SEVERITY': {'MEDIUM': 15},
+                  'CONFIDENCE': {'HIGH': 15}}
         self.check_example('crypto-md5.py', expect)
 
     def test_ciphers(self):
