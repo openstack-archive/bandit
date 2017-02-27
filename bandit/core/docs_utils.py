@@ -32,6 +32,13 @@ def get_url(bid):
     if info is not None:
         template = 'blacklists/blacklist_{kind}.html#{id}-{name}'
         if info['id'].startswith('B3'):  # B3XX
+            # Some of the links are combined, so we have exception cases
+            if info['id'] in ['B304', 'B305']:
+                info['id'] = 'b304-b305'
+                info['name'] = 'ciphers-and-modes'
+            elif info['id'] in ['B313', 'B314', 'B315', 'B316', 'B317',
+                                'B318', 'B319', 'B320']:
+                info['id'] = 'b313-b320'
             ext = template.format(
                 kind='calls', id=info['id'], name=info['name'])
         else:
