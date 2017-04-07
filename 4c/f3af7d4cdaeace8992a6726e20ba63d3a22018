@@ -1,0 +1,8 @@
+Code-Review+2: Stanislaw Pitucha <viraptor@gmail.com>
+Workflow+1: Jamie Finnigan <jamiefinnigan@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 07 Apr 2017 04:31:41 +0000
+Reviewed-on: https://review.openstack.org/436196
+Project: openstack/bandit
+Branch: refs/heads/master
