@@ -337,3 +337,18 @@ class Context(object):
                 if module in imp:
                     return True
         return False
+
+    def is_alias(self, alias, actual):
+        ''' Check if one symbol has been aliased to another
+
+        : param alias: The alias to check
+        : param actual: Does alias map to this symbol
+        : return: 'True; if alias is aliased to actual, 'False' otherwise
+        '''
+        if 'import_aliases' in self._context:
+            import_aliases = self._context['import_aliases']
+            for import_alias in import_aliases:
+                if (alias == import_alias and
+                   actual == import_aliases[import_alias]):
+                    return True
+        return False
