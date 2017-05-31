@@ -46,6 +46,7 @@ def outputHigh(issueFingerprint, i):
 	output += ENDC
 	return output
 
+
 def main(argv):
 	exitCode = 0
 
@@ -62,7 +63,8 @@ def main(argv):
 
 	with open(banditIgnore) as file:
 		falsepositive = json.load(file)
-		falsePositiveSignatures = []
+		
+	falsePositiveSignatures = []
 
 	for i in falsepositive["false_positives"]:
 		falsePositiveSignatures.append(i["fingerprint"])
