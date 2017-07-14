@@ -1,0 +1,8 @@
+Code-Review+2: Eric Brown <browne@vmware.com>
+Workflow+1: Eric Brown <browne@vmware.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 14 Jul 2017 16:34:27 +0000
+Reviewed-on: https://review.openstack.org/476817
+Project: openstack/bandit
+Branch: refs/heads/master
