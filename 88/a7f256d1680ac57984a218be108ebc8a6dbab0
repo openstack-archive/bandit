@@ -1,0 +1,11 @@
+Code-Review+1: Rahul U Nair <rahulunair@gmail.com>
+Code-Review+2: Eric Brown <browne@vmware.com>
+Code-Review+1: Zhaokun Fu <fuzk@inspur.com>
+Code-Review+1: Luke Hinds <lhinds@redhat.com>
+Workflow+1: Eric Brown <browne@vmware.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 14 Jul 2017 16:32:31 +0000
+Reviewed-on: https://review.openstack.org/455049
+Project: openstack/bandit
+Branch: refs/heads/master
