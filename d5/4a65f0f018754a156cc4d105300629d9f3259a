@@ -1,0 +1,9 @@
+Code-Review+1: wang zhiming <wangzm49@chinaunicom.cn>
+Code-Review+2: Eric Brown <browne@vmware.com>
+Workflow+1: Eric Brown <browne@vmware.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Sat, 19 Aug 2017 21:41:53 +0000
+Reviewed-on: https://review.openstack.org/494790
+Project: openstack/bandit
+Branch: refs/heads/master
