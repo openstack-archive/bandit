@@ -1,0 +1,9 @@
+Code-Review-1: Kien Nguyen <KienNT@vn.fujitsu.com>
+Code-Review+2: Gage Hugo <gagehugo@gmail.com>
+Workflow+1: Gage Hugo <gagehugo@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Mon, 04 Sep 2017 17:59:03 +0000
+Reviewed-on: https://review.openstack.org/484251
+Project: openstack/bandit
+Branch: refs/heads/master
