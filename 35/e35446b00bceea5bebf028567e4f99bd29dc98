@@ -1,0 +1,10 @@
+Code-Review+1: Rahul U Nair <rahulunair@gmail.com>
+Code-Review+2: Stanislaw Pitucha <viraptor@gmail.com>
+Code-Review+2: Gage Hugo <gagehugo@gmail.com>
+Workflow+1: Gage Hugo <gagehugo@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 13 Sep 2017 04:13:35 +0000
+Reviewed-on: https://review.openstack.org/437563
+Project: openstack/bandit
+Branch: refs/heads/master
