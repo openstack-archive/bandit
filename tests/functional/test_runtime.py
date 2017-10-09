@@ -82,10 +82,12 @@ class RuntimeTests(testtools.TestCase):
         for i in replace_list:
             output = output.replace(i, '')
         output = output.replace("'", "\'")
+        output = output.replace('\n', '')
         with open('README.rst') as f:
             readme = f.read()
             for i in replace_list:
                 readme = readme.replace(i, '')
+            readme = readme.replace('\n', '')
             self.assertIn(output, readme)
 
     # test examples (use _test_example() to wrap in config location argument

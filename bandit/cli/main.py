@@ -206,6 +206,13 @@ def main():
         choices=sorted(extension_mgr.formatter_names)
     )
     parser.add_argument(
+        '--msg-template', action='store',
+        default=None, help='specify output message template'
+                           ' (only usable with --format custom),'
+                           ' see CUSTOM FORMAT section'
+                           ' for list of available values',
+    )
+    parser.add_argument(
         '-o', '--output', dest='output_file', action='store', nargs='?',
         type=argparse.FileType('w'), default=sys.stdout,
         help='write report to filename'
@@ -258,6 +265,9 @@ def main():
 
     # setup work - parse arguments, and initialize BanditManager
     args = parser.parse_args()
+    # Check if `--msg-template` is not present without custom formatter
+    if args.output_format != 'custom' and args.msg_template is not None:
+        parser.error("--msg-template can only be used with --format=custom")
 
     try:
         b_conf = b_config.BanditConfig(config_file=args.config_file)
@@ -341,7 +351,8 @@ def main():
                          sev_level,
                          conf_level,
                          args.output_file,
-                         args.output_format)
+                         args.output_format,
+                         args.msg_template)
 
     # return an exit code of 1 if there are results, 0 otherwise
     if b_mgr.results_count(sev_filter=sev_level, conf_filter=conf_level) > 0:
