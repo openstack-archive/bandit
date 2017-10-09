@@ -87,8 +87,9 @@ Usage::
     $ bandit -h
     usage: bandit [-h] [-r] [-a {file,vuln}] [-n CONTEXT_LINES] [-c CONFIG_FILE]
                   [-p PROFILE] [-t TESTS] [-s SKIPS] [-l] [-i]
-                  [-f {csv,html,json,screen,txt,xml,yaml}] [-o [OUTPUT_FILE]] [-v]
-                  [-d] [--ignore-nosec] [-x EXCLUDED_PATHS] [-b BASELINE]
+                  [-f {csv,html,json,screen,txt,xml,yaml,custom}]
+                  [--msg-template MSG_TEMPLATE] [-o [OUTPUT_FILE]] [-v] [-d]
+                  [--ignore-nosec] [-x EXCLUDED_PATHS] [-b BASELINE]
                   [--ini INI_PATH] [--version]
                   targets [targets ...]
 
@@ -118,8 +119,12 @@ Usage::
                             (-l for LOW, -ll for MEDIUM, -lll for HIGH)
       -i, --confidence      report only issues of a given confidence level or
                             higher (-i for LOW, -ii for MEDIUM, -iii for HIGH)
-      -f {csv,html,json,screen,txt,xml,yaml}, --format {csv,html,json,screen,txt,xml,yaml}
+      -f {csv,html,json,screen,txt,xml,yaml,custom}, --format {csv,html,json,screen,txt,xml,yaml,custom}
                             specify output format
+      --msg-template MSG_TEMPLATE
+                            specify output message template (only usable with
+                            --format custom), see TAGS section for list of
+                            available values
       -o [OUTPUT_FILE], --output [OUTPUT_FILE]
                             write report to filename
       -v, --verbose         output extra information like excluded and included
@@ -137,7 +142,14 @@ Usage::
                             arguments
       --version             show program's version number and exit
 
+    TAGS
+    ----
+        <abspath>, <relpath>, <line>,  <test_id>,
+        <severity>, <msg>, <confidence>, <range>
+
     The following tests were discovered and loaded:
+    -----------------------------------------------
+
       B101  assert_used
       B102  exec_used
       B103  set_bad_file_permissions
