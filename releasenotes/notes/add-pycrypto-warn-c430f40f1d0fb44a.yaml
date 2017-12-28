@@ -1,0 +1,4 @@
+---
+features:
+  - |
+    New rule is added to detect and warn the import of ``pycrypto`` module.
