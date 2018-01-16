@@ -1,0 +1,8 @@
+Code-Review+2: Gage Hugo <gagehugo@gmail.com>
+Workflow+1: Gage Hugo <gagehugo@gmail.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Tue, 16 Jan 2018 17:52:07 +0000
+Reviewed-on: https://review.openstack.org/533955
+Project: openstack/bandit
+Branch: refs/heads/master
