@@ -713,3 +713,19 @@ class FunctionalTests(testtools.TestCase):
             'CONFIDENCE': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 0, 'HIGH': 5}
         }
         self.check_example('hashlib_new_insecure_functions.py', expect)
+
+    def test_django_sql_injection(self):
+        """Test insecure extra functions on Django."""
+        expect = {
+            'SEVERITY': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 11, 'HIGH': 0},
+            'CONFIDENCE': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 11, 'HIGH': 0}
+        }
+        self.check_example('django_sql_injection_extra.py', expect)
+
+    def test_django_sql_injection_raw(self):
+        """Test insecure raw functions on Django."""
+        expect = {
+            'SEVERITY': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 4, 'HIGH': 0},
+            'CONFIDENCE': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 4, 'HIGH': 0}
+        }
+        self.check_example('django_sql_injection_raw.py', expect)
