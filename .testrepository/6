@@ -1,0 +1,1638 @@
+time: 2017-02-28 01:22:24.695087Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_hardcoded_tmp
+time: 2017-02-28 01:22:24.838057Z
+successful: tests.functional.test_functional.FunctionalTests.test_hardcoded_tmp [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.843287Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_jinja2_templating
+time: 2017-02-28 01:22:24.862771Z
+successful: tests.functional.test_functional.FunctionalTests.test_jinja2_templating [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.863695Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_nosec
+time: 2017-02-28 01:22:24.868557Z
+successful: tests.functional.test_functional.FunctionalTests.test_nosec [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.868766Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_okay
+time: 2017-02-28 01:22:24.871078Z
+successful: tests.functional.test_functional.FunctionalTests.test_okay [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.871459Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_os_exec
+time: 2017-02-28 01:22:24.895333Z
+successful: tests.functional.test_functional.FunctionalTests.test_os_exec [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.896136Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_random_module
+time: 2017-02-28 01:22:24.918082Z
+successful: tests.functional.test_functional.FunctionalTests.test_random_module [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.918816Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_ssl_insecure_version
+time: 2017-02-28 01:22:24.965651Z
+successful: tests.functional.test_functional.FunctionalTests.test_ssl_insecure_version [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.966512Z
+tags: worker-7
+test: tests.functional.test_functional.FunctionalTests.test_utils_shell
+time: 2017-02-28 01:22:24.980132Z
+successful: tests.functional.test_functional.FunctionalTests.test_utils_shell [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.980564Z
+tags: worker-7
+test: tests.functional.test_runtime.RuntimeTests.test_help_in_readme
+time: 2017-02-28 01:22:25.540203Z
+successful: tests.functional.test_runtime.RuntimeTests.test_help_in_readme [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:24.548449Z
+tags: worker-2
+test: tests.functional.test_baseline.BaselineFunctionalTests.test_no_existing_no_new_candidates
+time: 2017-02-28 01:22:25.815675Z
+successful: tests.functional.test_baseline.BaselineFunctionalTests.test_no_existing_no_new_candidates [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:24.538223Z
+tags: worker-3
+test: tests.functional.test_baseline.BaselineFunctionalTests.test_no_existing_with_new_candidates
+time: 2017-02-28 01:22:25.855322Z
+successful: tests.functional.test_baseline.BaselineFunctionalTests.test_no_existing_with_new_candidates [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:25.816399Z
+tags: worker-2
+test: tests.functional.test_functional.FunctionalTests.test_binding
+time: 2017-02-28 01:22:25.918282Z
+successful: tests.functional.test_functional.FunctionalTests.test_binding [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:25.918759Z
+tags: worker-2
+test: tests.functional.test_functional.FunctionalTests.test_mako_templating
+time: 2017-02-28 01:22:25.927958Z
+successful: tests.functional.test_functional.FunctionalTests.test_mako_templating [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:25.928297Z
+tags: worker-2
+test: tests.functional.test_functional.FunctionalTests.test_os_popen
+time: 2017-02-28 01:22:25.946313Z
+successful: tests.functional.test_functional.FunctionalTests.test_os_popen [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:25.946554Z
+tags: worker-2
+test: tests.functional.test_functional.FunctionalTests.test_os_spawn
+time: 2017-02-28 01:22:25.964077Z
+successful: tests.functional.test_functional.FunctionalTests.test_os_spawn [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:25.856123Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_baseline_filter
+time: 2017-02-28 01:22:25.965041Z
+successful: tests.functional.test_functional.FunctionalTests.test_baseline_filter [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:25.964435Z
+tags: worker-2
+test: tests.functional.test_functional.FunctionalTests.test_requests_ssl_verify_disabled
+time: 2017-02-28 01:22:26.000246Z
+successful: tests.functional.test_functional.FunctionalTests.test_requests_ssl_verify_disabled [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:26.004012Z
+tags: worker-2
+test: tests.functional.test_functional.FunctionalTests.test_subprocess_shell
+time: 2017-02-28 01:22:26.046071Z
+successful: tests.functional.test_functional.FunctionalTests.test_subprocess_shell [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:24.602391Z
+tags: worker-4
+test: tests.functional.test_baseline.BaselineFunctionalTests.test_new_candidates_include_nosec_new_nosecs
+time: 2017-02-28 01:22:26.073294Z
+successful: tests.functional.test_baseline.BaselineFunctionalTests.test_new_candidates_include_nosec_new_nosecs [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:25.540786Z
+tags: worker-7
+test: tests.functional.test_runtime.RuntimeTests.test_no_arguments
+time: 2017-02-28 01:22:26.083903Z
+successful: tests.functional.test_runtime.RuntimeTests.test_no_arguments [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:25.965340Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_ciphers
+time: 2017-02-28 01:22:26.085404Z
+successful: tests.functional.test_functional.FunctionalTests.test_ciphers [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.085849Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_exec
+time: 2017-02-28 01:22:26.089172Z
+successful: tests.functional.test_functional.FunctionalTests.test_exec [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:24.614629Z
+tags: worker-6
+test: tests.functional.test_baseline.BaselineFunctionalTests.test_new_candidates_include_nosec_only_nosecs
+time: 2017-02-28 01:22:26.091959Z
+successful: tests.functional.test_baseline.BaselineFunctionalTests.test_new_candidates_include_nosec_only_nosecs [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:26.089487Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_httplib_https
+time: 2017-02-28 01:22:26.102614Z
+successful: tests.functional.test_functional.FunctionalTests.test_httplib_https [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.103208Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_imports
+time: 2017-02-28 01:22:26.106115Z
+successful: tests.functional.test_functional.FunctionalTests.test_imports [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.106450Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_nonsense
+time: 2017-02-28 01:22:26.108704Z
+successful: tests.functional.test_functional.FunctionalTests.test_nonsense [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.047640Z
+tags: worker-2
+test: tests.functional.test_functional.FunctionalTests.test_urlopen
+time: 2017-02-28 01:22:26.108720Z
+successful: tests.functional.test_functional.FunctionalTests.test_urlopen [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:26.109037Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_os_system
+time: 2017-02-28 01:22:26.115551Z
+successful: tests.functional.test_functional.FunctionalTests.test_os_system [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:24.576023Z
+tags: worker-5
+test: tests.functional.test_baseline.BaselineFunctionalTests.test_existing_and_new_candidates
+time: 2017-02-28 01:22:26.143139Z
+successful: tests.functional.test_baseline.BaselineFunctionalTests.test_existing_and_new_candidates [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:26.116181Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_secret_config_option
+time: 2017-02-28 01:22:26.157815Z
+successful: tests.functional.test_functional.FunctionalTests.test_secret_config_option [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.074149Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_crypto_md5
+time: 2017-02-28 01:22:26.185688Z
+successful: tests.functional.test_functional.FunctionalTests.test_crypto_md5 [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.158108Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_sql_statements
+time: 2017-02-28 01:22:26.198990Z
+successful: tests.functional.test_functional.FunctionalTests.test_sql_statements [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.185960Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_exec_as_root
+time: 2017-02-28 01:22:26.216094Z
+successful: tests.functional.test_functional.FunctionalTests.test_exec_as_root [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.216368Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_flask_debug_true
+time: 2017-02-28 01:22:26.231107Z
+successful: tests.functional.test_functional.FunctionalTests.test_flask_debug_true [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.231454Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_ftp_usage
+time: 2017-02-28 01:22:26.242589Z
+successful: tests.functional.test_functional.FunctionalTests.test_ftp_usage [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.242925Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_ignore_skip
+time: 2017-02-28 01:22:26.259372Z
+successful: tests.functional.test_functional.FunctionalTests.test_ignore_skip [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.259774Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_mark_safe
+time: 2017-02-28 01:22:26.265584Z
+successful: tests.functional.test_functional.FunctionalTests.test_mark_safe [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.200324Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_telnet_usage
+time: 2017-02-28 01:22:26.267704Z
+successful: tests.functional.test_functional.FunctionalTests.test_telnet_usage [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.265849Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_mktemp
+time: 2017-02-28 01:22:26.274319Z
+successful: tests.functional.test_functional.FunctionalTests.test_mktemp [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.274664Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_os_startfile
+time: 2017-02-28 01:22:26.282094Z
+successful: tests.functional.test_functional.FunctionalTests.test_os_startfile [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.267987Z
+tags: worker-3
+test: tests.functional.test_functional.FunctionalTests.test_try_except_pass
+time: 2017-02-28 01:22:26.284966Z
+successful: tests.functional.test_functional.FunctionalTests.test_try_except_pass [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.282409Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_pickle
+time: 2017-02-28 01:22:26.311099Z
+successful: tests.functional.test_functional.FunctionalTests.test_pickle [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.311397Z
+tags: worker-4
+test: tests.functional.test_functional.FunctionalTests.test_skip
+time: 2017-02-28 01:22:26.322677Z
+successful: tests.functional.test_functional.FunctionalTests.test_skip [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:26.109900Z
+tags: worker-2
+test: tests.functional.test_runtime.RuntimeTests.test_example_nonexistent
+time: 2017-02-28 01:22:26.737075Z
+successful: tests.functional.test_runtime.RuntimeTests.test_example_nonexistent [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:26.285895Z
+tags: worker-3
+test: tests.functional.test_runtime.RuntimeTests.test_help_arg
+time: 2017-02-28 01:22:26.878064Z
+successful: tests.functional.test_runtime.RuntimeTests.test_help_arg [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.327004Z
+tags: worker-4
+test: tests.functional.test_runtime.RuntimeTests.test_piped_input
+time: 2017-02-28 01:22:27.014406Z
+successful: tests.functional.test_runtime.RuntimeTests.test_piped_input [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:24.542665Z
+tags: worker-1
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_subprocess_error
+time: 2017-02-28 01:22:27.325854Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_subprocess_error [ multipart
+]
+tags: -worker-1
+time: 2017-02-28 01:22:26.737557Z
+tags: worker-2
+test: tests.functional.test_runtime.RuntimeTests.test_example_nonsense
+time: 2017-02-28 01:22:27.334944Z
+successful: tests.functional.test_runtime.RuntimeTests.test_example_nonsense [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:26.084829Z
+tags: worker-7
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_with_output_argument
+time: 2017-02-28 01:22:27.336986Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_with_output_argument [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:26.878623Z
+tags: worker-3
+test: tests.functional.test_runtime.RuntimeTests.test_nonexistent_config
+time: 2017-02-28 01:22:27.413049Z
+successful: tests.functional.test_runtime.RuntimeTests.test_nonexistent_config [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:27.413864Z
+tags: worker-3
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_init_logger
+time: 2017-02-28 01:22:27.414363Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_init_logger [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:26.092549Z
+tags: worker-6
+test: tests.functional.test_baseline.BaselineFunctionalTests.test_no_new_candidates_include_nosec
+time: 2017-02-28 01:22:27.468749Z
+successful: tests.functional.test_baseline.BaselineFunctionalTests.test_no_new_candidates_include_nosec [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.469430Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_code_line_numbers
+time: 2017-02-28 01:22:27.545367Z
+successful: tests.functional.test_functional.FunctionalTests.test_code_line_numbers [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.545580Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_eval
+time: 2017-02-28 01:22:27.554653Z
+successful: tests.functional.test_functional.FunctionalTests.test_eval [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:26.143770Z
+tags: worker-5
+test: tests.functional.test_baseline.BaselineFunctionalTests.test_no_new_candidates
+time: 2017-02-28 01:22:27.561114Z
+successful: tests.functional.test_baseline.BaselineFunctionalTests.test_no_new_candidates [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.554885Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_hardcoded_passwords
+time: 2017-02-28 01:22:27.562671Z
+successful: tests.functional.test_functional.FunctionalTests.test_hardcoded_passwords [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.561806Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_asserts
+time: 2017-02-28 01:22:27.565010Z
+successful: tests.functional.test_functional.FunctionalTests.test_asserts [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.562927Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_imports_from
+time: 2017-02-28 01:22:27.565405Z
+successful: tests.functional.test_functional.FunctionalTests.test_imports_from [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.565618Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_metric_gathering
+time: 2017-02-28 01:22:27.574880Z
+successful: tests.functional.test_functional.FunctionalTests.test_metric_gathering [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.575099Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_multiline_code
+time: 2017-02-28 01:22:27.579274Z
+successful: tests.functional.test_functional.FunctionalTests.test_multiline_code [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.579529Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_os_chmod
+time: 2017-02-28 01:22:27.595573Z
+successful: tests.functional.test_functional.FunctionalTests.test_os_chmod [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.565181Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_blacklist_input
+time: 2017-02-28 01:22:27.606618Z
+successful: tests.functional.test_functional.FunctionalTests.test_blacklist_input [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.595864Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_partial_path
+time: 2017-02-28 01:22:27.609856Z
+successful: tests.functional.test_functional.FunctionalTests.test_partial_path [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.606827Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_cipher_modes
+time: 2017-02-28 01:22:27.649003Z
+successful: tests.functional.test_functional.FunctionalTests.test_cipher_modes [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.610235Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_weak_cryptographic_key
+time: 2017-02-28 01:22:27.660532Z
+successful: tests.functional.test_functional.FunctionalTests.test_weak_cryptographic_key [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.649357Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_httpoxy
+time: 2017-02-28 01:22:27.672975Z
+successful: tests.functional.test_functional.FunctionalTests.test_httpoxy [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.660716Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_wildcard_injection
+time: 2017-02-28 01:22:27.675912Z
+successful: tests.functional.test_functional.FunctionalTests.test_wildcard_injection [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.673178Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_imports_aliases
+time: 2017-02-28 01:22:27.681296Z
+successful: tests.functional.test_functional.FunctionalTests.test_imports_aliases [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.676122Z
+tags: worker-6
+test: tests.functional.test_functional.FunctionalTests.test_yaml
+time: 2017-02-28 01:22:27.685220Z
+successful: tests.functional.test_functional.FunctionalTests.test_yaml [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.681459Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_imports_function
+time: 2017-02-28 01:22:27.692190Z
+successful: tests.functional.test_functional.FunctionalTests.test_imports_function [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.692598Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_paramiko_injection
+time: 2017-02-28 01:22:27.697386Z
+successful: tests.functional.test_functional.FunctionalTests.test_paramiko_injection [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.697569Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_popen_wrappers
+time: 2017-02-28 01:22:27.711635Z
+successful: tests.functional.test_functional.FunctionalTests.test_popen_wrappers [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.711883Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_try_except_continue
+time: 2017-02-28 01:22:27.721041Z
+successful: tests.functional.test_functional.FunctionalTests.test_try_except_continue [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.721342Z
+tags: worker-5
+test: tests.functional.test_functional.FunctionalTests.test_xml
+time: 2017-02-28 01:22:27.792247Z
+successful: tests.functional.test_functional.FunctionalTests.test_xml [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.685443Z
+tags: worker-6
+test: tests.functional.test_runtime.RuntimeTests.test_example_nonsense2
+time: 2017-02-28 01:22:28.048978Z
+successful: tests.functional.test_runtime.RuntimeTests.test_example_nonsense2 [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:27.792497Z
+tags: worker-5
+test: tests.functional.test_runtime.RuntimeTests.test_example_imports
+time: 2017-02-28 01:22:28.169046Z
+successful: tests.functional.test_runtime.RuntimeTests.test_example_imports [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:28.169744Z
+tags: worker-5
+test: tests.functional.test_runtime.RuntimeTests.test_example_okay
+time: 2017-02-28 01:22:28.554542Z
+successful: tests.functional.test_runtime.RuntimeTests.test_example_okay [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:27.015187Z
+tags: worker-4
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_existing_report_file
+time: 2017-02-28 01:22:28.673339Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_existing_report_file [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.673821Z
+tags: worker-4
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_non_repo
+time: 2017-02-28 01:22:28.675942Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_non_repo [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.676216Z
+tags: worker-4
+test: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_get_config_settings
+time: 2017-02-28 01:22:28.763567Z
+successful: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_get_config_settings [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.763832Z
+tags: worker-4
+test: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_main_show_defaults
+time: 2017-02-28 01:22:28.765934Z
+successful: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_main_show_defaults [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.766222Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainLoggerTests.test_init_logger
+time: 2017-02-28 01:22:28.766462Z
+successful: tests.unit.cli.test_main.BanditCLIMainLoggerTests.test_init_logger [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.766667Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_empty_directory_no_target
+time: 2017-02-28 01:22:28.767440Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_empty_directory_no_target [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.767632Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_no_ini_path_no_target
+time: 2017-02-28 01:22:28.767796Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_no_ini_path_no_target [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.767932Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_init_extensions
+time: 2017-02-28 01:22:28.768096Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_init_extensions [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.768285Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_baseline_ioerror
+time: 2017-02-28 01:22:28.896179Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_baseline_ioerror [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.896394Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_handle_ini_options
+time: 2017-02-28 01:22:28.965494Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_handle_ini_options [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:28.965701Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_profile_not_found
+time: 2017-02-28 01:22:29.027342Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_profile_not_found [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:27.337471Z
+tags: worker-7
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_no_parent_commit
+time: 2017-02-28 01:22:29.083709Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_no_parent_commit [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.027627Z
+tags: worker-4
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_unknown_skip_tests
+time: 2017-02-28 01:22:29.113420Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_unknown_skip_tests [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.113842Z
+tags: worker-4
+test: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_call_test
+time: 2017-02-28 01:22:29.165554Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_call_test [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.084377Z
+tags: worker-7
+test: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_parse_args_no_defaults
+time: 2017-02-28 01:22:29.089414Z
+successful: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_parse_args_no_defaults [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.089640Z
+tags: worker-7
+test: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_parse_args_show_defaults
+time: 2017-02-28 01:22:29.090867Z
+successful: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_parse_args_show_defaults [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.091218Z
+tags: worker-7
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_log_option_source_arg_val
+time: 2017-02-28 01:22:29.091438Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_log_option_source_arg_val [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.091609Z
+tags: worker-7
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_log_option_source_no_values
+time: 2017-02-28 01:22:29.091762Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_log_option_source_no_values [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.091944Z
+tags: worker-7
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_exit_with_results
+time: 2017-02-28 01:22:29.200470Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_exit_with_results [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.165808Z
+tags: worker-4
+test: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_import_data
+time: 2017-02-28 01:22:29.213164Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_import_data [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.213516Z
+tags: worker-4
+test: tests.unit.core.test_config.TestInit.test_yaml_invalid
+time: 2017-02-28 01:22:29.243717Z
+successful: tests.unit.core.test_config.TestInit.test_yaml_invalid [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.244304Z
+tags: worker-4
+test: tests.unit.core.test_issue.IssueTests.test_issue_str
+time: 2017-02-28 01:22:29.244515Z
+successful: tests.unit.core.test_issue.IssueTests.test_issue_str [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.244760Z
+tags: worker-4
+test: tests.unit.core.test_manager.ManagerTests.test_create_manager_with_profile
+time: 2017-02-28 01:22:29.245611Z
+successful: tests.unit.core.test_manager.ManagerTests.test_create_manager_with_profile [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.245891Z
+tags: worker-4
+test: tests.unit.core.test_manager.ManagerTests.test_populate_baseline_success
+time: 2017-02-28 01:22:29.247023Z
+successful: tests.unit.core.test_manager.ManagerTests.test_populate_baseline_success [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.247291Z
+tags: worker-4
+test: tests.unit.core.test_meta_ast.BanditMetaAstTests.test_str
+time: 2017-02-28 01:22:29.247491Z
+successful: tests.unit.core.test_meta_ast.BanditMetaAstTests.test_str [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.247734Z
+tags: worker-4
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_id
+time: 2017-02-28 01:22:29.248991Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_id [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.249189Z
+tags: worker-4
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_all
+time: 2017-02-28 01:22:29.250599Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_all [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.250820Z
+tags: worker-4
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_has_builtin_blacklist
+time: 2017-02-28 01:22:29.252121Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_has_builtin_blacklist [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.252305Z
+tags: worker-4
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_include_id
+time: 2017-02-28 01:22:29.253992Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_include_id [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.254533Z
+tags: worker-4
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_missingend
+time: 2017-02-28 01:22:29.262201Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_missingend [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.262565Z
+tags: worker-4
+test: tests.unit.core.test_util.UtilTests.test_namespace_path_join
+time: 2017-02-28 01:22:29.268750Z
+successful: tests.unit.core.test_util.UtilTests.test_namespace_path_join [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.200776Z
+tags: worker-7
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_invalid_output_format
+time: 2017-02-28 01:22:29.304725Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_invalid_output_format [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.305298Z
+tags: worker-7
+test: tests.unit.core.test_config.TestConfigCompat.test_converted_exclude_blacklist
+time: 2017-02-28 01:22:29.344156Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_converted_exclude_blacklist [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.269272Z
+tags: worker-4
+test: tests.unit.formatters.test_screen.ScreenFormatterTests.test_report_baseline
+time: 2017-02-28 01:22:29.295083Z
+successful: tests.unit.formatters.test_screen.ScreenFormatterTests.test_report_baseline [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.295433Z
+tags: worker-4
+test: tests.unit.formatters.test_text.TextFormatterTests.test_no_issues
+time: 2017-02-28 01:22:29.344512Z
+successful: tests.unit.formatters.test_text.TextFormatterTests.test_no_issues [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.344409Z
+tags: worker-7
+test: tests.unit.core.test_config.TestConfigCompat.test_converted_include
+time: 2017-02-28 01:22:29.363596Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_converted_include [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.363833Z
+tags: worker-7
+test: tests.unit.core.test_config.TestGetOption.test_levels
+time: 2017-02-28 01:22:29.396124Z
+successful: tests.unit.core.test_config.TestGetOption.test_levels [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.396529Z
+tags: worker-7
+test: tests.unit.core.test_context.ContextTests.test_call_args
+time: 2017-02-28 01:22:29.397214Z
+successful: tests.unit.core.test_context.ContextTests.test_call_args [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.397441Z
+tags: worker-7
+test: tests.unit.core.test_context.ContextTests.test_context_create
+time: 2017-02-28 01:22:29.397666Z
+successful: tests.unit.core.test_context.ContextTests.test_context_create [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.397900Z
+tags: worker-7
+test: tests.unit.core.test_context.ContextTests.test_statement
+time: 2017-02-28 01:22:29.398046Z
+successful: tests.unit.core.test_context.ContextTests.test_statement [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.398371Z
+tags: worker-7
+test: tests.unit.core.test_manager.ManagerTests.test_compare_baseline
+time: 2017-02-28 01:22:29.399196Z
+successful: tests.unit.core.test_manager.ManagerTests.test_compare_baseline [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.399373Z
+tags: worker-7
+test: tests.unit.core.test_manager.ManagerTests.test_discover_files_exclude_cmdline
+time: 2017-02-28 01:22:29.401852Z
+successful: tests.unit.core.test_manager.ManagerTests.test_discover_files_exclude_cmdline [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.402133Z
+tags: worker-7
+test: tests.unit.core.test_manager.ManagerTests.test_is_file_included
+time: 2017-02-28 01:22:29.403149Z
+successful: tests.unit.core.test_manager.ManagerTests.test_is_file_included [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.403299Z
+tags: worker-7
+test: tests.unit.core.test_manager.ManagerTests.test_matches_globlist
+time: 2017-02-28 01:22:29.404319Z
+successful: tests.unit.core.test_manager.ManagerTests.test_matches_globlist [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.344831Z
+tags: worker-4
+test: tests.unit.formatters.test_text.TextFormatterTests.test_report_nobaseline
+time: 2017-02-28 01:22:29.491125Z
+successful: tests.unit.formatters.test_text.TextFormatterTests.test_report_nobaseline [ multipart
+]
+tags: -worker-4
+time: 2017-02-28 01:22:29.404484Z
+tags: worker-7
+test: tests.unit.core.test_manager.ManagerTests.test_output_results_valid_format
+time: 2017-02-28 01:22:29.499650Z
+successful: tests.unit.core.test_manager.ManagerTests.test_output_results_valid_format [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.500030Z
+tags: worker-7
+test: tests.unit.core.test_meta_ast.BanditMetaAstTests.test_add_node
+time: 2017-02-28 01:22:29.500256Z
+successful: tests.unit.core.test_meta_ast.BanditMetaAstTests.test_add_node [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.500532Z
+tags: worker-7
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_builtin_blacklist_specific
+time: 2017-02-28 01:22:29.502246Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_builtin_blacklist_specific [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.502596Z
+tags: worker-7
+test: tests.unit.core.test_util.UtilTests.test_check_ast_node_bad_node
+time: 2017-02-28 01:22:29.510144Z
+successful: tests.unit.core.test_util.UtilTests.test_check_ast_node_bad_node [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.510532Z
+tags: worker-7
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_missingend
+time: 2017-02-28 01:22:29.517689Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_missingend [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.517997Z
+tags: worker-7
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_invalid_path
+time: 2017-02-28 01:22:29.525252Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_invalid_path [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.525560Z
+tags: worker-7
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_sys
+time: 2017-02-28 01:22:29.534268Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_sys [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.534586Z
+tags: worker-7
+test: tests.unit.core.test_util.UtilTests.test_linerange
+time: 2017-02-28 01:22:29.542671Z
+successful: tests.unit.core.test_util.UtilTests.test_linerange [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:27.335936Z
+tags: worker-2
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_git_command_failure
+time: 2017-02-28 01:22:29.554495Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_main_git_command_failure [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.555169Z
+tags: worker-2
+test: tests.unit.cli.test_config_generator.BanditConfigGeneratorLoggerTests.test_init_logger
+time: 2017-02-28 01:22:29.555541Z
+successful: tests.unit.cli.test_config_generator.BanditConfigGeneratorLoggerTests.test_init_logger [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.555785Z
+tags: worker-2
+test: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_parse_args_out_file
+time: 2017-02-28 01:22:29.557520Z
+successful: tests.unit.cli.test_config_generator.BanditConfigGeneratorTests.test_parse_args_out_file [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:27.414595Z
+tags: worker-3
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_git_command_failure
+time: 2017-02-28 01:22:29.557589Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_git_command_failure [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.557909Z
+tags: worker-2
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_invalid_config
+time: 2017-02-28 01:22:29.561464Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_invalid_config [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.561847Z
+tags: worker-2
+test: tests.unit.core.test_blacklisting.BlacklistingTests.test_report_issue
+time: 2017-02-28 01:22:29.562132Z
+successful: tests.unit.core.test_blacklisting.BlacklistingTests.test_report_issue [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.562316Z
+tags: worker-2
+test: tests.unit.core.test_blacklisting.BlacklistingTests.test_report_issue_defaults
+time: 2017-02-28 01:22:29.562484Z
+successful: tests.unit.core.test_blacklisting.BlacklistingTests.test_report_issue_defaults [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.543074Z
+tags: worker-7
+test: tests.unit.formatters.test_csv.CsvFormatterTests.test_report
+time: 2017-02-28 01:22:29.597772Z
+successful: tests.unit.formatters.test_csv.CsvFormatterTests.test_report [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.562761Z
+tags: worker-2
+test: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_import_test
+time: 2017-02-28 01:22:29.615422Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_import_test [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.615762Z
+tags: worker-2
+test: tests.unit.core.test_config.TestGetOption.test_levels_not_exist
+time: 2017-02-28 01:22:29.642773Z
+successful: tests.unit.core.test_config.TestGetOption.test_levels_not_exist [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.643139Z
+tags: worker-2
+test: tests.unit.core.test_config.TestInit.test_file_does_not_exist
+time: 2017-02-28 01:22:29.643989Z
+successful: tests.unit.core.test_config.TestInit.test_file_does_not_exist [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.558305Z
+tags: worker-3
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_exit_with_no_results
+time: 2017-02-28 01:22:29.644331Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_exit_with_no_results [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.598217Z
+tags: worker-7
+test: tests.unit.formatters.test_html.HtmlFormatterTests.test_report_with_skipped
+time: 2017-02-28 01:22:29.650890Z
+successful: tests.unit.formatters.test_html.HtmlFormatterTests.test_report_with_skipped [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.644207Z
+tags: worker-2
+test: tests.unit.core.test_config.TestInit.test_settings
+time: 2017-02-28 01:22:29.652612Z
+successful: tests.unit.core.test_config.TestInit.test_settings [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.653042Z
+tags: worker-2
+test: tests.unit.core.test_context.ContextTests.test_call_keywords
+time: 2017-02-28 01:22:29.654088Z
+successful: tests.unit.core.test_context.ContextTests.test_call_keywords [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.654319Z
+tags: worker-2
+test: tests.unit.core.test_context.ContextTests.test_check_call_arg_value
+time: 2017-02-28 01:22:29.654860Z
+successful: tests.unit.core.test_context.ContextTests.test_check_call_arg_value [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.655253Z
+tags: worker-2
+test: tests.unit.core.test_issue.IssueTests.test_issue_filter_confidence
+time: 2017-02-28 01:22:29.655482Z
+successful: tests.unit.core.test_issue.IssueTests.test_issue_filter_confidence [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.655656Z
+tags: worker-2
+test: tests.unit.core.test_issue.IssueTests.test_issue_filter_severity
+time: 2017-02-28 01:22:29.655845Z
+successful: tests.unit.core.test_issue.IssueTests.test_issue_filter_severity [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.656130Z
+tags: worker-2
+test: tests.unit.core.test_manager.ManagerTests.test_discover_files_exclude
+time: 2017-02-28 01:22:29.657830Z
+successful: tests.unit.core.test_manager.ManagerTests.test_discover_files_exclude [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.658134Z
+tags: worker-2
+test: tests.unit.core.test_manager.ManagerTests.test_discover_files_include
+time: 2017-02-28 01:22:29.659865Z
+successful: tests.unit.core.test_manager.ManagerTests.test_discover_files_include [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.660144Z
+tags: worker-2
+test: tests.unit.core.test_manager.ManagerTests.test_output_results_invalid_format
+time: 2017-02-28 01:22:29.668707Z
+successful: tests.unit.core.test_manager.ManagerTests.test_output_results_invalid_format [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.669189Z
+tags: worker-2
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_has_defaults
+time: 2017-02-28 01:22:29.670751Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_has_defaults [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:28.049841Z
+tags: worker-6
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_existing_temp_file
+time: 2017-02-28 01:22:29.676904Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_existing_temp_file [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.671238Z
+tags: worker-2
+test: tests.unit.core.test_util.UtilTests.test_escaped_representation_invalid
+time: 2017-02-28 01:22:29.678282Z
+successful: tests.unit.core.test_util.UtilTests.test_escaped_representation_invalid [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.677479Z
+tags: worker-6
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_no_repo
+time: 2017-02-28 01:22:29.679633Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_no_repo [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.644817Z
+tags: worker-3
+test: tests.unit.core.test_config.TestConfigCompat.test_bad_yaml
+time: 2017-02-28 01:22:29.680419Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_bad_yaml [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.680981Z
+tags: worker-3
+test: tests.unit.core.test_context.ContextTests.test_call_args_count
+time: 2017-02-28 01:22:29.681309Z
+successful: tests.unit.core.test_context.ContextTests.test_call_args_count [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.681573Z
+tags: worker-3
+test: tests.unit.core.test_context.ContextTests.test_is_module_being_imported
+time: 2017-02-28 01:22:29.681718Z
+successful: tests.unit.core.test_context.ContextTests.test_is_module_being_imported [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.681883Z
+tags: worker-3
+test: tests.unit.core.test_context.ContextTests.test_is_module_imported_exact
+time: 2017-02-28 01:22:29.682010Z
+successful: tests.unit.core.test_context.ContextTests.test_is_module_imported_exact [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.682193Z
+tags: worker-3
+test: tests.unit.core.test_context.ContextTests.test_string_val
+time: 2017-02-28 01:22:29.682330Z
+successful: tests.unit.core.test_context.ContextTests.test_string_val [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.682552Z
+tags: worker-3
+test: tests.unit.core.test_issue.IssueTests.test_get_code
+time: 2017-02-28 01:22:29.683175Z
+successful: tests.unit.core.test_issue.IssueTests.test_get_code [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.683411Z
+tags: worker-3
+test: tests.unit.core.test_issue.IssueTests.test_matches_issue
+time: 2017-02-28 01:22:29.683710Z
+successful: tests.unit.core.test_issue.IssueTests.test_matches_issue [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.684040Z
+tags: worker-3
+test: tests.unit.core.test_manager.ManagerTests.test_find_candidate_matches
+time: 2017-02-28 01:22:29.685138Z
+successful: tests.unit.core.test_manager.ManagerTests.test_find_candidate_matches [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.678561Z
+tags: worker-2
+test: tests.unit.core.test_util.UtilTests.test_escaped_representation_simple
+time: 2017-02-28 01:22:29.685712Z
+successful: tests.unit.core.test_util.UtilTests.test_escaped_representation_simple [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.685420Z
+tags: worker-3
+test: tests.unit.core.test_manager.ManagerTests.test_run_tests_ioerror
+time: 2017-02-28 01:22:29.686650Z
+successful: tests.unit.core.test_manager.ManagerTests.test_run_tests_ioerror [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.686000Z
+tags: worker-2
+test: tests.unit.core.test_util.UtilTests.test_escaped_representation_valid_not_printable
+time: 2017-02-28 01:22:29.693185Z
+successful: tests.unit.core.test_util.UtilTests.test_escaped_representation_valid_not_printable [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.693517Z
+tags: worker-2
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_missingmid
+time: 2017-02-28 01:22:29.701434Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_missingmid [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.680156Z
+tags: worker-6
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_no_ini_path_multi_bandit_files
+time: 2017-02-28 01:22:29.706897Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_no_ini_path_multi_bandit_files [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.701763Z
+tags: worker-2
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_missingmid
+time: 2017-02-28 01:22:29.709146Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_missingmid [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.651271Z
+tags: worker-7
+test: tests.unit.formatters.test_screen.ScreenFormatterTests.test_report_nobaseline
+time: 2017-02-28 01:22:29.661519Z
+successful: tests.unit.formatters.test_screen.ScreenFormatterTests.test_report_nobaseline [ multipart
+]
+tags: -worker-7
+time: 2017-02-28 01:22:29.709518Z
+tags: worker-2
+test: tests.unit.core.test_util.UtilTests.test_path_for_function_no_file
+time: 2017-02-28 01:22:29.716685Z
+successful: tests.unit.core.test_util.UtilTests.test_path_for_function_no_file [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.686896Z
+tags: worker-3
+test: tests.unit.core.test_manager.ManagerTests.test_run_tests_keyboardinterrupt
+time: 2017-02-28 01:22:29.741229Z
+successful: tests.unit.core.test_manager.ManagerTests.test_run_tests_keyboardinterrupt [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.741739Z
+tags: worker-3
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_builtin_blacklist
+time: 2017-02-28 01:22:29.743586Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_builtin_blacklist [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.743810Z
+tags: worker-3
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_include
+time: 2017-02-28 01:22:29.744986Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_include [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.745158Z
+tags: worker-3
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_none
+time: 2017-02-28 01:22:29.746560Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_none [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.746860Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_check_ast_node_good
+time: 2017-02-28 01:22:29.755398Z
+successful: tests.unit.core.test_util.UtilTests.test_check_ast_node_good [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.707336Z
+tags: worker-6
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_unknown_tests
+time: 2017-02-28 01:22:29.762252Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_unknown_tests [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.755761Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_escaped_representation_mixed
+time: 2017-02-28 01:22:29.764946Z
+successful: tests.unit.core.test_util.UtilTests.test_escaped_representation_mixed [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.765235Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_get_call_name1
+time: 2017-02-28 01:22:29.773847Z
+successful: tests.unit.core.test_util.UtilTests.test_get_call_name1 [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.774186Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_typical
+time: 2017-02-28 01:22:29.781504Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_typical [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.717156Z
+tags: worker-2
+test: tests.unit.formatters.test_html.HtmlFormatterTests.test_report_contents
+time: 2017-02-28 01:22:29.787425Z
+successful: tests.unit.formatters.test_html.HtmlFormatterTests.test_report_contents [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.787826Z
+tags: worker-2
+test: tests.unit.formatters.test_screen.ScreenFormatterTests.test_output_issue
+time: 2017-02-28 01:22:29.788636Z
+successful: tests.unit.formatters.test_screen.ScreenFormatterTests.test_output_issue [ multipart
+]
+tags: -worker-2
+time: 2017-02-28 01:22:29.781807Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_dir
+time: 2017-02-28 01:22:29.790061Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_dir [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.762536Z
+tags: worker-6
+test: tests.unit.core.test_config.TestConfigCompat.test_blacklist_error
+time: 2017-02-28 01:22:29.790268Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_blacklist_error [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.790391Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_syms
+time: 2017-02-28 01:22:29.798328Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_syms [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.798620Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_typical
+time: 2017-02-28 01:22:29.806128Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_rel_typical [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.790638Z
+tags: worker-6
+test: tests.unit.core.test_config.TestConfigCompat.test_deprecation_message
+time: 2017-02-28 01:22:29.810478Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_deprecation_message [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.810879Z
+tags: worker-6
+test: tests.unit.core.test_config.TestGetSetting.test_not_exist
+time: 2017-02-28 01:22:29.815642Z
+successful: tests.unit.core.test_config.TestGetSetting.test_not_exist [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.816026Z
+tags: worker-6
+test: tests.unit.core.test_context.ContextTests.test__get_literal_value
+time: 2017-02-28 01:22:29.816401Z
+successful: tests.unit.core.test_context.ContextTests.test__get_literal_value [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.816571Z
+tags: worker-6
+test: tests.unit.core.test_context.ContextTests.test_call_function_name
+time: 2017-02-28 01:22:29.816743Z
+successful: tests.unit.core.test_context.ContextTests.test_call_function_name [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.816903Z
+tags: worker-6
+test: tests.unit.core.test_context.ContextTests.test_call_function_name_qual
+time: 2017-02-28 01:22:29.817038Z
+successful: tests.unit.core.test_context.ContextTests.test_call_function_name_qual [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.817252Z
+tags: worker-6
+test: tests.unit.core.test_context.ContextTests.test_is_module_imported_like
+time: 2017-02-28 01:22:29.817367Z
+successful: tests.unit.core.test_context.ContextTests.test_is_module_imported_like [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.817507Z
+tags: worker-6
+test: tests.unit.core.test_context.ContextTests.test_node
+time: 2017-02-28 01:22:29.817636Z
+successful: tests.unit.core.test_context.ContextTests.test_node [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.817879Z
+tags: worker-6
+test: tests.unit.core.test_issue.IssueTests.test_issue_as_dict
+time: 2017-02-28 01:22:29.818097Z
+successful: tests.unit.core.test_issue.IssueTests.test_issue_as_dict [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.818356Z
+tags: worker-6
+test: tests.unit.core.test_manager.ManagerTests.test_create_manager
+time: 2017-02-28 01:22:29.819191Z
+successful: tests.unit.core.test_manager.ManagerTests.test_create_manager [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.819399Z
+tags: worker-6
+test: tests.unit.core.test_manager.ManagerTests.test_discover_files_recurse_files
+time: 2017-02-28 01:22:29.820877Z
+successful: tests.unit.core.test_manager.ManagerTests.test_discover_files_recurse_files [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.821091Z
+tags: worker-6
+test: tests.unit.core.test_manager.ManagerTests.test_discover_files_recurse_skip
+time: 2017-02-28 01:22:29.822502Z
+successful: tests.unit.core.test_manager.ManagerTests.test_discover_files_recurse_skip [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.822730Z
+tags: worker-6
+test: tests.unit.core.test_manager.ManagerTests.test_get_files_from_dir
+time: 2017-02-28 01:22:29.824283Z
+successful: tests.unit.core.test_manager.ManagerTests.test_get_files_from_dir [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.824712Z
+tags: worker-6
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_blacklist_compat
+time: 2017-02-28 01:22:29.826097Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_blacklist_compat [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.826373Z
+tags: worker-6
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_one
+time: 2017-02-28 01:22:29.827509Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_filter_blacklist_one [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.806461Z
+tags: worker-3
+test: tests.unit.core.test_util.UtilTests.test_parse_ini_file
+time: 2017-02-28 01:22:29.830999Z
+successful: tests.unit.core.test_util.UtilTests.test_parse_ini_file [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.827723Z
+tags: worker-6
+test: tests.unit.core.test_util.UtilTests.test_deepgetattr
+time: 2017-02-28 01:22:29.834048Z
+successful: tests.unit.core.test_util.UtilTests.test_deepgetattr [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.834366Z
+tags: worker-6
+test: tests.unit.core.test_util.UtilTests.test_get_call_name2
+time: 2017-02-28 01:22:29.840504Z
+successful: tests.unit.core.test_util.UtilTests.test_get_call_name2 [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.840812Z
+tags: worker-6
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_syms
+time: 2017-02-28 01:22:29.845952Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_abs_syms [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.831586Z
+tags: worker-3
+test: tests.unit.formatters.test_text.TextFormatterTests.test_report_baseline
+time: 2017-02-28 01:22:29.873822Z
+successful: tests.unit.formatters.test_text.TextFormatterTests.test_report_baseline [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:29.846343Z
+tags: worker-6
+test: tests.unit.formatters.test_html.HtmlFormatterTests.test_escaping
+time: 2017-02-28 01:22:29.874406Z
+successful: tests.unit.formatters.test_html.HtmlFormatterTests.test_escaping [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.874869Z
+tags: worker-6
+test: tests.unit.formatters.test_screen.ScreenFormatterTests.test_no_issues
+time: 2017-02-28 01:22:29.881989Z
+successful: tests.unit.formatters.test_screen.ScreenFormatterTests.test_no_issues [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.882411Z
+tags: worker-6
+test: tests.unit.formatters.test_text.TextFormatterTests.test_output_issue
+time: 2017-02-28 01:22:29.883225Z
+successful: tests.unit.formatters.test_text.TextFormatterTests.test_output_issue [ multipart
+]
+tags: -worker-6
+time: 2017-02-28 01:22:29.874338Z
+tags: worker-3
+test: tests.unit.formatters.test_yaml.JsonFormatterTests.test_report
+time: 2017-02-28 01:22:29.906032Z
+successful: tests.unit.formatters.test_yaml.JsonFormatterTests.test_report [ multipart
+]
+tags: -worker-3
+time: 2017-02-28 01:22:28.555460Z
+tags: worker-5
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_dirty_repo
+time: 2017-02-28 01:22:30.054478Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_initialize_dirty_repo [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.055108Z
+tags: worker-5
+test: tests.unit.cli.test_main.BanditCLIMainLoggerTests.test_init_logger_debug_mode
+time: 2017-02-28 01:22:30.055700Z
+successful: tests.unit.cli.test_main.BanditCLIMainLoggerTests.test_init_logger_debug_mode [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.056075Z
+tags: worker-5
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_no_ini_path_no_bandit_files
+time: 2017-02-28 01:22:30.057299Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_get_options_from_ini_no_ini_path_no_bandit_files [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.057508Z
+tags: worker-5
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_log_option_source_ini_value
+time: 2017-02-28 01:22:30.057705Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_log_option_source_ini_value [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.057849Z
+tags: worker-5
+test: tests.unit.cli.test_main.BanditCLIMainTests.test_main_config_unopenable
+time: 2017-02-28 01:22:30.060835Z
+successful: tests.unit.cli.test_main.BanditCLIMainTests.test_main_config_unopenable [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.061149Z
+tags: worker-5
+test: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_call_data
+time: 2017-02-28 01:22:30.078255Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_converted_blacklist_call_data [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.078603Z
+tags: worker-5
+test: tests.unit.core.test_config.TestConfigCompat.test_converted_exclude
+time: 2017-02-28 01:22:30.097125Z
+successful: tests.unit.core.test_config.TestConfigCompat.test_converted_exclude [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.097622Z
+tags: worker-5
+test: tests.unit.core.test_context.ContextTests.test_function_def_defaults_qual
+time: 2017-02-28 01:22:30.098312Z
+successful: tests.unit.core.test_context.ContextTests.test_function_def_defaults_qual [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.098459Z
+tags: worker-5
+test: tests.unit.core.test_context.ContextTests.test_get_call_arg_at_position
+time: 2017-02-28 01:22:30.098752Z
+successful: tests.unit.core.test_context.ContextTests.test_get_call_arg_at_position [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.098880Z
+tags: worker-5
+test: tests.unit.core.test_context.ContextTests.test_get_lineno_for_call_arg
+time: 2017-02-28 01:22:30.099345Z
+successful: tests.unit.core.test_context.ContextTests.test_get_lineno_for_call_arg [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.099527Z
+tags: worker-5
+test: tests.unit.core.test_context.ContextTests.test_repr
+time: 2017-02-28 01:22:30.099672Z
+successful: tests.unit.core.test_context.ContextTests.test_repr [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.099917Z
+tags: worker-5
+test: tests.unit.core.test_issue.IssueTests.test_issue_create
+time: 2017-02-28 01:22:30.100070Z
+successful: tests.unit.core.test_issue.IssueTests.test_issue_create [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.100414Z
+tags: worker-5
+test: tests.unit.core.test_manager.ManagerTests.test_populate_baseline_invalid_json
+time: 2017-02-28 01:22:30.101742Z
+successful: tests.unit.core.test_manager.ManagerTests.test_populate_baseline_invalid_json [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.101877Z
+tags: worker-5
+test: tests.unit.core.test_manager.ManagerTests.test_results_count
+time: 2017-02-28 01:22:30.102455Z
+successful: tests.unit.core.test_manager.ManagerTests.test_results_count [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.102762Z
+tags: worker-5
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_none
+time: 2017-02-28 01:22:30.104043Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_exclude_none [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.104228Z
+tags: worker-5
+test: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_include_none
+time: 2017-02-28 01:22:30.105210Z
+successful: tests.unit.core.test_test_set.BanditTestSetTests.test_profile_include_none [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.105436Z
+tags: worker-5
+test: tests.unit.core.test_util.UtilTests.test_check_ast_node_bad_type
+time: 2017-02-28 01:22:30.111286Z
+successful: tests.unit.core.test_util.UtilTests.test_check_ast_node_bad_type [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.111544Z
+tags: worker-5
+test: tests.unit.core.test_util.UtilTests.test_get_call_name3
+time: 2017-02-28 01:22:30.116455Z
+successful: tests.unit.core.test_util.UtilTests.test_get_call_name3 [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.116715Z
+tags: worker-5
+test: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_with_dot
+time: 2017-02-28 01:22:30.122127Z
+successful: tests.unit.core.test_util.UtilTests.test_get_module_qualname_from_path_with_dot [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.122415Z
+tags: worker-5
+test: tests.unit.core.test_util.UtilTests.test_namespace_path_split
+time: 2017-02-28 01:22:30.127468Z
+successful: tests.unit.core.test_util.UtilTests.test_namespace_path_split [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.127727Z
+tags: worker-5
+test: tests.unit.core.test_util.UtilTests.test_path_for_function
+time: 2017-02-28 01:22:30.132661Z
+successful: tests.unit.core.test_util.UtilTests.test_path_for_function [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.132899Z
+tags: worker-5
+test: tests.unit.core.test_util.UtilTests.test_path_for_function_no_module
+time: 2017-02-28 01:22:30.138803Z
+successful: tests.unit.core.test_util.UtilTests.test_path_for_function_no_module [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.139228Z
+tags: worker-5
+test: tests.unit.formatters.test_json.JsonFormatterTests.test_report
+time: 2017-02-28 01:22:30.146524Z
+successful: tests.unit.formatters.test_json.JsonFormatterTests.test_report [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:30.146841Z
+tags: worker-5
+test: tests.unit.formatters.test_xml.XmlFormatterTests.test_report
+time: 2017-02-28 01:22:30.152491Z
+successful: tests.unit.formatters.test_xml.XmlFormatterTests.test_report [ multipart
+]
+tags: -worker-5
+time: 2017-02-28 01:22:24.529158Z
+tags: worker-0
+test: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_bandit_baseline
+time: 2017-02-28 01:22:33.914188Z
+successful: tests.unit.cli.test_baseline.BanditBaselineToolTests.test_bandit_baseline [ multipart
+]
+tags: -worker-0
