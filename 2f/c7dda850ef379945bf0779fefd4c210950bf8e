@@ -1,0 +1,9 @@
+Code-Review+2: Eric Brown <browne@vmware.com>
+Code-Review+2: Luke Hinds <lhinds@redhat.com>
+Workflow+1: Luke Hinds <lhinds@redhat.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Thu, 01 Feb 2018 18:58:39 +0000
+Reviewed-on: https://review.openstack.org/538098
+Project: openstack/bandit
+Branch: refs/heads/master
