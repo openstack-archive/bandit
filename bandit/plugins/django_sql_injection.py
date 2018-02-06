@@ -1,6 +1,5 @@
-# -*- coding:utf-8 -*-
 #
-# Copyright (C) 2018 [Victor Torre](https://github.com/ehooo)
+# Copyright 2018 Victor Torre
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -14,8 +13,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-
 import ast
+
 import bandit
 from bandit.core import test_properties as test
 
@@ -38,7 +37,7 @@ def django_extra_used(context):
      - https://docs.djangoproject.com/en/dev/topics/
         security/#sql-injection-protection
 
-    .. versionadded:: X.X.X
+    .. versionadded:: 1.4.1
 
     """
     description = "Use of extra potential SQL attack vector."
@@ -101,7 +100,7 @@ def django_rawsql_used(context):
      - https://docs.djangoproject.com/en/dev/topics/
         security/#sql-injection-protection
 
-    .. versionadded:: X.X.X
+    .. versionadded:: 1.4.1
 
     """
     description = "Use of RawSQL potential SQL attack vector."
