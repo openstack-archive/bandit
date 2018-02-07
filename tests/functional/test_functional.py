@@ -713,3 +713,25 @@ class FunctionalTests(testtools.TestCase):
             'CONFIDENCE': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 0, 'HIGH': 5}
         }
         self.check_example('hashlib_new_insecure_functions.py', expect)
+
+    def test_django_xss_secure(self):
+        expect = {
+            'SEVERITY': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 0, 'HIGH': 0},
+            'CONFIDENCE': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 0, 'HIGH': 0}
+        }
+        self.b_mgr.b_ts = b_test_set.BanditTestSet(
+            config=self.b_mgr.b_conf,
+            profile={'exclude': ['B308']}
+        )
+        self.check_example('django_xss/mark_safe_secure.py', expect)
+
+    def test_django_xss_insecure(self):
+        expect = {
+            'SEVERITY': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 28, 'HIGH': 0},
+            'CONFIDENCE': {'UNDEFINED': 0, 'LOW': 0, 'MEDIUM': 0, 'HIGH': 28}
+        }
+        self.b_mgr.b_ts = b_test_set.BanditTestSet(
+            config=self.b_mgr.b_conf,
+            profile={'exclude': ['B308']}
+        )
+        self.check_example('django_xss/mark_safe_insecure.py', expect)
