@@ -1,0 +1,9 @@
+Code-Review+2: Luke Hinds <lhinds@redhat.com>
+Code-Review+2: Gage Hugo <gagehugo@gmail.com>
+Workflow+1: Gage Hugo <gagehugo@gmail.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Mon, 12 Feb 2018 22:45:50 +0000
+Reviewed-on: https://review.openstack.org/530287
+Project: openstack/bandit
+Branch: refs/heads/master
