@@ -1,0 +1,9 @@
+Code-Review+2: Gage Hugo <gagehugo@gmail.com>
+Code-Review+2: Eric Brown <browne@vmware.com>
+Workflow+1: Eric Brown <browne@vmware.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Tue, 27 Feb 2018 16:57:59 +0000
+Reviewed-on: https://review.openstack.org/545738
+Project: openstack/bandit
+Branch: refs/heads/master
