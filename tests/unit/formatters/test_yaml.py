@@ -28,7 +28,7 @@ from bandit.core import metrics
 from bandit.formatters import json as b_json
 
 
-class JsonFormatterTests(testtools.TestCase):
+class YamlFormatterTests(testtools.TestCase):
 
     def setUp(self):
         super(JsonFormatterTests, self).setUp()
