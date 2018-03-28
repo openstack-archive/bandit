@@ -37,50 +37,47 @@ it generates a report.
 
 Installation
 ------------
-Bandit is distributed on PyPI. The best way to install it is with pip:
+To install Bandit, simply use `pipenv <http://pipenv.org/>`_::
 
+    $ pipenv install bandit
+    ✨🍰✨
+    
+Or install with pip and create a virtual environment (legacy way)::
 
-Create a virtual environment (optional)::
-
-    virtualenv bandit-env
-
-Install Bandit::
-
-    pip install bandit
-    # Or if you're working with a Python 3.5 project
-    pip3.5 install bandit
+    $ pip install bandit
+    $ virtualenv bandit-env
 
 Run Bandit::
 
-    bandit -r path/to/your/code
+    $ bandit -r path/to/your/code
 
 
 Bandit can also be installed from source. To do so, download the source tarball
 from PyPI, then install it::
 
-    python setup.py install
+    $ python setup.py install
 
 
 Usage
 -----
 Example usage across a code tree::
 
-    bandit -r ~/openstack-repo/keystone
+    $ bandit -r ~/openstack-repo/keystone
 
 Example usage across the ``examples/`` directory, showing three lines of
 context and only reporting on the high-severity issues::
 
-    bandit examples/*.py -n 3 -lll
+    $ bandit examples/*.py -n 3 -lll
 
 Bandit can be run with profiles. To run Bandit against the examples directory
 using only the plugins listed in the ``ShellInjection`` profile::
 
-    bandit examples/*.py -p ShellInjection
+    $ bandit examples/*.py -p ShellInjection
 
 Bandit also supports passing lines of code to scan using standard input. To
 run Bandit with standard input::
 
-    cat examples/imports.py | bandit -
+    $ cat examples/imports.py | bandit -
 
 Usage::
 
@@ -379,16 +376,16 @@ Contributions to Bandit are always welcome! We can be found on
 
 The best way to get started with Bandit is to grab the source::
 
-    git clone https://git.openstack.org/openstack/bandit.git
+    $ git clone https://git.openstack.org/openstack/bandit.git
 
 You can test any changes with tox::
 
-    pip install tox
-    tox -e pep8
-    tox -e py27
-    tox -e py35
-    tox -e docs
-    tox -e cover
+    $ pip install tox
+    $ tox -e pep8
+    $ tox -e py27
+    $ tox -e py35
+    $ tox -e docs
+    $ tox -e cover
 
 Reporting Bugs
 --------------
