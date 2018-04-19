@@ -1,4 +1,16 @@
 - job:
+    name: bandit-functional
+    run: playbooks/bandit-functional/run.yaml
+    timeout: 600
+    # TODO(gagehugo): Make voting once tests pass
+    voting: false
+    irrelevant-files:
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^tests/unit/.*$
+      - ^releasenotes/.*$
+
+- job:
     name: bandit-integration-barbican
     parent: legacy-base
     run: playbooks/legacy/bandit-integration-barbican/run.yaml
@@ -146,6 +158,7 @@
 - project:
     check:
       jobs:
+        - bandit-functional
         - bandit-integration-barbican
         - bandit-integration-glance
         - bandit-integration-keystone
@@ -163,6 +176,7 @@
         - openstack-tox-lower-constraints
     gate:
       jobs:
+        - bandit-functional
         - bandit-integration-barbican
         - bandit-integration-glance
         - bandit-integration-keystone

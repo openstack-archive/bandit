@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+    - name: Run bandit functional tests
+      shell: |
+        set -xe;
+        tox -e functional
+      args:
+        chdir: "{{ zuul.project.src_dir }}"
