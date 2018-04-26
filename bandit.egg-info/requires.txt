@@ -1,0 +1,4 @@
+GitPython>=1.0.1
+PyYAML>=3.10
+six>=1.9.0
+stevedore>=1.20.0
