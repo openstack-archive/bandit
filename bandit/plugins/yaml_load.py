@@ -59,7 +59,8 @@ def yaml_load(context):
         qualname_list = context.call_function_name_qual.split('.')
         func = qualname_list[-1]
         if 'yaml' in qualname_list and func == 'load':
-            if not context.check_call_arg_value('Loader', 'SafeLoader'):
+            if not context.check_call_arg_value('Loader', 'SafeLoader') and \
+                    not context.check_call_arg_value('Loader', 'CSafeLoader'):
                 return bandit.Issue(
                     severity=bandit.MEDIUM,
                     confidence=bandit.HIGH,
